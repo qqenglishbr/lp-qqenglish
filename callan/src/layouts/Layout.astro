@@ -324,43 +324,8 @@ const GTM_ID = import.meta.env.GTM_ID || 'GTM-XXXXXX';
     <CookieConsent />
 
     <script is:inline>
+      // Intersection Observer for scroll animations
       (function() {
-        const thresholds = [25, 50, 75, 100];
-        const tracked = new Set();
-
-        function getScrollPercent() {
-          const h = document.documentElement;
-          const b = document.body;
-          const st = 'scrollTop';
-          const sh = 'scrollHeight';
-          return Math.round((h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100);
-        }
-
-        function trackScroll() {
-          const percent = getScrollPercent();
-          thresholds.forEach(threshold => {
-            if (percent >= threshold && !tracked.has(threshold)) {
-              tracked.add(threshold);
-              window.dataLayer.push({
-                'event': 'scroll_depth',
-                'scroll_percent': threshold
-              });
-            }
-          });
-        }
-
-        let ticking = false;
-        window.addEventListener('scroll', function() {
-          if (!ticking) {
-            window.requestAnimationFrame(function() {
-              trackScroll();
-              ticking = false;
-            });
-            ticking = true;
-          }
-        }, { passive: true });
-
-        // Intersection Observer for scroll animations
         const observerOptions = {
           threshold: 0.1,
           rootMargin: '0px 0px -50px 0px'
