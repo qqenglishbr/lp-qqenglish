@@ -308,20 +308,25 @@
   }
 
   function formatDate(dateStr: string): string {
-    // Assuming format YYYY-MM-DD
-    const [year, month, day] = dateStr.split('-');
-    const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-    const weekdays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
+    // Format: DD-MM-YYYY
+    const [day, month, year] = dateStr.split('-');
+    const weekdays = ['Domingo', 'Segunda-feira', 'Terca-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sabado'];
 
     const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
     const weekday = weekdays[date.getDay()];
-    const monthName = months[parseInt(month) - 1];
 
-    return `${weekday}, ${day} de ${monthName}`;
+    return `${day}/${month}/${year} (${weekday})`;
   }
 
   function populateDates() {
-    const uniqueDates = [...new Set(disponibilidade.map(item => item.day))].sort();
+    // Sort dates chronologically (format: DD-MM-YYYY)
+    const uniqueDates = [...new Set(disponibilidade.map(item => item.day))].sort((a, b) => {
+      const [dayA, monthA, yearA] = a.split('-').map(Number);
+      const [dayB, monthB, yearB] = b.split('-').map(Number);
+      const dateA = new Date(yearA, monthA - 1, dayA);
+      const dateB = new Date(yearB, monthB - 1, dayB);
+      return dateA.getTime() - dateB.getTime();
+    });
 
     uniqueDates.forEach(date => {
       const option = document.createElement('option');

@@ -45,24 +45,36 @@ const GTM_ID = import.meta.env.GTM_ID || 'GTM-XXXXXX';
     <script is:inline define:vars={{ GTM_ID }}>
       window.dataLayer = window.dataLayer || [];
       const urlParams = new URLSearchParams(window.location.search);
+
+      // Check if URL has UTM params (first visit with campaign)
+      const hasUrlUtm = urlParams.get('utm_source') || urlParams.get('gclid') || urlParams.get('fbclid');
+
+      // Try to get stored data from sessionStorage
+      const storedUtmData = JSON.parse(sessionStorage.getItem('utmData') || 'null');
+
+      // Use URL params if present, otherwise fall back to stored data
       const utmData = {
-        utm_source: urlParams.get('utm_source') || '(direct)',
-        utm_medium: urlParams.get('utm_medium') || '(none)',
-        utm_campaign: urlParams.get('utm_campaign') || '(not set)',
-        utm_content: urlParams.get('utm_content') || '',
-        utm_term: urlParams.get('utm_term') || ''
+        utm_source: urlParams.get('utm_source') || (storedUtmData?.utm_source) || '(direct)',
+        utm_medium: urlParams.get('utm_medium') || (storedUtmData?.utm_medium) || '(none)',
+        utm_campaign: urlParams.get('utm_campaign') || (storedUtmData?.utm_campaign) || '(not set)',
+        utm_content: urlParams.get('utm_content') || (storedUtmData?.utm_content) || '',
+        utm_term: urlParams.get('utm_term') || (storedUtmData?.utm_term) || ''
       };
+
       const clickIds = {
-        gclid: urlParams.get('gclid') || '',
-        gbraid: urlParams.get('gbraid') || '',
-        wbraid: urlParams.get('wbraid') || '',
-        ttclid: urlParams.get('ttclid') || '',
-        fbclid: urlParams.get('fbclid') || ''
+        gclid: urlParams.get('gclid') || sessionStorage.getItem('gclid') || '',
+        gbraid: urlParams.get('gbraid') || sessionStorage.getItem('gbraid') || '',
+        wbraid: urlParams.get('wbraid') || sessionStorage.getItem('wbraid') || '',
+        ttclid: urlParams.get('ttclid') || sessionStorage.getItem('ttclid') || '',
+        fbclid: urlParams.get('fbclid') || sessionStorage.getItem('fbclid') || ''
       };
+
+      // Save to sessionStorage (update if URL has new params, preserve if navigating)
       sessionStorage.setItem('utmData', JSON.stringify(utmData));
       Object.entries(clickIds).forEach(([key, value]) => {
         if (value) sessionStorage.setItem(key, value);
       });
+
       window.dataLayer.push({
         'event': 'page_data',
         ...utmData,

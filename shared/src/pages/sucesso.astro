@@ -76,14 +76,6 @@ const description = "Sua aula experimental foi agendada com sucesso.";
       });
     }
 
-    // Fire Meta Pixel event if available
-    if (typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'Schedule', {
-        content_name: 'Aula Experimental',
-        content_category: 'Education'
-      });
-    }
-
     // Clear any remaining session data
     sessionStorage.removeItem('disponibilidade');
     sessionStorage.removeItem('lead_id');

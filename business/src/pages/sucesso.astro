@@ -74,13 +74,6 @@ const description = "Sua apresentacao corporativa foi agendada com sucesso.";
       });
     }
 
-    if (typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'Schedule', {
-        content_name: 'Apresentacao Business',
-        content_category: 'B2B Education'
-      });
-    }
-
     sessionStorage.removeItem('disponibilidade');
     sessionStorage.removeItem('lead_id');
   });

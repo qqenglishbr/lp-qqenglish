@@ -419,10 +419,6 @@ const countries = [
         window.dataLayer?.push({ 'event': 'conversion', 'conversion_type': 'lead', 'value': 0, 'currency': 'BRL' });
         window.dataLayer?.push({ 'event': 'form_redirect', 'lead_id': result.lead_id || '', 'destination': '/validacao' });
 
-        if (typeof fbq !== 'undefined') {
-          fbq('track', 'Lead', { content_name: 'QQEnglish Lead Form', content_category: 'Education' });
-        }
-
         // Store lead_id for validation flow
         sessionStorage.setItem('lead_id', result.lead_id || '');
 
