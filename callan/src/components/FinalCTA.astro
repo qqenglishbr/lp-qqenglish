@@ -1,0 +1,224 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<section class="final-cta" id="cta">
+  <div class="cta-background">
+    <div class="cta-gradient"></div>
+    <div class="cta-pattern"></div>
+  </div>
+
+  <div class="container">
+    <div class="cta-content">
+      <h2 class="cta-title">
+        Pronto para transformar seu inglês?
+      </h2>
+      <p class="cta-subtitle">
+        Junte-se a mais de 50.000 brasileiros que já estão falando inglês com confiança. Sua primeira aula é por nossa conta.
+      </p>
+
+      <div class="cta-features">
+        <div class="cta-feature">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>Aula experimental gratuita</span>
+        </div>
+        <div class="cta-feature">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>Sem compromisso</span>
+        </div>
+        <div class="cta-feature">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>Comece em minutos</span>
+        </div>
+      </div>
+
+      <a href="#hero" class="cta-button">
+        <span>Quero minha aula grátis</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+
+      <p class="cta-disclaimer">
+        Vagas limitadas. Garanta sua aula experimental hoje mesmo.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="footer-logo">QQEnglish</span>
+        <p class="footer-tagline">Gateway to the World — Transformando vidas através do inglês desde 2009.</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="https://qqenglish.com.br/politica-de-privacidade" target="_blank" rel="noopener">Política de Privacidade</a>
+        <a href="https://qqenglish.com.br/termos-de-uso" target="_blank" rel="noopener">Termos de Uso</a>
+        <a href="mailto:contato@qqenglish.com.br">Contato</a>
+      </div>
+
+      <p class="footer-copyright">
+        © {currentYear} QQEnglish Brasil. Todos os direitos reservados.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .final-cta {
+    position: relative;
+    padding: var(--section-padding) 0;
+    overflow: hidden;
+  }
+
+  .cta-background {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .cta-gradient {
+    position: absolute;
+    inset: 0;
+    background: var(--color-primary);
+  }
+
+  .cta-pattern {
+    display: none;
+  }
+
+  .cta-content {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .cta-title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    color: var(--color-white);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .cta-subtitle {
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .cta-features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .cta-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9375rem;
+  }
+
+  .cta-feature svg {
+    color: var(--color-secondary);
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 1rem 2rem;
+    background: var(--color-white);
+    color: var(--color-primary);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    border-radius: var(--radius-md);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .cta-button:active {
+    transform: translateY(-1px);
+  }
+
+  .cta-disclaimer {
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  /* Footer */
+  .footer {
+    background: var(--color-dark);
+    padding: 2rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .footer-logo {
+    font-family: var(--font-family);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-white);
+  }
+
+  .footer-tagline {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color var(--transition-fast);
+  }
+
+  .footer-links a:hover {
+    color: var(--color-white);
+  }
+
+  .footer-copyright {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+</style>

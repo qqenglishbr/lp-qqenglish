@@ -1,0 +1,177 @@
+---
+interface Benefit {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+const benefits: Benefit[] = [
+  {
+    icon: "award",
+    title: "100% Professores TESOL",
+    description: "Todos os professores possuem certificação TESOL internacional. Profissionais treinados rigorosamente para garantir o melhor ensino."
+  },
+  {
+    icon: "clock",
+    title: "Aulas 24h, 7 dias",
+    description: "Estude quando quiser. Aulas individuais ao vivo disponíveis a qualquer hora do dia ou da noite."
+  },
+  {
+    icon: "zap",
+    title: "Método Callan 4x mais rápido",
+    description: "Técnica comprovada há 60 anos. Você fala inglês desde a primeira aula e aprende até 4x mais rápido."
+  },
+  {
+    icon: "heart",
+    title: "Professores que entendem você",
+    description: "Sabemos como é aprender um novo idioma. Nossos professores ensinam com paciência e acompanham seu progresso."
+  },
+  {
+    icon: "shield",
+    title: "Infraestrutura desde 2009",
+    description: "Conexões estáveis do IT Park das Filipinas. Mais de 15 anos garantindo qualidade e confiabilidade."
+  },
+  {
+    icon: "credit-card",
+    title: "Parcelas sem juros",
+    description: "Educação de elite com facilidade de pagamento. Invista em você sem pesar no bolso."
+  }
+];
+
+const icons: Record<string, string> = {
+  clock: `<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>`,
+  zap: `<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>`,
+  award: `<circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>`,
+  heart: `<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>`,
+  shield: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>`,
+  "credit-card": `<rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>`
+};
+---
+
+<section class="benefits" id="benefits">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Por que escolher a QQEnglish</span>
+      <h2 class="section-title">O jeito mais eficiente de aprender inglês</h2>
+      <p class="section-subtitle">
+        Combinamos tecnologia de ponta com metodologia comprovada para entregar resultados reais
+      </p>
+    </div>
+
+    <div class="benefits-grid">
+      {benefits.map((benefit, index) => (
+        <div class="benefit-card" style={`--delay: ${index * 0.1}s`}>
+          <div class="benefit-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <Fragment set:html={icons[benefit.icon]} />
+            </svg>
+          </div>
+          <h3 class="benefit-title">{benefit.title}</h3>
+          <p class="benefit-description">{benefit.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="benefits-decoration">
+    <div class="decoration-circle"></div>
+  </div>
+</section>
+
+<style>
+  .benefits {
+    padding: var(--section-padding) 0;
+    background: white;
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 3rem;
+  }
+
+  .section-tag {
+    display: inline-block;
+    padding: 0.375rem 0.875rem;
+    background: var(--color-primary);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+    margin-bottom: 0.75rem;
+    color: var(--color-dark);
+    font-weight: 700;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    color: var(--color-gray-600);
+    line-height: 1.6;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .benefits-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .benefits-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .benefit-card {
+    background: var(--color-gray-50);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-gray-200);
+    transition: box-shadow var(--transition-base);
+  }
+
+  .benefit-card:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  .benefit-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--color-primary-subtle);
+    border-radius: var(--radius-md);
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+
+  .benefit-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--color-dark);
+  }
+
+  .benefit-description {
+    font-size: 0.875rem;
+    color: var(--color-gray-600);
+    line-height: 1.6;
+  }
+
+  .benefits-decoration {
+    display: none;
+  }
+</style>

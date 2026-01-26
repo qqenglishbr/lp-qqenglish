@@ -1,0 +1,9 @@
+name = "business-lp"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "dist"
+
+[vars]
+GTM_ID = "GTM-XXXXXX"
+
+# N8N Webhook - configure como secret no Cloudflare:
+# npx wrangler pages secret put N8N_WEBHOOK_URL

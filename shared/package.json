@@ -1,0 +1,13 @@
+{
+  "name": "@qqenglish/shared",
+  "version": "1.0.0",
+  "description": "Componentes e páginas compartilhados das LPs QQEnglish",
+  "type": "module",
+  "exports": {
+    "./components/*": "./src/components/*",
+    "./layouts/*": "./src/layouts/*",
+    "./pages/*": "./src/pages/*",
+    "./api/*": "./src/api/*",
+    "./styles/*": "./src/styles/*"
+  }
+}

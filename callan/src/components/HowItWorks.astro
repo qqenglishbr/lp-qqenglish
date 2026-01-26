@@ -1,0 +1,650 @@
+---
+// Premium Method Journey - Callan Method Steps
+const steps = [
+  {
+    number: "01",
+    title: "Conversação Guiada",
+    subtitle: "Fale desde o primeiro segundo",
+    description: "O professor faz perguntas em ritmo acelerado sobre vocabulário já estudado. Você responde imediatamente, sem traduzir mentalmente, focando em precisão fonética e estrutura gramatical correta.",
+    highlight: "Sem tempo para pensar em português",
+    icon: "conversation",
+    accent: "primary"
+  },
+  {
+    number: "02",
+    title: "Leitura Compartilhada",
+    subtitle: "Conecte fala e escrita",
+    description: "Você lê textos em voz alta com supervisão do professor, que corrige pronúncia e entonação em tempo real. Isso conecta o que você fala com o que você lê.",
+    highlight: "Correção imediata de pronúncia",
+    icon: "reading",
+    accent: "accent"
+  },
+  {
+    number: "03",
+    title: "Ditado",
+    subtitle: "Pratique a escrita",
+    description: "Você escreve pequenos ditados baseados no vocabulário estudado, praticando a escrita após ter usado a linguagem oralmente. Depois, você autocorrige usando o material do curso.",
+    highlight: "Do oral para o escrito",
+    icon: "writing",
+    accent: "primary"
+  },
+  {
+    number: "04",
+    title: "Novo Vocabulário",
+    subtitle: "Aprenda palavras em contexto",
+    description: "Novas palavras são introduzidas com explicações em inglês e perguntas contextuais. Você começa a dominar o vocabulário em situações comunicativas reais.",
+    highlight: "Aprendizado contextualizado",
+    icon: "vocabulary",
+    accent: "accent"
+  },
+  {
+    number: "05",
+    title: "Revisão Sistemática",
+    subtitle: "Repetição inteligente",
+    description: "Vocabulário e gramática reaparecem em diferentes contextos conforme você avança. A revisão constante garante que você absorva naturalmente, sem decorar.",
+    highlight: "Retenção de longo prazo",
+    icon: "revision",
+    accent: "primary"
+  },
+  {
+    number: "06",
+    title: "Fluência Natural",
+    subtitle: "Pense diretamente em inglês",
+    description: "Com a prática contínua, você desenvolve velocidade, confiança e automatiza estruturas. O resultado: falar inglês de forma natural, sem traduzir.",
+    highlight: "4x mais rápido que métodos tradicionais",
+    icon: "fluency",
+    accent: "accent"
+  }
+];
+---
+
+<section class="method-journey" id="como-funciona">
+  <!-- Background Elements -->
+  <div class="journey-bg">
+    <div class="bg-gradient"></div>
+    <div class="bg-dots"></div>
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+  </div>
+
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header reveal">
+      <span class="section-eyebrow">
+        <span class="eyebrow-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </span>
+        Método Callan Original
+      </span>
+      <h2 class="section-title">
+        Sua jornada de aprendizado
+        <span class="title-accent">em 6 etapas</span>
+      </h2>
+      <p class="section-subtitle">
+        Cada aula segue uma estrutura comprovada que acelera seu aprendizado e garante resultados consistentes
+      </p>
+    </div>
+
+    <!-- Journey Path -->
+    <div class="journey-path">
+      <!-- Connecting Line (SVG) -->
+      <svg class="path-line" viewBox="0 0 1200 100" preserveAspectRatio="none" aria-hidden="true">
+        <path class="path-bg" d="M0,50 Q300,20 600,50 T1200,50" fill="none" stroke-width="2"/>
+        <path class="path-progress" d="M0,50 Q300,20 600,50 T1200,50" fill="none" stroke-width="2"/>
+      </svg>
+
+      <!-- Steps Grid -->
+      <div class="steps-grid">
+        {steps.map((step, index) => (
+          <article
+            class={`step-card reveal step-card--${step.accent}`}
+            style={`--step-index: ${index}`}
+          >
+            <!-- Step Number Badge -->
+            <div class="step-badge">
+              <span class="badge-number">{step.number}</span>
+              <div class="badge-pulse"></div>
+            </div>
+
+            <!-- Card Content -->
+            <div class="card-inner">
+              <div class="card-icon">
+                {step.icon === "conversation" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    <path d="M8 9h8M8 13h6"/>
+                  </svg>
+                )}
+                {step.icon === "reading" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    <line x1="8" y1="7" x2="16" y2="7"/>
+                    <line x1="8" y1="11" x2="14" y2="11"/>
+                  </svg>
+                )}
+                {step.icon === "writing" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 20h9"/>
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                  </svg>
+                )}
+                {step.icon === "vocabulary" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 16v-4M12 8h.01"/>
+                    <path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 4"/>
+                  </svg>
+                )}
+                {step.icon === "revision" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <polyline points="23 4 23 10 17 10"/>
+                    <polyline points="1 20 1 14 7 14"/>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                  </svg>
+                )}
+                {step.icon === "fluency" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                  </svg>
+                )}
+              </div>
+
+              <div class="card-text">
+                <span class="step-subtitle">{step.subtitle}</span>
+                <h3 class="step-title">{step.title}</h3>
+                <p class="step-description">{step.description}</p>
+              </div>
+
+              <div class="step-highlight">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span>{step.highlight}</span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="journey-cta reveal">
+      <p class="cta-text">Pronto para começar sua jornada?</p>
+      <a href="#lead-form" class="cta-button">
+        <span>Agendar Aula Experimental</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .method-journey {
+    position: relative;
+    padding: var(--section-padding) 0;
+    overflow: hidden;
+  }
+
+  /* Background */
+  .journey-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .bg-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, white 0%, var(--color-gray-50) 30%, var(--color-gray-50) 70%, white 100%);
+  }
+
+  .bg-dots {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, var(--color-gray-200) 1px, transparent 0);
+    background-size: 32px 32px;
+    opacity: 0.5;
+  }
+
+  .bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+  }
+
+  .bg-orb--1 {
+    width: 600px;
+    height: 600px;
+    top: -200px;
+    right: -200px;
+    background: var(--color-primary);
+    opacity: 0.04;
+  }
+
+  .bg-orb--2 {
+    width: 500px;
+    height: 500px;
+    bottom: -150px;
+    left: -150px;
+    background: var(--color-accent);
+    opacity: 0.06;
+  }
+
+  .method-journey .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Section Header */
+  .section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 4rem;
+  }
+
+  .section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 1.25rem;
+    padding: 0.5rem 1rem;
+    background: var(--color-primary-subtle);
+    border-radius: var(--radius-full);
+  }
+
+  .eyebrow-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+  }
+
+  .eyebrow-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 700;
+    color: var(--color-dark);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .title-accent {
+    display: block;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0066dd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-subtitle {
+    font-size: 1.0625rem;
+    color: var(--color-gray-600);
+    line-height: 1.65;
+  }
+
+  /* Journey Path */
+  .journey-path {
+    position: relative;
+    margin-bottom: 4rem;
+  }
+
+  .path-line {
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    height: 100px;
+    z-index: 0;
+  }
+
+  .path-bg {
+    stroke: var(--color-gray-200);
+  }
+
+  .path-progress {
+    stroke: url(#pathGradient);
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    transition: stroke-dashoffset 2s ease-out;
+  }
+
+  /* Steps Grid */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .steps-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .steps-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Step Card */
+  .step-card {
+    position: relative;
+    background: white;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: all var(--transition-base);
+    border: 1px solid var(--color-gray-100);
+  }
+
+  .step-card:hover {
+    transform: translateY(-8px);
+    box-shadow:
+      0 20px 40px -12px rgba(0, 85, 204, 0.15),
+      0 4px 12px rgba(0, 0, 0, 0.05);
+    border-color: transparent;
+  }
+
+  .step-card--primary:hover {
+    box-shadow:
+      0 20px 40px -12px rgba(0, 85, 204, 0.2),
+      0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .step-card--accent:hover {
+    box-shadow:
+      0 20px 40px -12px rgba(255, 198, 41, 0.25),
+      0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Step Badge */
+  .step-badge {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: 2;
+  }
+
+  .badge-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 700;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+  }
+
+  .step-card--primary .badge-number {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .step-card--accent .badge-number {
+    background: var(--color-accent);
+    color: var(--color-dark);
+  }
+
+  .badge-pulse {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    opacity: 0;
+    animation: badgePulse 2s ease-out infinite;
+    animation-delay: calc(var(--step-index) * 0.2s);
+  }
+
+  .step-card--primary .badge-pulse {
+    background: var(--color-primary);
+  }
+
+  .step-card--accent .badge-pulse {
+    background: var(--color-accent);
+  }
+
+  @keyframes badgePulse {
+    0% { transform: scale(1); opacity: 0.4; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+
+  /* Card Inner */
+  .card-inner {
+    padding: 1.75rem;
+    padding-top: 1.5rem;
+  }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .step-card--primary .card-icon {
+    background: var(--color-primary-subtle);
+    color: var(--color-primary);
+  }
+
+  .step-card--accent .card-icon {
+    background: #fef3c7;
+    color: var(--color-accent-dark);
+  }
+
+  .card-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* Card Text */
+  .card-text {
+    margin-bottom: 1.25rem;
+  }
+
+  .step-subtitle {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.375rem;
+  }
+
+  .step-card--primary .step-subtitle {
+    color: var(--color-primary);
+  }
+
+  .step-card--accent .step-subtitle {
+    color: var(--color-accent-dark);
+  }
+
+  .step-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+  }
+
+  .step-description {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--color-gray-600);
+    line-height: 1.6;
+  }
+
+  /* Step Highlight */
+  .step-highlight {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+
+  .step-card--primary .step-highlight {
+    background: var(--color-primary-subtle);
+    color: var(--color-primary);
+  }
+
+  .step-card--accent .step-highlight {
+    background: #fef3c7;
+    color: var(--color-accent-dark);
+  }
+
+  .step-highlight svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  /* Journey CTA */
+  .journey-cta {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .cta-text {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-gray-600);
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0066dd 100%);
+    color: white;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+    box-shadow: 0 4px 16px rgba(0, 85, 204, 0.3);
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 85, 204, 0.4);
+  }
+
+  .cta-button svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .cta-button:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .section-header.reveal {
+    --delay: 0s;
+  }
+
+  .step-card.reveal {
+    --delay: calc(var(--step-index) * 0.1s + 0.2s);
+  }
+
+  .journey-cta.reveal {
+    --delay: 0.8s;
+  }
+
+  .reveal.is-visible {
+    animation: reveal 0.8s var(--ease-out-expo) forwards;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes reveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 640px) {
+    .section-header {
+      margin-bottom: 3rem;
+    }
+
+    .card-inner {
+      padding: 1.5rem;
+    }
+
+    .step-title {
+      font-size: 1.125rem;
+    }
+
+    .step-badge {
+      top: 1rem;
+      right: 1rem;
+    }
+
+    .badge-number {
+      width: 32px;
+      height: 32px;
+      font-size: 0.8125rem;
+    }
+  }
+</style>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.method-journey .reveal').forEach(el => {
+    observer.observe(el);
+  });
+</script>

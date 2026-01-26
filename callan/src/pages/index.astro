@@ -1,0 +1,36 @@
+---
+// Shared components
+import Layout from '../../../shared/src/layouts/Layout.astro';
+import Header from '../../../shared/src/components/Header.astro';
+import Footer from '../../../shared/src/components/Footer.astro';
+
+// Callan-specific components
+import Hero from '../components/Hero.astro';
+import MethodExplainer from '../components/MethodExplainer.astro';
+import WhyQQEnglish from '../components/WhyQQEnglish.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import CallanApp from '../components/CallanApp.astro';
+import VideoTestimonials from '../components/VideoTestimonials.astro';
+import LeadForm from '../components/LeadForm.astro';
+import Partners from '../components/Partners.astro';
+import FAQ from '../components/FAQ.astro';
+
+const title = "QQEnglish - Aprenda Inglês 4x Mais Rápido com o Método Callan";
+const description = "Fale inglês até 4x mais rápido com o Método Callan. Aulas online 1:1 ao vivo 24h com professores 100% certificados TESOL. Desde 2009. Programa profissional de excelência.";
+---
+
+<Layout title={title} description={description}>
+  <Header />
+  <main>
+    <Hero />
+    <MethodExplainer />
+    <WhyQQEnglish />
+    <HowItWorks />
+    <CallanApp />
+    <VideoTestimonials />
+    <LeadForm />
+    <FAQ />
+    <Partners />
+  </main>
+  <Footer />
+</Layout>

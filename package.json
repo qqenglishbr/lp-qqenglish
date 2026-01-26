@@ -1,0 +1,24 @@
+{
+  "name": "lp-qqenglish-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Monorepo das Landing Pages QQEnglish",
+  "workspaces": [
+    "shared",
+    "callan",
+    "kids",
+    "business"
+  ],
+  "scripts": {
+    "dev:callan": "npm run dev --workspace=callan",
+    "dev:kids": "npm run dev --workspace=kids",
+    "dev:business": "npm run dev --workspace=business",
+    "build:callan": "npm run build --workspace=callan",
+    "build:kids": "npm run build --workspace=kids",
+    "build:business": "npm run build --workspace=business",
+    "build:all": "npm run build:callan && npm run build:kids && npm run build:business",
+    "deploy:callan": "cd callan && npm run build && npx wrangler pages deploy dist",
+    "deploy:kids": "cd kids && npm run build && npx wrangler pages deploy dist",
+    "deploy:business": "cd business && npm run build && npx wrangler pages deploy dist"
+  }
+}

@@ -1,0 +1,380 @@
+---
+// Premium Callan App showcase section
+---
+
+<section class="callan-app" id="callan-app">
+  <!-- Background elements -->
+  <div class="section-bg">
+    <div class="bg-gradient"></div>
+    <div class="bg-pattern"></div>
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+  </div>
+
+  <div class="container">
+    <div class="app-grid">
+      <div class="app-content reveal">
+        <span class="section-eyebrow">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+            <line x1="12" y1="18" x2="12.01" y2="18"/>
+          </svg>
+          Callan App
+        </span>
+        <h2 class="app-title">Estude onde e quando quiser com o aplicativo</h2>
+
+        <p class="app-description">
+          O Callan App oferece uma versão e-book completa do material Callan English, com áudio
+          integrado e modo de estudo interativo para você praticar entre as aulas.
+        </p>
+
+        <ul class="app-features">
+          <li class="reveal">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <strong>e-Books interativos</strong>
+              <span>Material completo com áudio nativo</span>
+            </div>
+          </li>
+          <li class="reveal">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 20h9"/>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <strong>Exercícios de ditado</strong>
+              <span>Pratique escrita e listening</span>
+            </div>
+          </li>
+          <li class="reveal">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <strong>Acompanhamento</strong>
+              <span>Monitore seu progresso diário</span>
+            </div>
+          </li>
+          <li class="reveal">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <strong>Multiplataforma</strong>
+              <span>iOS, Android e Web</span>
+            </div>
+          </li>
+        </ul>
+
+        <div class="app-cta reveal">
+          <a href="#lead-form" class="cta-button">
+            <span>Quero conhecer o método</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="app-visual reveal">
+        <div class="app-spread">
+          <img src="/images/callan-app-spread.webp" alt="Callan App em múltiplos dispositivos" class="spread-image" loading="lazy" width="800" height="600" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .callan-app {
+    position: relative;
+    padding: var(--section-padding) 0;
+    overflow: hidden;
+  }
+
+  /* Background */
+  .section-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .bg-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #003d99 100%);
+  }
+
+  .bg-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
+    background-size: 32px 32px;
+  }
+
+  .bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .bg-orb--1 {
+    width: 500px;
+    height: 500px;
+    top: -200px;
+    right: -100px;
+    background: rgba(255, 198, 41, 0.15);
+  }
+
+  .bg-orb--2 {
+    width: 400px;
+    height: 400px;
+    bottom: -150px;
+    left: -100px;
+    background: rgba(0, 200, 255, 0.1);
+  }
+
+  .callan-app .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Grid Layout */
+  .app-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .app-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+  }
+
+  /* Content */
+  .section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.25rem;
+  }
+
+  .section-eyebrow svg {
+    opacity: 0.8;
+  }
+
+  .app-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+  }
+
+  .app-description {
+    font-size: 1.0625rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  /* Features List */
+  .app-features {
+    list-style: none;
+    margin-bottom: 2.5rem;
+  }
+
+  .app-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all var(--transition-fast);
+  }
+
+  .app-features li:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateX(4px);
+  }
+
+  .feature-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--color-accent) 0%, #ffb700 100%);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .feature-icon svg {
+    width: 20px;
+    height: 20px;
+    color: var(--color-dark);
+  }
+
+  .feature-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .feature-text strong {
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: white;
+  }
+
+  .feature-text span {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  /* CTA */
+  .app-cta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: var(--color-accent);
+    color: var(--color-dark);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+    box-shadow: 0 4px 20px rgba(255, 198, 41, 0.3);
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(255, 198, 41, 0.4);
+  }
+
+  .cta-button svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .cta-button:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* App Visual */
+  .app-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+  }
+
+  .app-spread {
+    position: relative;
+    width: 100%;
+    max-width: 550px;
+  }
+
+  .spread-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.3));
+  }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .app-content.reveal { --delay: 0s; }
+  .app-visual.reveal { --delay: 0.2s; }
+  .app-features li.reveal:nth-child(1) { --delay: 0.1s; }
+  .app-features li.reveal:nth-child(2) { --delay: 0.15s; }
+  .app-features li.reveal:nth-child(3) { --delay: 0.2s; }
+  .app-features li.reveal:nth-child(4) { --delay: 0.25s; }
+  .app-cta.reveal { --delay: 0.3s; }
+
+  .reveal.is-visible {
+    animation: reveal 0.8s var(--ease-out-expo) forwards;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes reveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 640px) {
+    .app-features li {
+      padding: 0.875rem;
+    }
+
+    .app-spread {
+      max-width: 100%;
+    }
+  }
+</style>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.callan-app .reveal').forEach(el => {
+    observer.observe(el);
+  });
+</script>

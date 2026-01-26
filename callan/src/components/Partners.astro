@@ -1,0 +1,110 @@
+---
+// Premium Partners section with certification logos
+const partners = [
+  {
+    name: "University of Cambridge",
+    logo: "/images/logo-cambridge.webp",
+    url: "https://www.cambridgeenglish.org/"
+  },
+  {
+    name: "British Council",
+    logo: "/images/logo-british-council.webp",
+    url: "https://www.britishcouncil.org.br/"
+  },
+  {
+    name: "Callan Method",
+    logo: "/images/logo-callan.webp",
+    url: "https://www.callan.co.uk/"
+  }
+];
+---
+
+<section class="partners">
+  <div class="container">
+    <div class="partners-content">
+      <p class="partners-label">Certificações e Parcerias</p>
+      <div class="partners-grid">
+        {partners.map((partner) => (
+          <a
+            href={partner.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="partner-item"
+            title={partner.name}
+          >
+            <img src={partner.logo} alt={partner.name} loading="lazy" width="120" height="44" />
+          </a>
+        ))}
+      </div>
+      <p class="partners-note">
+        Escola oficialmente certificada pelo Método Callan desde 2009
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .partners {
+    padding: 3.5rem 0;
+    background: linear-gradient(180deg, var(--color-dark) 0%, #0f1729 100%);
+  }
+
+  .partners-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .partners-label {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--color-gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  .partners-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .partners-grid {
+      gap: 4rem;
+    }
+  }
+
+  .partner-item {
+    opacity: 0.6;
+    transition: all var(--transition-fast);
+    padding: 0.5rem;
+  }
+
+  .partner-item:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  .partner-item img {
+    height: 36px;
+    width: auto;
+    filter: brightness(0) invert(1);
+  }
+
+  @media (min-width: 768px) {
+    .partner-item img {
+      height: 44px;
+    }
+  }
+
+  .partners-note {
+    font-size: 0.8125rem;
+    color: var(--color-gray-500);
+    text-align: center;
+  }
+</style>

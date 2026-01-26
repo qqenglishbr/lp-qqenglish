@@ -1,0 +1,502 @@
+---
+// ScheduleForm - Date and time selection for scheduling
+---
+
+<section class="schedule-section">
+  <div class="container schedule-container">
+    <a href="/" class="logo-link">
+      <img
+        src="https://s3.qqeng.me/site/logotransparente.png"
+        alt="Logo QQEnglish"
+        class="logo"
+        width="180"
+        height="60"
+      />
+    </a>
+
+    <h1 class="schedule-title">Agende sua Aula</h1>
+    <p class="schedule-subtitle">
+      Selecione a data e horario mais conveniente para sua aula experimental gratuita.
+    </p>
+
+    <div id="loading-state" class="loading-state">
+      <p>Carregando disponibilidade...</p>
+      <div class="spinner"></div>
+    </div>
+
+    <div id="schedule-form" style="display: none;">
+      <div class="form-group">
+        <label for="date-select" class="form-label">Selecione uma data</label>
+        <select id="date-select" class="form-select">
+          <option value="" disabled selected>Escolha uma data</option>
+        </select>
+      </div>
+
+      <div id="time-section" class="form-group" style="display: none;">
+        <label for="time-select" class="form-label">Selecione um horario</label>
+        <select id="time-select" class="form-select">
+          <option value="" disabled selected>Escolha um horario</option>
+        </select>
+      </div>
+
+      <button id="confirm-btn" type="button" class="confirm-button" style="display: none;">
+        Confirmar Agendamento
+      </button>
+
+      <p id="error-message" class="error-message" style="display: none;"></p>
+    </div>
+
+    <div id="no-availability" class="no-availability" style="display: none;">
+      <div class="no-availability-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </div>
+      <p>Nenhuma disponibilidade encontrada.</p>
+      <p class="no-availability-hint">Por favor, valide o WhatsApp novamente.</p>
+      <a href="/validacao" class="retry-link">Voltar para validacao</a>
+    </div>
+
+    <div id="confirming-state" class="loading-state" style="display: none;">
+      <p>Confirmando agendamento...</p>
+      <div class="spinner"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .schedule-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #f0f5fa 0%, #e8f4fd 100%);
+  }
+
+  .schedule-container {
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    background: white;
+    padding: 2.5rem;
+    border-radius: var(--radius-lg, 1rem);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .logo-link {
+    display: block;
+    margin-bottom: 2rem;
+  }
+
+  .logo {
+    max-width: 180px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .schedule-title {
+    font-size: 1.5rem;
+    color: var(--color-dark, #1a1a2e);
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+
+  .schedule-subtitle {
+    font-size: 1rem;
+    color: var(--color-gray-600, #6b7280);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-gray-700, #374151);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    font-size: 1rem;
+    border: 2px solid var(--color-gray-300, #d1d5db);
+    border-radius: var(--radius-md, 0.5rem);
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-family: inherit;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1.25rem;
+    padding-right: 2.5rem;
+  }
+
+  .form-select:focus {
+    outline: none;
+    border-color: var(--color-primary, #2563eb);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+
+  .confirm-button {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: white;
+    background: var(--color-success, #10b981);
+    border: none;
+    border-radius: var(--radius-md, 0.5rem);
+    margin-top: 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+  }
+
+  .confirm-button:hover {
+    background: #0ea371;
+  }
+
+  .confirm-button:active {
+    transform: scale(0.98);
+  }
+
+  .confirm-button:disabled {
+    background: var(--color-gray-400, #9ca3af);
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .error-message {
+    color: var(--color-error, #ef4444);
+    font-size: 0.875rem;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: #fef2f2;
+    border-radius: var(--radius-sm, 0.25rem);
+  }
+
+  .loading-state {
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .loading-state p {
+    color: var(--color-gray-600, #6b7280);
+    margin-bottom: 1rem;
+  }
+
+  .spinner {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto;
+    border: 4px solid var(--color-gray-200, #e5e7eb);
+    border-top-color: var(--color-success, #10b981);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .no-availability {
+    padding: 2rem 0;
+  }
+
+  .no-availability-icon {
+    color: var(--color-gray-400, #9ca3af);
+    margin-bottom: 1rem;
+  }
+
+  .no-availability p {
+    color: var(--color-gray-600, #6b7280);
+    margin-bottom: 0.5rem;
+  }
+
+  .no-availability-hint {
+    font-size: 0.875rem;
+    color: var(--color-gray-500, #6b7280);
+    margin-bottom: 1.5rem;
+  }
+
+  .retry-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-primary, #2563eb);
+    color: white;
+    border-radius: var(--radius-md, 0.5rem);
+    font-weight: 600;
+    transition: background 0.2s ease;
+    text-decoration: none;
+  }
+
+  .retry-link:hover {
+    background: var(--color-primary-dark, #1d4ed8);
+  }
+
+  @media (max-width: 480px) {
+    .schedule-container {
+      padding: 2rem 1.5rem;
+    }
+
+    .schedule-title {
+      font-size: 1.25rem;
+    }
+  }
+</style>
+
+<script>
+  interface TimeSlot {
+    day: string;
+    time: string;
+    "room-schedule-id": number;
+  }
+
+  interface DisponibilidadeData {
+    disponibilidade: TimeSlot[];
+    student_id: string;
+  }
+
+  let disponibilidade: TimeSlot[] = [];
+  let studentId: string = '';
+  let selectedSlot: TimeSlot | null = null;
+
+  const loadingState = document.getElementById('loading-state') as HTMLDivElement;
+  const scheduleForm = document.getElementById('schedule-form') as HTMLDivElement;
+  const noAvailability = document.getElementById('no-availability') as HTMLDivElement;
+  const confirmingState = document.getElementById('confirming-state') as HTMLDivElement;
+  const dateSelect = document.getElementById('date-select') as HTMLSelectElement;
+  const timeSection = document.getElementById('time-section') as HTMLDivElement;
+  const timeSelect = document.getElementById('time-select') as HTMLSelectElement;
+  const confirmBtn = document.getElementById('confirm-btn') as HTMLButtonElement;
+  const errorMsg = document.getElementById('error-message') as HTMLParagraphElement;
+
+  function showError(message: string) {
+    errorMsg.textContent = message;
+    errorMsg.style.display = 'block';
+  }
+
+  function hideError() {
+    errorMsg.style.display = 'none';
+  }
+
+  function loadDisponibilidade(): boolean {
+    try {
+      const storedData = sessionStorage.getItem('disponibilidade');
+      if (!storedData) return false;
+
+      const data: DisponibilidadeData = JSON.parse(storedData);
+      if (!data.disponibilidade || !data.disponibilidade.length) return false;
+
+      disponibilidade = data.disponibilidade;
+      studentId = data.student_id;
+      return true;
+    } catch (error) {
+      console.error('Error loading disponibilidade:', error);
+      return false;
+    }
+  }
+
+  function formatDate(dateStr: string): string {
+    // Assuming format YYYY-MM-DD
+    const [year, month, day] = dateStr.split('-');
+    const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+    const weekdays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
+
+    const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+    const weekday = weekdays[date.getDay()];
+    const monthName = months[parseInt(month) - 1];
+
+    return `${weekday}, ${day} de ${monthName}`;
+  }
+
+  function populateDates() {
+    const uniqueDates = [...new Set(disponibilidade.map(item => item.day))].sort();
+
+    uniqueDates.forEach(date => {
+      const option = document.createElement('option');
+      option.value = date;
+      option.textContent = formatDate(date);
+      dateSelect.appendChild(option);
+    });
+  }
+
+  function updateTimes() {
+    const selectedDate = dateSelect.value;
+    if (!selectedDate) {
+      timeSection.style.display = 'none';
+      confirmBtn.style.display = 'none';
+      return;
+    }
+
+    // Clear previous options
+    timeSelect.innerHTML = '<option value="" disabled selected>Escolha um horario</option>';
+
+    // Filter times for selected date and sort
+    const availableTimes = disponibilidade
+      .filter(item => item.day === selectedDate)
+      .sort((a, b) => a.time.localeCompare(b.time));
+
+    availableTimes.forEach(slot => {
+      const option = document.createElement('option');
+      option.value = JSON.stringify(slot);
+      option.textContent = slot.time;
+      timeSelect.appendChild(option);
+    });
+
+    timeSection.style.display = 'block';
+    confirmBtn.style.display = 'none';
+    selectedSlot = null;
+    hideError();
+
+    // Track date selection
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        'event': 'schedule_date_selected',
+        'selected_date': selectedDate,
+        'times_available': availableTimes.length
+      });
+    }
+  }
+
+  function onTimeSelect() {
+    const value = timeSelect.value;
+    if (!value) {
+      confirmBtn.style.display = 'none';
+      selectedSlot = null;
+      return;
+    }
+
+    selectedSlot = JSON.parse(value);
+    confirmBtn.style.display = 'block';
+    hideError();
+
+    // Track time selection
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        'event': 'schedule_time_selected',
+        'selected_time': selectedSlot?.time,
+        'selected_date': selectedSlot?.day
+      });
+    }
+  }
+
+  async function confirmSchedule() {
+    if (!selectedSlot || !studentId) {
+      showError('Por favor, selecione um horario.');
+      return;
+    }
+
+    scheduleForm.style.display = 'none';
+    confirmingState.style.display = 'block';
+
+    // Track confirmation attempt
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        'event': 'schedule_confirm_attempt',
+        'room_schedule_id': selectedSlot['room-schedule-id']
+      });
+    }
+
+    try {
+      const response = await fetch('https://w.qqeng.me/webhook/agendar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          'room-schedule-id': selectedSlot['room-schedule-id'],
+          student_id: studentId
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Clear session data
+        sessionStorage.removeItem('disponibilidade');
+
+        // Track successful scheduling
+        if (typeof window !== 'undefined' && (window as any).dataLayer) {
+          (window as any).dataLayer.push({
+            'event': 'schedule_success',
+            'scheduled_date': selectedSlot.day,
+            'scheduled_time': selectedSlot.time
+          });
+
+          // Fire conversion event
+          (window as any).dataLayer.push({
+            'event': 'conversion',
+            'conversion_type': 'schedule_complete',
+            'value': 0,
+            'currency': 'BRL'
+          });
+        }
+
+        // Redirect to success page
+        window.location.href = '/sucesso';
+      } else {
+        throw new Error('Scheduling failed');
+      }
+    } catch (error) {
+      console.error('Scheduling error:', error);
+      showError('Erro ao realizar o agendamento. Por favor, tente novamente.');
+
+      confirmingState.style.display = 'none';
+      scheduleForm.style.display = 'block';
+
+      // Track error
+      if (typeof window !== 'undefined' && (window as any).dataLayer) {
+        (window as any).dataLayer.push({
+          'event': 'schedule_error',
+          'error_type': 'api_error'
+        });
+      }
+    }
+  }
+
+  // Initialize
+  document.addEventListener('DOMContentLoaded', () => {
+    const hasData = loadDisponibilidade();
+
+    loadingState.style.display = 'none';
+
+    if (hasData && disponibilidade.length > 0) {
+      populateDates();
+      scheduleForm.style.display = 'block';
+
+      // Track page view with availability
+      if (typeof window !== 'undefined' && (window as any).dataLayer) {
+        (window as any).dataLayer.push({
+          'event': 'page_view_schedule',
+          'slots_available': disponibilidade.length,
+          'dates_available': [...new Set(disponibilidade.map(i => i.day))].length
+        });
+      }
+    } else {
+      noAvailability.style.display = 'block';
+
+      // Track no availability
+      if (typeof window !== 'undefined' && (window as any).dataLayer) {
+        (window as any).dataLayer.push({
+          'event': 'page_view_schedule',
+          'slots_available': 0,
+          'error': 'no_data'
+        });
+      }
+    }
+  });
+
+  // Event listeners
+  dateSelect?.addEventListener('change', updateTimes);
+  timeSelect?.addEventListener('change', onTimeSelect);
+  confirmBtn?.addEventListener('click', confirmSchedule);
+</script>
