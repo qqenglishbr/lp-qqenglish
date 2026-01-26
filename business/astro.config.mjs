@@ -20,10 +20,7 @@ export default defineConfig({
   vite: {
     define: {
       'process.env.GTM_ID': JSON.stringify(process.env.GTM_ID || 'GTM-XXXXXX'),
-      'process.env.GA4_ID': JSON.stringify(process.env.GA4_ID || 'G-XXXXXXXXXX'),
-      'process.env.META_PIXEL_ID': JSON.stringify(process.env.META_PIXEL_ID || ''),
-      'process.env.N8N_WEBHOOK_URL': JSON.stringify(process.env.N8N_WEBHOOK_URL || ''),
-      'process.env.META_ACCESS_TOKEN': JSON.stringify(process.env.META_ACCESS_TOKEN || '')
+      'process.env.N8N_WEBHOOK_URL': JSON.stringify(process.env.N8N_WEBHOOK_URL || '')
     }
   }
 });
