@@ -33,7 +33,7 @@ const GTM_ID = import.meta.env.GTM_ID || 'GTM-XXXXXX';
     <link rel="preconnect" href="https://i.ytimg.com" crossorigin />
 
     <!-- Preload critical hero image -->
-    <link rel="preload" href="/images/hero-teacher.webp" as="image" type="image/webp" fetchpriority="high" />
+    <link rel="preload" href="/images/hero-kids.webp" as="image" type="image/webp" fetchpriority="high" />
 
     <!-- Google Fonts with display=swap and preload -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
@@ -109,6 +109,17 @@ const GTM_ID = import.meta.env.GTM_ID || 'GTM-XXXXXX';
         --color-accent: #ffc629;
         --color-accent-dark: #e6b000;
         --color-accent-glow: rgba(255, 198, 41, 0.3);
+
+        /* Kids-specific colors */
+        --hero-gradient-start: #fbbf24;
+        --hero-gradient-end: #fef3c7;
+        --color-kids-accent: #f97316;
+        --color-kids-accent-dark: #ea580c;
+        --color-kids-accent-glow: rgba(249, 115, 22, 0.3);
+        --kids-purple: #a855f7;
+        --kids-pink: #ec4899;
+        --kids-green: #22c55e;
+        --kids-teal: #14b8a6;
 
         --color-dark: #0a1628;
         --color-dark-soft: #1a2a42;

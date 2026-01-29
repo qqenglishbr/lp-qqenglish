@@ -1,5 +1,5 @@
 ---
-// Premium Lead Form with country code selector
+// Kids Lead Form with country code selector and child age field
 const countries = [
   { code: '+55', flag: '🇧🇷', name: 'Brasil', mask: '(00) 00000-0000', maxLength: 11 },
   { code: '+1', flag: '🇺🇸', name: 'EUA', mask: '(000) 000-0000', maxLength: 10 },
@@ -14,6 +14,19 @@ const countries = [
   { code: '+56', flag: '🇨🇱', name: 'Chile', mask: '0 0000 0000', maxLength: 9 },
   { code: '+57', flag: '🇨🇴', name: 'Colômbia', mask: '000 000 0000', maxLength: 10 },
   { code: '+52', flag: '🇲🇽', name: 'México', mask: '00 0000 0000', maxLength: 10 },
+];
+
+const childAges = [
+  { value: '3', label: '3 anos' },
+  { value: '4', label: '4 anos' },
+  { value: '5', label: '5 anos' },
+  { value: '6', label: '6 anos' },
+  { value: '7', label: '7 anos' },
+  { value: '8', label: '8 anos' },
+  { value: '9', label: '9 anos' },
+  { value: '10', label: '10 anos' },
+  { value: '11', label: '11 anos' },
+  { value: '12', label: '12 anos' },
 ];
 ---
 
@@ -30,10 +43,10 @@ const countries = [
     <div class="lead-grid">
       <div class="lead-content reveal">
         <span class="section-eyebrow">Agende Sua Aula</span>
-        <h2 class="lead-title">Comece sua jornada no Método Callan</h2>
+        <h2 class="lead-title">Agende uma aula experimental gratuita</h2>
         <p class="lead-subtitle">
-          Preencha o formulário e nossa equipe de especialistas entrará em contato
-          para apresentar nosso programa profissional de inglês.
+          Preencha o formulário e nossa equipe entrará em contato
+          para agendar uma aula experimental para seu filho.
         </p>
 
         <ul class="lead-benefits">
@@ -44,8 +57,8 @@ const countries = [
               </svg>
             </div>
             <div class="benefit-content">
-              <strong>Aula individual</strong>
-              <span>Professor 100% certificado TESOL</span>
+              <strong>Aula individual gratuita</strong>
+              <span>Sem compromisso, conheça o método</span>
             </div>
           </li>
           <li>
@@ -55,8 +68,8 @@ const countries = [
               </svg>
             </div>
             <div class="benefit-content">
-              <strong>Método comprovado</strong>
-              <span>Resultados até 4x mais rápidos</span>
+              <strong>Professor especializado em crianças</strong>
+              <span>Treinados para ensino infantil</span>
             </div>
           </li>
           <li>
@@ -66,21 +79,21 @@ const countries = [
               </svg>
             </div>
             <div class="benefit-content">
-              <strong>Consultoria personalizada</strong>
-              <span>Análise do seu perfil e objetivos</span>
+              <strong>Avaliação do nível do seu filho</strong>
+              <span>Plano personalizado de aprendizado</span>
             </div>
           </li>
         </ul>
 
         <div class="trust-badges">
           <div class="badge">
-            <img src="/images/callan-badge.webp" alt="Callan Method" width="80" height="40" />
-          </div>
-          <div class="badge">
             <span class="badge-text">TESOL<br/>Certified</span>
           </div>
           <div class="badge">
             <span class="badge-text">Desde<br/>2009</span>
+          </div>
+          <div class="badge">
+            <span class="badge-text">+11 anos<br/>no Brasil</span>
           </div>
         </div>
       </div>
@@ -88,13 +101,13 @@ const countries = [
       <div class="form-wrapper reveal">
         <div class="form-card">
           <div class="form-header">
-            <h3 class="form-title">Agende sua aula experimental</h3>
+            <h3 class="form-title">Agende a aula do seu filho</h3>
             <p class="form-note">Nossa equipe retornará em até 24h úteis</p>
           </div>
 
           <form id="lead-form-main" class="lead-form" novalidate>
             <div class="form-group">
-              <label for="nome" class="form-label">Nome completo</label>
+              <label for="nome" class="form-label">Seu nome (responsável)</label>
               <input
                 type="text"
                 id="nome"
@@ -166,14 +179,19 @@ const countries = [
             </div>
 
             <div class="form-group">
-              <label for="birthdate" class="form-label">Data de nascimento <span class="optional">(opcional)</span></label>
-              <input
-                type="date"
-                id="birthdate"
-                name="birthdate"
-                class="form-input"
-                autocomplete="bday"
-              />
+              <label for="child_age" class="form-label">Idade da criança</label>
+              <select
+                id="child_age"
+                name="child_age"
+                class="form-input form-select"
+                required
+              >
+                <option value="">Selecione a idade</option>
+                {childAges.map((age) => (
+                  <option value={age.value}>{age.label}</option>
+                ))}
+              </select>
+              <span class="form-error" data-error="child_age"></span>
             </div>
 
             <!-- Hidden tracking fields -->
@@ -192,7 +210,7 @@ const countries = [
             <input type="hidden" name="referrer" id="referrer" />
 
             <button type="submit" class="form-submit" id="submit-btn">
-              <span class="btn-text">Quero Conhecer o Método</span>
+              <span class="btn-text">Agendar Aula Grátis</span>
               <span class="btn-loading">
                 <svg class="spinner" width="20" height="20" viewBox="0 0 24 24">
                   <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="60" stroke-linecap="round"/>
@@ -217,8 +235,8 @@ const countries = [
             </div>
             <h3 class="success-title">Perfeito!</h3>
             <p class="success-message">
-              Recebemos seu cadastro. Nossa equipe de especialistas entrará em contato
-              para apresentar o método e agendar sua aula.
+              Recebemos seu cadastro. Nossa equipe entrará em contato
+              para agendar a aula experimental do seu filho.
             </p>
           </div>
         </div>
@@ -355,7 +373,7 @@ const countries = [
     target.value = value;
   });
 
-  function validateField(input: HTMLInputElement): boolean {
+  function validateField(input: HTMLInputElement | HTMLSelectElement): boolean {
     const errorSpan = document.querySelector(`[data-error="${input.name}"]`) as HTMLSpanElement;
     let isValid = true;
     let errorMsg = '';
@@ -384,7 +402,7 @@ const countries = [
   }
 
   let formStarted = false;
-  form?.querySelectorAll('input:not([type="hidden"])').forEach(input => {
+  form?.querySelectorAll('input:not([type="hidden"]), select').forEach(input => {
     input.addEventListener('focus', () => {
       if (!formStarted) {
         formStarted = true;
@@ -396,11 +414,12 @@ const countries = [
       }
     });
     input.addEventListener('blur', () => validateField(input as HTMLInputElement));
+    input.addEventListener('change', () => validateField(input as HTMLInputElement));
   });
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const inputs = form.querySelectorAll('input[required]') as NodeListOf<HTMLInputElement>;
+    const inputs = form.querySelectorAll('input[required], select[required]') as NodeListOf<HTMLInputElement | HTMLSelectElement>;
     let isFormValid = true;
     inputs.forEach(input => { if (!validateField(input)) isFormValid = false; });
 
@@ -426,7 +445,7 @@ const countries = [
 
       if (response.ok && result.success) {
         // Track lead generation
-        window.dataLayer?.push({ 'event': 'generate_lead', 'form_id': 'lead-form-main', 'lead_id': result.lead_id || '' });
+        window.dataLayer?.push({ 'event': 'generate_lead', 'form_id': 'lead-form-main', 'lead_id': result.lead_id || '', 'child_age': data.child_age });
         window.dataLayer?.push({ 'event': 'conversion', 'conversion_type': 'lead', 'value': 0, 'currency': 'BRL' });
         window.dataLayer?.push({ 'event': 'form_redirect', 'lead_id': result.lead_id || '', 'destination': '/validacao' });
 
@@ -467,7 +486,7 @@ const countries = [
   .bg-gradient {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, #f8fafc 0%, #e8f4fd 50%, #f0f5fa 100%);
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fff7ed 100%);
   }
 
   .bg-pattern {
@@ -490,8 +509,8 @@ const countries = [
     height: 400px;
     top: -100px;
     right: 10%;
-    background: var(--color-primary);
-    opacity: 0.08;
+    background: var(--color-kids-accent);
+    opacity: 0.1;
   }
 
   .bg-glow--2 {
@@ -499,8 +518,8 @@ const countries = [
     height: 300px;
     bottom: -50px;
     left: 5%;
-    background: var(--color-accent);
-    opacity: 0.1;
+    background: var(--kids-purple);
+    opacity: 0.08;
   }
 
   .lead-section .container {
@@ -528,7 +547,7 @@ const countries = [
     font-family: var(--font-body);
     font-size: 0.8125rem;
     font-weight: 600;
-    color: var(--color-primary);
+    color: var(--color-kids-accent);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: 1rem;
@@ -567,7 +586,7 @@ const countries = [
     flex-shrink: 0;
     width: 28px;
     height: 28px;
-    background: linear-gradient(135deg, var(--color-primary) 0%, #0066dd 100%);
+    background: linear-gradient(135deg, var(--color-kids-accent) 0%, #fb923c 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -613,12 +632,6 @@ const countries = [
     justify-content: center;
   }
 
-  .badge img {
-    height: 36px;
-    width: auto;
-    opacity: 0.7;
-  }
-
   .badge-text {
     font-family: var(--font-display);
     font-size: 0.6875rem;
@@ -642,7 +655,7 @@ const countries = [
     padding: 2.5rem;
     box-shadow:
       0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 20px 40px -10px rgba(0, 85, 204, 0.1);
+      0 20px 40px -10px rgba(249, 115, 22, 0.1);
     width: 100%;
     max-width: 480px;
     border: 1px solid var(--color-gray-100);
@@ -679,12 +692,6 @@ const countries = [
     margin-bottom: 0.5rem;
   }
 
-  .optional {
-    font-weight: 400;
-    color: var(--color-gray-500);
-    font-size: 0.8rem;
-  }
-
   .form-input {
     width: 100%;
     padding: 0.875rem 1rem;
@@ -697,11 +704,21 @@ const countries = [
     transition: all var(--transition-fast);
   }
 
+  .form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+
   .form-input:focus {
     outline: none;
-    border-color: var(--color-primary);
+    border-color: var(--color-kids-accent);
     background: white;
-    box-shadow: 0 0 0 4px rgba(0, 85, 204, 0.08);
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.08);
   }
 
   .form-input.error {
@@ -752,7 +769,7 @@ const countries = [
 
   .country-select-trigger:focus {
     outline: none;
-    border-color: var(--color-primary);
+    border-color: var(--color-kids-accent);
     background: white;
     z-index: 1;
   }
@@ -850,7 +867,7 @@ const countries = [
     justify-content: center;
     gap: 0.75rem;
     padding: 1rem 1.5rem;
-    background: linear-gradient(135deg, var(--color-primary) 0%, #0066dd 100%);
+    background: linear-gradient(135deg, var(--color-kids-accent) 0%, #fb923c 100%);
     color: white;
     font-family: var(--font-body);
     font-size: 1rem;
@@ -874,7 +891,7 @@ const countries = [
 
   .form-submit:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 85, 204, 0.35);
+    box-shadow: 0 8px 20px var(--color-kids-accent-glow);
   }
 
   .form-submit:hover:not(:disabled)::before {
@@ -915,14 +932,14 @@ const countries = [
   }
 
   .form-disclaimer a {
-    color: var(--color-primary);
+    color: var(--color-kids-accent);
     text-decoration: underline;
     text-underline-offset: 2px;
     transition: color var(--transition-fast);
   }
 
   .form-disclaimer a:hover {
-    color: var(--color-primary-dark);
+    color: var(--color-kids-accent-dark);
   }
 
   /* Success State */

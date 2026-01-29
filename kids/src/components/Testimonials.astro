@@ -1,0 +1,528 @@
+---
+// Kids Testimonials section with video testimonials and stats
+// TODO: Replace video IDs with actual Kids testimonials when available
+const testimonialVideos = [
+  { id: "dQw4w9WgXcQ", name: "Maria Silva", role: "Mãe do Pedro, 7 anos" },
+  { id: "dQw4w9WgXcQ", name: "João Santos", role: "Pai da Ana, 5 anos" },
+  { id: "dQw4w9WgXcQ", name: "Carla Oliveira", role: "Mãe do Lucas, 9 anos" },
+];
+
+const stats = [
+  { value: "+50.000", label: "crianças ensinadas" },
+  { value: "15+", label: "anos de experiência" },
+  { value: "30+", label: "países atendidos" },
+  { value: "+1.300", label: "professores" },
+];
+
+const reviews = [
+  {
+    text: "Meu filho ama as aulas! O professor é super paciente e usa jogos que prendem a atenção dele.",
+    author: "Fernanda M.",
+    role: "Mãe do Gustavo, 6 anos",
+    rating: 5
+  },
+  {
+    text: "A metodologia é incrível. Em 3 meses minha filha já consegue formar frases simples em inglês.",
+    author: "Ricardo P.",
+    role: "Pai da Sofia, 8 anos",
+    rating: 5
+  },
+  {
+    text: "Flexibilidade de horários e professores preparados para crianças. Recomendo muito!",
+    author: "Juliana S.",
+    role: "Mãe do Miguel, 5 anos",
+    rating: 5
+  },
+  {
+    text: "Melhor investimento que fiz para o futuro do meu filho. Ele espera ansioso pelas aulas.",
+    author: "André L.",
+    role: "Pai do Davi, 7 anos",
+    rating: 5
+  },
+  {
+    text: "A plataforma é segura e posso acompanhar o progresso. Estou muito satisfeita com os resultados.",
+    author: "Patricia R.",
+    role: "Mãe da Laura, 9 anos",
+    rating: 5
+  },
+  {
+    text: "Professores muito carinhosos e didáticos. Minha filha perdeu a timidez e agora fala inglês com confiança.",
+    author: "Marcos T.",
+    role: "Pai da Helena, 6 anos",
+    rating: 5
+  },
+];
+---
+
+<section class="testimonials" id="depoimentos">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <span class="section-eyebrow">Depoimentos</span>
+      <h2 class="section-title">
+        O que os pais dizem
+        <span class="title-accent">sobre nós</span>
+      </h2>
+      <p class="section-description">
+        Depoimentos reais de famílias que escolheram a QQEnglish Kids
+      </p>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar reveal">
+      {stats.map(stat => (
+        <div class="stat-item">
+          <span class="stat-value">{stat.value}</span>
+          <span class="stat-label">{stat.label}</span>
+        </div>
+      ))}
+    </div>
+
+    <!-- Reviews Carousel -->
+    <div class="reviews-carousel reveal">
+      <div class="carousel-track" id="carousel-track">
+        {reviews.map((review, index) => (
+          <div class="review-card" data-index={index}>
+            <div class="review-stars">
+              {[...Array(review.rating)].map(() => (
+                <svg viewBox="0 0 24 24" fill="currentColor" class="star">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              ))}
+            </div>
+            <p class="review-text">"{review.text}"</p>
+            <div class="review-author">
+              <div class="author-avatar">
+                {review.author.charAt(0)}
+              </div>
+              <div class="author-info">
+                <span class="author-name">{review.author}</span>
+                <span class="author-role">{review.role}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Carousel Navigation -->
+      <div class="carousel-nav">
+        <button class="nav-btn nav-prev" aria-label="Anterior" id="carousel-prev">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+        <div class="carousel-dots" id="carousel-dots"></div>
+        <button class="nav-btn nav-next" aria-label="Próximo" id="carousel-next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="section-cta reveal">
+      <a href="#lead-form" class="cta-button">
+        <span>Quero uma aula grátis para meu filho</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    padding: var(--section-padding) 0;
+    background: white;
+  }
+
+  /* Section Header */
+  .section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+  }
+
+  .section-eyebrow {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-kids-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-dark);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .title-accent {
+    color: var(--color-kids-accent);
+  }
+
+  .section-description {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    color: var(--color-gray-600);
+    line-height: 1.7;
+  }
+
+  /* Stats Bar */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--color-kids-accent) 0%, #fb923c 100%);
+    border-radius: var(--radius-xl);
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 640px) {
+    .stats-bar {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: white;
+    line-height: 1.2;
+  }
+
+  .stat-label {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.85);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Reviews Carousel */
+  .reviews-carousel {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .carousel-track {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 1rem 0;
+  }
+
+  .carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .review-card {
+    flex: 0 0 calc(100% - 2rem);
+    scroll-snap-align: start;
+    background: var(--color-gray-50);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
+  }
+
+  @media (min-width: 640px) {
+    .review-card {
+      flex: 0 0 calc(50% - 1rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .review-card {
+      flex: 0 0 calc(33.333% - 1rem);
+    }
+  }
+
+  .review-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+
+  .review-stars {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .star {
+    width: 18px;
+    height: 18px;
+    color: #fbbf24;
+  }
+
+  .review-text {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-gray-700);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .review-author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .author-avatar {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--color-kids-accent) 0%, #fb923c 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: white;
+  }
+
+  .author-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .author-name {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-dark);
+  }
+
+  .author-role {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    color: var(--color-gray-500);
+  }
+
+  /* Carousel Navigation */
+  .carousel-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .nav-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid var(--color-gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .nav-btn:hover {
+    background: var(--color-kids-accent);
+    border-color: var(--color-kids-accent);
+    color: white;
+  }
+
+  .nav-btn svg {
+    width: 20px;
+    height: 20px;
+    color: inherit;
+  }
+
+  .carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .carousel-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-gray-300);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .carousel-dots .dot.active {
+    background: var(--color-kids-accent);
+    width: 24px;
+    border-radius: 4px;
+  }
+
+  /* CTA */
+  .section-cta {
+    text-align: center;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background: var(--color-kids-accent);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    box-shadow: 0 4px 16px var(--color-kids-accent-glow);
+    transition: all var(--transition-fast);
+  }
+
+  .cta-button:hover {
+    background: var(--color-kids-accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--color-kids-accent-glow);
+  }
+
+  .cta-button svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .cta-button:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .reveal.is-visible {
+    animation: reveal 0.8s var(--ease-out-expo) forwards;
+  }
+
+  @keyframes reveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  // Intersection Observer for reveal animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.testimonials .reveal').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Carousel functionality
+  const track = document.getElementById('carousel-track');
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+  const dotsContainer = document.getElementById('carousel-dots');
+  const cards = track?.querySelectorAll('.review-card');
+
+  if (track && cards && dotsContainer) {
+    let currentIndex = 0;
+    const totalCards = cards.length;
+    let cardsPerView = 1;
+
+    // Calculate cards per view based on screen size
+    function updateCardsPerView() {
+      if (window.innerWidth >= 1024) {
+        cardsPerView = 3;
+      } else if (window.innerWidth >= 640) {
+        cardsPerView = 2;
+      } else {
+        cardsPerView = 1;
+      }
+    }
+
+    // Create dots
+    function createDots() {
+      updateCardsPerView();
+      const totalDots = Math.ceil(totalCards / cardsPerView);
+      dotsContainer.textContent = '';
+
+      for (let i = 0; i < totalDots; i++) {
+        const dot = document.createElement('button');
+        dot.className = `dot ${i === 0 ? 'active' : ''}`;
+        dot.setAttribute('aria-label', `Ir para slide ${i + 1}`);
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    function updateDots() {
+      const dots = dotsContainer.querySelectorAll('.dot');
+      const activeDotIndex = Math.floor(currentIndex / cardsPerView);
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === activeDotIndex);
+      });
+    }
+
+    function goToSlide(dotIndex: number) {
+      currentIndex = dotIndex * cardsPerView;
+      scrollToCard();
+    }
+
+    function scrollToCard() {
+      if (cards[currentIndex]) {
+        cards[currentIndex].scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'start'
+        });
+        updateDots();
+      }
+    }
+
+    prevBtn?.addEventListener('click', () => {
+      currentIndex = Math.max(0, currentIndex - cardsPerView);
+      scrollToCard();
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      currentIndex = Math.min(totalCards - 1, currentIndex + cardsPerView);
+      scrollToCard();
+    });
+
+    // Update on resize
+    window.addEventListener('resize', createDots);
+
+    // Initialize
+    createDots();
+  }
+</script>

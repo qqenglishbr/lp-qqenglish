@@ -1,104 +1,33 @@
 ---
-import Layout from '../../../shared/src/layouts/Layout.astro';
+import Layout from '../layouts/Layout.astro';
 import Header from '../../../shared/src/components/Header.astro';
 import Footer from '../../../shared/src/components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import MethodExplainer from '../components/MethodExplainer.astro';
+import WhyQQKids from '../components/WhyQQKids.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import KidsApp from '../components/KidsApp.astro';
+import Testimonials from '../components/Testimonials.astro';
+import LeadForm from '../components/LeadForm.astro';
+import FAQ from '../components/FAQ.astro';
+import Partners from '../components/Partners.astro';
 
-const title = "QQEnglish Kids - Ingles para Criancas";
-const description = "Aulas de ingles online para criancas com professores nativos. Metodologia ludica e divertida. Agende uma aula experimental gratuita!";
+const title = "QQEnglish Kids - Inglês Online para Crianças";
+const description = "Aulas de inglês online para crianças a partir de 3 anos. Professores especializados em ensino infantil. Metodologia lúdica com jogos e histórias. Agende uma aula experimental gratuita!";
 ---
 
 <Layout title={title} description={description}>
   <Header />
   <main>
-    <section class="hero">
-      <div class="container">
-        <h1>QQEnglish Kids</h1>
-        <p class="subtitle">Ingles divertido para criancas</p>
-        <p class="description">
-          Aulas de ingles online com professores especializados em ensino infantil.
-          Metodologia ludica que transforma o aprendizado em uma aventura!
-        </p>
-        <a href="#lead-form" class="cta-button">Agendar Aula Gratis</a>
-      </div>
-    </section>
-
-    <section id="lead-form" class="lead-section">
-      <div class="container">
-        <h2>Agende uma aula experimental gratuita</h2>
-        <p>Em breve - Formulario de cadastro</p>
-      </div>
-    </section>
+    <Hero />
+    <MethodExplainer />
+    <WhyQQKids />
+    <HowItWorks />
+    <KidsApp />
+    <Testimonials />
+    <LeadForm />
+    <FAQ />
+    <Partners />
   </main>
   <Footer />
 </Layout>
-
-<style>
-  .hero {
-    min-height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fbbf24 100%);
-    padding: 4rem 1rem;
-  }
-
-  .hero h1 {
-    font-size: 3rem;
-    color: #1a1a2e;
-    margin-bottom: 0.5rem;
-  }
-
-  .subtitle {
-    font-size: 1.5rem;
-    color: #f97316;
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
-
-  .description {
-    max-width: 600px;
-    margin: 0 auto 2rem;
-    font-size: 1.125rem;
-    color: #4b5563;
-    line-height: 1.7;
-  }
-
-  .cta-button {
-    display: inline-block;
-    padding: 1rem 2rem;
-    background: #f97316;
-    color: white;
-    font-weight: 700;
-    font-size: 1.125rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    transition: background 0.2s ease;
-  }
-
-  .cta-button:hover {
-    background: #ea580c;
-  }
-
-  .lead-section {
-    padding: 4rem 1rem;
-    text-align: center;
-    background: white;
-  }
-
-  .lead-section h2 {
-    font-size: 2rem;
-    color: #1a1a2e;
-    margin-bottom: 1rem;
-  }
-
-  @media (max-width: 768px) {
-    .hero h1 {
-      font-size: 2rem;
-    }
-
-    .subtitle {
-      font-size: 1.25rem;
-    }
-  }
-</style>

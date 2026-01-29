@@ -1,0 +1,305 @@
+---
+// Why QQEnglish Kids - 6 reasons to choose
+const reasons = [
+  {
+    icon: "graduation",
+    color: "purple",
+    title: "Professores Especializados",
+    description: "Professores treinados em ensino infantil, com técnicas para manter crianças engajadas e felizes."
+  },
+  {
+    icon: "user",
+    color: "blue",
+    title: "Aulas Individuais",
+    description: "Atenção 100% do professor para seu filho, adaptando o ritmo ao nível da criança."
+  },
+  {
+    icon: "shield",
+    color: "green",
+    title: "Ambiente Seguro",
+    description: "Plataforma segura com supervisão parental. Acompanhe o progresso do seu filho."
+  },
+  {
+    icon: "clock",
+    color: "orange",
+    title: "Horários Flexíveis",
+    description: "Agende aulas no melhor horário para sua família, 7 dias por semana."
+  },
+  {
+    icon: "puzzle",
+    color: "pink",
+    title: "Metodologia Lúdica",
+    description: "Jogos, músicas e histórias que transformam o aprendizado em diversão."
+  },
+  {
+    icon: "chart",
+    color: "teal",
+    title: "Acompanhamento",
+    description: "Relatórios de progresso e feedback constante sobre a evolução da criança."
+  }
+];
+---
+
+<section class="why-qqkids">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <span class="section-eyebrow">Por que nos escolher</span>
+      <h2 class="section-title">
+        Por que escolher a
+        <span class="title-accent">QQEnglish Kids?</span>
+      </h2>
+      <p class="section-description">
+        Descubra por que milhares de pais confiam na QQEnglish para ensinar inglês aos filhos.
+      </p>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="reasons-grid">
+      {reasons.map((reason, index) => (
+        <div class={`reason-card reveal card-${reason.color}`} style={`--delay: ${index * 0.1}s`}>
+          <div class="card-icon">
+            {reason.icon === "graduation" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+              </svg>
+            )}
+            {reason.icon === "user" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            )}
+            {reason.icon === "shield" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
+            )}
+            {reason.icon === "clock" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            )}
+            {reason.icon === "puzzle" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.61a2.404 2.404 0 0 1-1.705.707 2.402 2.402 0 0 1-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568A2.402 2.402 0 0 1 1.998 12c0-.617.236-1.234.706-1.704L4.23 8.77c.24-.24.581-.353.917-.303.515.077.877.528 1.073 1.01a2.5 2.5 0 1 0 3.259-3.259c-.482-.196-.933-.558-1.01-1.073-.05-.336.062-.676.303-.917l1.525-1.525A2.402 2.402 0 0 1 12 1.998c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.237 3.237c-.464.18-.894.527-.967 1.02Z"/>
+              </svg>
+            )}
+            {reason.icon === "chart" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            )}
+          </div>
+          <h3 class="card-title">{reason.title}</h3>
+          <p class="card-description">{reason.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-qqkids {
+    padding: var(--section-padding) 0;
+    background: white;
+  }
+
+  /* Section Header */
+  .section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 4rem;
+  }
+
+  .section-eyebrow {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-kids-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-dark);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .title-accent {
+    color: var(--color-kids-accent);
+  }
+
+  .section-description {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    color: var(--color-gray-600);
+    line-height: 1.7;
+  }
+
+  /* Cards Grid */
+  .reasons-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .reasons-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .reasons-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  /* Card Styles */
+  .reason-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reason-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--accent-color);
+    transform: scaleX(0);
+    transition: transform var(--transition-base);
+  }
+
+  .reason-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .reason-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  /* Card Icon */
+  .card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    background: var(--accent-bg);
+    color: var(--accent-color);
+  }
+
+  .card-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Color Variants */
+  .card-purple {
+    --accent-bg: #f3e8ff;
+    --accent-color: var(--kids-purple);
+  }
+
+  .card-blue {
+    --accent-bg: var(--color-primary-subtle);
+    --accent-color: var(--color-primary);
+  }
+
+  .card-green {
+    --accent-bg: #dcfce7;
+    --accent-color: var(--kids-green);
+  }
+
+  .card-orange {
+    --accent-bg: #ffedd5;
+    --accent-color: var(--color-kids-accent);
+  }
+
+  .card-pink {
+    --accent-bg: #fce7f3;
+    --accent-color: var(--kids-pink);
+  }
+
+  .card-teal {
+    --accent-bg: #ccfbf1;
+    --accent-color: var(--kids-teal);
+  }
+
+  /* Card Content */
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .card-description {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--color-gray-600);
+    line-height: 1.7;
+  }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .reveal.is-visible {
+    animation: reveal 0.8s var(--ease-out-expo) forwards;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes reveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.why-qqkids .reveal').forEach(el => {
+    observer.observe(el);
+  });
+</script>

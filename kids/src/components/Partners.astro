@@ -1,0 +1,130 @@
+---
+// Partners section - certifications and partnerships
+const partners = [
+  { name: "University of Cambridge", logo: "/images/logo-cambridge.webp" },
+  { name: "British Council", logo: "/images/logo-british-council.webp" },
+  { name: "Callan Method", logo: "/images/logo-callan.webp" },
+];
+---
+
+<section class="partners">
+  <div class="container">
+    <div class="partners-content reveal">
+      <span class="partners-label">Escola oficialmente certificada desde 2009</span>
+      <div class="partners-logos">
+        {partners.map(partner => (
+          <div class="partner-logo">
+            <img
+              src={partner.logo}
+              alt={partner.name}
+              width="120"
+              height="50"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .partners {
+    padding: 3rem 0;
+    background: linear-gradient(135deg, var(--color-dark) 0%, #1a2a42 100%);
+  }
+
+  .partners-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .partners-content {
+      flex-direction: row;
+      justify-content: center;
+      gap: 3rem;
+    }
+  }
+
+  .partners-label {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: center;
+  }
+
+  .partners-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  @media (min-width: 768px) {
+    .partners-logos {
+      gap: 3rem;
+    }
+  }
+
+  .partner-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .partner-logo img {
+    height: 36px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.6;
+    transition: all var(--transition-fast);
+  }
+
+  .partner-logo:hover img {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .reveal.is-visible {
+    animation: reveal 0.6s var(--ease-out-expo) forwards;
+  }
+
+  @keyframes reveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.partners .reveal').forEach(el => {
+    observer.observe(el);
+  });
+</script>

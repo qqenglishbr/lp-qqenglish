@@ -1,0 +1,416 @@
+---
+// Kids Method Explainer section with YouTube video
+// TODO: Replace with actual Kids video ID when available
+const youtubeVideoId = "MkXQzL0puf4";
+---
+
+<section class="method-explainer" id="metodo">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <span class="section-eyebrow">Smart Kids</span>
+      <h2 class="section-title">
+        Entenda como funciona o
+        <span class="title-accent">curso para crianças</span>
+      </h2>
+      <p class="section-description">
+        Seu filho aprende inglês de forma natural e divertida, com atividades interativas, jogos e histórias que prendem a atenção.
+      </p>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="explainer-grid">
+      <!-- Video -->
+      <div class="video-wrapper reveal">
+        <div class="video-frame">
+          <div class="video-container youtube-lazy" data-video-id={youtubeVideoId}>
+            <img
+              src={`https://i.ytimg.com/vi/${youtubeVideoId}/hqdefault.jpg`}
+              alt="Como funciona a aula de inglês para crianças"
+              class="youtube-thumbnail"
+              loading="lazy"
+              width="480"
+              height="360"
+            />
+            <button class="youtube-play-button" aria-label="Reproduzir vídeo">
+              <svg viewBox="0 0 68 48" width="68" height="48">
+                <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path>
+                <path d="M 45,24 27,14 27,34" fill="#fff"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="video-decoration"></div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="explainer-content reveal">
+        <h3 class="content-title">Como é uma aula de inglês para crianças?</h3>
+
+        <p class="content-text">
+          Nossas aulas são especialmente desenhadas para o universo infantil. Professores treinados em <strong>ensino infantil</strong> usam técnicas lúdicas para manter as crianças engajadas e felizes durante toda a aula.
+        </p>
+
+        <p class="content-text">
+          Cada aula de 25 minutos é uma aventura! Seu filho aprende brincando, sem nem perceber que está estudando.
+        </p>
+
+        <ul class="feature-list">
+          <li>
+            <span class="feature-bullet"></span>
+            <span>Jogos interativos durante toda a aula</span>
+          </li>
+          <li>
+            <span class="feature-bullet"></span>
+            <span>Histórias e teatrinho em inglês</span>
+          </li>
+          <li>
+            <span class="feature-bullet"></span>
+            <span>Repetição lúdica para fixação natural</span>
+          </li>
+          <li>
+            <span class="feature-bullet"></span>
+            <span>Professor dedicado a cada criança</span>
+          </li>
+        </ul>
+
+        <a href="#lead-form" class="explainer-cta">
+          <span>Agendar Aula Grátis</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background decoration -->
+  <div class="bg-elements">
+    <div class="bg-gradient"></div>
+    <div class="bg-circle bg-circle--1"></div>
+    <div class="bg-circle bg-circle--2"></div>
+  </div>
+</section>
+
+<style>
+  .method-explainer {
+    position: relative;
+    padding: var(--section-padding) 0;
+    background: var(--color-gray-50);
+    overflow: hidden;
+  }
+
+  /* Background */
+  .bg-elements {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bg-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, white 0%, transparent 20%, transparent 80%, white 100%);
+  }
+
+  .bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .bg-circle--1 {
+    width: 400px;
+    height: 400px;
+    background: var(--color-kids-accent);
+    opacity: 0.06;
+    top: -100px;
+    left: -100px;
+  }
+
+  .bg-circle--2 {
+    width: 300px;
+    height: 300px;
+    background: var(--kids-purple);
+    opacity: 0.06;
+    bottom: -50px;
+    right: -50px;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Section Header */
+  .section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 4rem;
+  }
+
+  .section-eyebrow {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-kids-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-dark);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .title-accent {
+    color: var(--color-kids-accent);
+  }
+
+  .section-description {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    color: var(--color-gray-600);
+    line-height: 1.7;
+  }
+
+  /* Grid */
+  .explainer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .explainer-grid {
+      grid-template-columns: 1.1fr 1fr;
+      gap: 4rem;
+    }
+  }
+
+  /* Video */
+  .video-wrapper {
+    position: relative;
+  }
+
+  .video-frame {
+    position: relative;
+  }
+
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    background: var(--color-dark);
+  }
+
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* YouTube Lazy Loading */
+  .youtube-lazy {
+    cursor: pointer;
+  }
+
+  .youtube-thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .youtube-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 1;
+  }
+
+  .youtube-play-button:hover {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  .video-decoration {
+    position: absolute;
+    inset: -8px;
+    border: 2px solid var(--color-kids-accent);
+    border-radius: calc(var(--radius-xl) + 8px);
+    opacity: 0.3;
+    z-index: -1;
+  }
+
+  /* Content */
+  .explainer-content {
+    padding: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .explainer-content {
+      padding: 1rem 0;
+    }
+  }
+
+  .content-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 1.25rem;
+    line-height: 1.3;
+  }
+
+  .content-text {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-gray-600);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .content-text strong {
+    color: var(--color-kids-accent);
+    font-weight: 600;
+  }
+
+  /* Feature List */
+  .feature-list {
+    list-style: none;
+    margin: 1.5rem 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  .feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--color-gray-700);
+    font-weight: 500;
+  }
+
+  .feature-bullet {
+    width: 8px;
+    height: 8px;
+    background: var(--color-kids-accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* CTA */
+  .explainer-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.75rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background: var(--color-kids-accent);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    box-shadow: 0 4px 16px var(--color-kids-accent-glow);
+    transition: all var(--transition-fast);
+  }
+
+  .explainer-cta:hover {
+    background: var(--color-kids-accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--color-kids-accent-glow);
+  }
+
+  .explainer-cta svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .explainer-cta:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .reveal.is-visible {
+    animation: reveal 0.8s var(--ease-out-expo) forwards;
+  }
+
+  .explainer-content.reveal.is-visible {
+    animation-delay: 0.15s;
+  }
+
+  @keyframes reveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.method-explainer .reveal').forEach(el => {
+    observer.observe(el);
+  });
+
+  // YouTube Lazy Loading - safe DOM manipulation
+  document.querySelectorAll('.youtube-lazy').forEach(container => {
+    container.addEventListener('click', function() {
+      const videoId = this.getAttribute('data-video-id');
+      if (!videoId || !/^[a-zA-Z0-9_-]{11}$/.test(videoId)) return;
+
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      iframe.frameBorder = '0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+
+      while (this.firstChild) {
+        this.removeChild(this.firstChild);
+      }
+      this.appendChild(iframe);
+    });
+  });
+</script>

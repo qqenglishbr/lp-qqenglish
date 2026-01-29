@@ -38,6 +38,7 @@ const countryCodeToId: Record<string, string> = {
 };
 
 interface LeadData {
+  birthdate?: string;
   name: string;
   email: string;
   phone: string;
@@ -172,6 +173,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       phone_international: `+${fullPhoneNumber}`,
       country_code: countryCode,
       code_id: countryCodeToId[countryCode] || '',
+      birthdate: data.birthdate || null,
       // UTM Parameters
       utm_source: data.utm_source || '(direct)',
       utm_medium: data.utm_medium || '(none)',
