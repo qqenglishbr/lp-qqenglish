@@ -166,14 +166,31 @@ const countries = [
             </div>
 
             <div class="form-group">
-              <label for="birthdate" class="form-label">Data de nascimento <span class="optional">(opcional)</span></label>
-              <input
-                type="date"
-                id="birthdate"
-                name="birthdate"
-                class="form-input"
-                autocomplete="bday"
-              />
+              <label class="form-label">Data de nascimento <span class="optional">(opcional)</span></label>
+              <div class="birthdate-wrapper">
+                <select id="birth-day" name="birth_day" class="form-select birthdate-select">
+                  <option value="">Dia</option>
+                </select>
+                <select id="birth-month" name="birth_month" class="form-select birthdate-select">
+                  <option value="">Mês</option>
+                  <option value="01">Janeiro</option>
+                  <option value="02">Fevereiro</option>
+                  <option value="03">Março</option>
+                  <option value="04">Abril</option>
+                  <option value="05">Maio</option>
+                  <option value="06">Junho</option>
+                  <option value="07">Julho</option>
+                  <option value="08">Agosto</option>
+                  <option value="09">Setembro</option>
+                  <option value="10">Outubro</option>
+                  <option value="11">Novembro</option>
+                  <option value="12">Dezembro</option>
+                </select>
+                <select id="birth-year" name="birth_year" class="form-select birthdate-select birthdate-year">
+                  <option value="">Ano</option>
+                </select>
+              </div>
+              <input type="hidden" name="birthdate" id="birthdate" />
             </div>
 
             <!-- Hidden tracking fields -->
@@ -448,6 +465,92 @@ const countries = [
     }
   });
 
+
+  // Birthdate selector population
+  function populateBirthdateSelectors() {
+    const daySelect = document.getElementById("birth-day") as HTMLSelectElement;
+    const yearSelect = document.getElementById("birth-year") as HTMLSelectElement;
+    const monthSelect = document.getElementById("birth-month") as HTMLSelectElement;
+    const birthdateHidden = document.getElementById("birthdate") as HTMLInputElement;
+
+    // Populate days (1-31)
+    for (let i = 1; i <= 31; i++) {
+      const option = document.createElement("option");
+      option.value = i.toString().padStart(2, "0");
+      option.textContent = i.toString();
+      daySelect?.appendChild(option);
+    }
+
+    // Populate years (current year - 100 to current year - 3)
+    const currentYear = new Date().getFullYear();
+    for (let i = currentYear - 3; i >= currentYear - 100; i--) {
+      const option = document.createElement("option");
+      option.value = i.toString();
+      option.textContent = i.toString();
+      yearSelect?.appendChild(option);
+    }
+
+    // Combine values into hidden field
+    function updateBirthdate() {
+      const day = daySelect?.value || "";
+      const month = monthSelect?.value || "";
+      const year = yearSelect?.value || "";
+      if (day && month && year) {
+        birthdateHidden.value = ;
+      } else {
+        birthdateHidden.value = "";
+      }
+    }
+
+    daySelect?.addEventListener("change", updateBirthdate);
+    monthSelect?.addEventListener("change", updateBirthdate);
+    yearSelect?.addEventListener("change", updateBirthdate);
+  }
+
+  populateBirthdateSelectors();
+
+  // Birthdate selector population
+  function populateBirthdateSelectors() {
+    const daySelect = document.getElementById("birth-day") as HTMLSelectElement;
+    const yearSelect = document.getElementById("birth-year") as HTMLSelectElement;
+    const monthSelect = document.getElementById("birth-month") as HTMLSelectElement;
+    const birthdateHidden = document.getElementById("birthdate") as HTMLInputElement;
+
+    // Populate days (1-31)
+    for (let i = 1; i <= 31; i++) {
+      const option = document.createElement("option");
+      option.value = i.toString().padStart(2, "0");
+      option.textContent = i.toString();
+      daySelect?.appendChild(option);
+    }
+
+    // Populate years (current year - 3 to current year - 100)
+    const currentYear = new Date().getFullYear();
+    for (let i = currentYear - 3; i >= currentYear - 100; i--) {
+      const option = document.createElement("option");
+      option.value = i.toString();
+      option.textContent = i.toString();
+      yearSelect?.appendChild(option);
+    }
+
+    // Combine values into hidden field
+    function updateBirthdate() {
+      const day = daySelect?.value || "";
+      const month = monthSelect?.value || "";
+      const year = yearSelect?.value || "";
+      if (day && month && year) {
+        birthdateHidden.value = year + "-" + month + "-" + day;
+      } else {
+        birthdateHidden.value = "";
+      }
+    }
+
+    daySelect?.addEventListener("change", updateBirthdate);
+    monthSelect?.addEventListener("change", updateBirthdate);
+    yearSelect?.addEventListener("change", updateBirthdate);
+  }
+
+  populateBirthdateSelectors();
   populateTrackingFields();
 </script>
 
@@ -685,6 +788,60 @@ const countries = [
     font-size: 0.8rem;
   }
 
+
+  /* Birthdate Elegant Selector */
+  .birthdate-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .form-select {
+    width: 100%;
+    padding: 0.875rem 2.5rem 0.875rem 1rem;
+    border: 1.5px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-dark);
+    background: var(--color-gray-50);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns=http://www.w3.org/2000/svg width=12 height=12 viewBox=0 0 24 24 fill=none stroke=%236b7280 stroke-width=2.5%3E%3Cpolyline points=6 9 12 15 18 9/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .form-select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background-color: white;
+    box-shadow: 0 0 0 4px rgba(0, 85, 204, 0.08);
+  }
+
+  .form-select:hover {
+    border-color: var(--color-gray-300);
+  }
+
+  .birthdate-select option {
+    padding: 0.5rem;
+  }
+
+  .birthdate-select option[value=""] {
+    color: var(--color-gray-400);
+  }
+
+  @media (max-width: 480px) {
+    .birthdate-wrapper {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+    .birthdate-year {
+      grid-column: span 2;
+    }
+  }
   .form-input {
     width: 100%;
     padding: 0.875rem 1rem;
