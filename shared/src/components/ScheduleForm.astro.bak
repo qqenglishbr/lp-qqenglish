@@ -446,8 +446,8 @@
           });
         }
 
-        // Wait for GTM to send events before redirect
-        setTimeout(() => { window.location.href = '/sucesso'; }, 800);
+        // Redirect to success page
+        window.location.href = '/sucesso';
       } else {
         throw new Error('Scheduling failed');
       }

@@ -1,0 +1,297 @@
+---
+// HeroRecovery - Hero com urgência para recuperação de leads
+---
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="badges animate-fade-up">
+        <span class="badge-exclusive">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+          </svg>
+          Oferta Exclusiva
+        </span>
+        <span class="badge-urgency">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12,6 12,12 16,14"/>
+          </svg>
+          Por Tempo Limitado
+        </span>
+      </div>
+
+      <h1 class="hero-title animate-fade-up delay-1">
+        Volte a estudar inglês com <span class="highlight">condições especiais!</span>
+      </h1>
+
+      <p class="hero-subtitle animate-fade-up delay-2">
+        Sabemos que a vida corrida atrapalha, mas preparamos uma oferta especial para você retomar seus estudos.
+      </p>
+
+      <div class="offer-highlight animate-fade-up delay-3">
+        <div class="offer-number">30</div>
+        <div class="offer-text">
+          <span class="offer-label">aulas por mês</span>
+          <span class="offer-price">por apenas <strong>R$ 140</strong>/mês</span>
+          <span class="offer-bonus">+ 24 tickets bônus nos 3 primeiros meses</span>
+        </div>
+      </div>
+
+      <div class="hero-cta animate-fade-up delay-4">
+        <a href="/agendamento-direto" class="btn-recovery btn-lg">
+          Agendar Minha Aula Agora
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <p class="cta-note">Aula experimental gratuita</p>
+      </div>
+    </div>
+
+    <div class="hero-visual animate-scale-in delay-2">
+      <div class="visual-card">
+        <img
+          src="/images/hero-recovery.webp"
+          alt="Professor QQEnglish em aula online"
+          width="480"
+          height="360"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="visual-badge">
+          <span class="visual-badge-value">R$ 4,67</span>
+          <span class="visual-badge-label">por aula</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-bg"></div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding: clamp(5rem, 12vw, 8rem) 0 clamp(4rem, 10vw, 6rem);
+    overflow: hidden;
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f0fdfa 100%);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 80%, rgba(22, 163, 74, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(251, 191, 36, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero .container {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .hero .container {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-content {
+      text-align: left;
+    }
+  }
+
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .badges {
+      justify-content: flex-start;
+    }
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+    color: var(--color-dark);
+  }
+
+  .hero-title .highlight {
+    color: var(--color-recovery-cta);
+    display: inline;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.0625rem, 2vw, 1.25rem);
+    color: var(--color-gray-600);
+    max-width: 540px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-subtitle {
+      margin: 0 0 2rem;
+    }
+  }
+
+  .offer-highlight {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 2rem;
+  }
+
+  .offer-number {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-recovery-cta);
+    line-height: 1;
+  }
+
+  .offer-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .offer-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .offer-price {
+    font-size: 1.125rem;
+    color: var(--color-dark);
+  }
+
+  .offer-price strong {
+    font-weight: 700;
+    color: var(--color-recovery-cta);
+  }
+
+  .offer-bonus {
+    font-size: 0.75rem;
+    color: var(--color-recovery-badge-text);
+    background: var(--color-recovery-badge);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    margin-top: 0.25rem;
+    display: inline-block;
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-cta {
+      align-items: flex-start;
+    }
+  }
+
+  .btn-lg {
+    padding: 1.125rem 2.5rem;
+    font-size: 1.125rem;
+  }
+
+  .cta-note {
+    font-size: 0.875rem;
+    color: var(--color-gray-500);
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .cta-note::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--color-recovery-success);
+    border-radius: 50%;
+  }
+
+  /* Visual */
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .visual-card {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+    background: white;
+  }
+
+  .visual-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .visual-badge {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--color-recovery-cta);
+    color: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .visual-badge-value {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .visual-badge-label {
+    font-size: 0.75rem;
+    opacity: 0.9;
+  }
+
+  /* Animation for badges on hover */
+  .badges span {
+    transition: transform var(--transition-fast);
+  }
+
+  .badges span:hover {
+    transform: scale(1.05);
+  }
+</style>

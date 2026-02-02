@@ -1,0 +1,115 @@
+---
+// Header simplificado para LP Recovery - sem navegação
+---
+
+<header class="header scrolled" id="header">
+  <div class="container">
+    <div class="header-content">
+      <a href="/" class="logo" aria-label="QQEnglish Home">
+        <img src="/images/logo-qqenglish.webp" alt="QQEnglish" width="140" height="32" />
+        <span class="logo-divider"></span>
+        <span class="logo-tagline">Gateway to the World</span>
+      </a>
+
+      <a href="/agendamento-direto" class="header-cta">
+        <span>Agendar Aula</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 0.75rem 0;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 1px 0 rgba(0, 85, 204, 0.08), var(--shadow-sm);
+  }
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  /* Logo */
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+  }
+
+  .logo img {
+    height: 32px;
+    width: auto;
+    transition: transform var(--transition-fast);
+  }
+
+  .logo:hover img {
+    transform: scale(1.02);
+  }
+
+  .logo-divider {
+    width: 1px;
+    height: 24px;
+    background: linear-gradient(180deg, transparent, var(--color-gray-300), transparent);
+  }
+
+  .logo-tagline {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .logo-tagline {
+      display: block;
+    }
+  }
+
+  /* CTA Button */
+  .header-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    background: var(--color-recovery-cta);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+    box-shadow: 0 2px 8px var(--color-recovery-cta-glow);
+  }
+
+  .header-cta:hover {
+    background: var(--color-recovery-cta-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px var(--color-recovery-cta-glow);
+  }
+
+  .header-cta svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .header-cta:hover svg {
+    transform: translateX(3px);
+  }
+</style>

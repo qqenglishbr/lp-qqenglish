@@ -1,0 +1,16 @@
+name = "ftl-recovery-lp"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "dist"
+
+# Domínio: ftl.qqenglish.com.br
+# Público: Leads que fizeram cadastro mas NÃO fizeram FTL
+
+[vars]
+GTM_ID = "GTM-NXPBNZQ"
+
+# N8N Webhooks:
+# - POST https://w.qqeng.me/webhook/agendamento-direto { student_id } -> disponibilidade
+# - POST https://w.qqeng.me/webhook/agendar { room-schedule-id, student_id } -> confirma
+#
+# Configure como secret no Cloudflare:
+# npx wrangler pages secret put N8N_WEBHOOK_URL

@@ -496,49 +496,6 @@ const countries = [
       const month = monthSelect?.value || "";
       const year = yearSelect?.value || "";
       if (day && month && year) {
-        birthdateHidden.value = ;
-      } else {
-        birthdateHidden.value = "";
-      }
-    }
-
-    daySelect?.addEventListener("change", updateBirthdate);
-    monthSelect?.addEventListener("change", updateBirthdate);
-    yearSelect?.addEventListener("change", updateBirthdate);
-  }
-
-  populateBirthdateSelectors();
-
-  // Birthdate selector population
-  function populateBirthdateSelectors() {
-    const daySelect = document.getElementById("birth-day") as HTMLSelectElement;
-    const yearSelect = document.getElementById("birth-year") as HTMLSelectElement;
-    const monthSelect = document.getElementById("birth-month") as HTMLSelectElement;
-    const birthdateHidden = document.getElementById("birthdate") as HTMLInputElement;
-
-    // Populate days (1-31)
-    for (let i = 1; i <= 31; i++) {
-      const option = document.createElement("option");
-      option.value = i.toString().padStart(2, "0");
-      option.textContent = i.toString();
-      daySelect?.appendChild(option);
-    }
-
-    // Populate years (current year - 3 to current year - 100)
-    const currentYear = new Date().getFullYear();
-    for (let i = currentYear - 3; i >= currentYear - 100; i--) {
-      const option = document.createElement("option");
-      option.value = i.toString();
-      option.textContent = i.toString();
-      yearSelect?.appendChild(option);
-    }
-
-    // Combine values into hidden field
-    function updateBirthdate() {
-      const day = daySelect?.value || "";
-      const month = monthSelect?.value || "";
-      const year = yearSelect?.value || "";
-      if (day && month && year) {
         birthdateHidden.value = year + "-" + month + "-" + day;
       } else {
         birthdateHidden.value = "";

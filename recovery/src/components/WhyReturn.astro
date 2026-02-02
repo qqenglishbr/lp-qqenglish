@@ -1,0 +1,151 @@
+---
+// WhyReturn - 4 benefícios de voltar a estudar
+const benefits = [
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="12" cy="12" r="10"/>
+      <polyline points="12,6 12,12 16,14"/>
+    </svg>`,
+    title: "Flexibilidade Total",
+    description: "Aulas disponíveis 24 horas, 7 dias por semana. Estude quando quiser, de onde estiver."
+  },
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+      <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+    </svg>`,
+    title: "Professores Certificados",
+    description: "Todos os nossos professores são certificados TESOL, garantindo qualidade no ensino."
+  },
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+      <line x1="8" y1="21" x2="16" y2="21"/>
+      <line x1="12" y1="17" x2="12" y2="21"/>
+    </svg>`,
+    title: "Aulas de 25 Minutos",
+    description: "Formato perfeito que cabe na sua rotina. Sem desculpas para não estudar."
+  },
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      <path d="M9 12l2 2 4-4"/>
+    </svg>`,
+    title: "Sem Compromisso",
+    description: "Cancele quando quiser, sem multas ou burocracia. Sua satisfação é nossa prioridade."
+  }
+];
+---
+
+<section class="why-return">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-badge">Por que voltar?</span>
+      <h2>Retome seus estudos com vantagens exclusivas</h2>
+    </div>
+
+    <div class="benefits-grid">
+      {benefits.map((benefit, index) => (
+        <div class="benefit-card reveal" style={`animation-delay: ${index * 0.1}s`}>
+          <div class="benefit-icon" set:html={benefit.icon} />
+          <h3>{benefit.title}</h3>
+          <p>{benefit.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-return {
+    padding: var(--section-padding) 0;
+    background: white;
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 3rem;
+  }
+
+  .section-badge {
+    display: inline-block;
+    padding: 0.375rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: var(--color-primary-subtle);
+    border-radius: var(--radius-full);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .section-header h2 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .benefits-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .benefits-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .benefit-card {
+    background: var(--color-gray-50);
+    padding: 2rem 1.5rem;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    transition: all var(--transition-base);
+    border: 1px solid transparent;
+  }
+
+  .benefit-card:hover {
+    background: white;
+    border-color: var(--color-gray-200);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+  }
+
+  .benefit-icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-recovery-cta) 0%, #15803d 100%);
+    color: white;
+    border-radius: var(--radius-lg);
+    margin: 0 auto 1.25rem;
+  }
+
+  .benefit-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-dark);
+  }
+
+  .benefit-card p {
+    font-size: 0.9375rem;
+    color: var(--color-gray-600);
+    line-height: 1.6;
+  }
+
+  /* Subtle animation on icon hover */
+  .benefit-card:hover .benefit-icon {
+    transform: scale(1.1);
+    transition: transform var(--transition-base);
+  }
+</style>

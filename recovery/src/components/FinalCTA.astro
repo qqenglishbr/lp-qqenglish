@@ -1,0 +1,181 @@
+---
+// FinalCTA - Chamada final para ação com urgência
+---
+
+<section class="final-cta">
+  <div class="container">
+    <div class="cta-card reveal">
+      <div class="cta-badge">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12,6 12,12 16,14"/>
+        </svg>
+        Oferta por tempo limitado
+      </div>
+
+      <h2>Não deixe para depois!</h2>
+      <p>Aproveite as condições especiais e retome seus estudos de inglês agora.</p>
+
+      <div class="offer-reminder">
+        <div class="offer-item">
+          <span class="offer-value">30</span>
+          <span class="offer-label">aulas/mês*</span>
+        </div>
+        <div class="offer-divider"></div>
+        <div class="offer-item">
+          <span class="offer-value">R$ 140</span>
+          <span class="offer-label">por mês</span>
+        </div>
+        <div class="offer-divider"></div>
+        <div class="offer-item">
+          <span class="offer-value">R$ 4,67</span>
+          <span class="offer-label">por aula</span>
+        </div>
+      </div>
+      <p class="offer-note">*24 tickets bônus válidos nos 3 primeiros meses</p>
+
+      <a href="/agendamento-direto" class="btn-recovery btn-xl">
+        Agendar Minha Aula Grátis
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+
+      <p class="cta-disclaimer">
+        Sua aula experimental é gratuita e sem compromisso
+      </p>
+    </div>
+  </div>
+
+  <div class="cta-bg"></div>
+</section>
+
+<style>
+  .final-cta {
+    position: relative;
+    padding: var(--section-padding) 0;
+    background: linear-gradient(135deg, #0a1628 0%, #1a2a42 100%);
+    overflow: hidden;
+  }
+
+  .cta-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(22, 163, 74, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 100% 100%, rgba(251, 191, 36, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .cta-card {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+  }
+
+  .cta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(251, 191, 36, 0.15);
+    color: var(--color-recovery-badge);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-card h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: white;
+    margin-bottom: 1rem;
+  }
+
+  .cta-card > p {
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+  }
+
+  .offer-reminder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-xl);
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .offer-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1rem;
+  }
+
+  .offer-value {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-recovery-cta);
+  }
+
+  .offer-label {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .offer-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  @media (max-width: 640px) {
+    .offer-divider {
+      display: none;
+    }
+
+    .offer-reminder {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .offer-item {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      width: 100%;
+    }
+
+    .offer-item:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .btn-xl {
+    padding: 1.25rem 3rem;
+    font-size: 1.25rem;
+  }
+
+  .cta-disclaimer {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .offer-note {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+  }
+</style>

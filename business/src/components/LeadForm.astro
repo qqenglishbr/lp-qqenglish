@@ -1,0 +1,491 @@
+---
+// Lead Form - Business English LP (B2B focused)
+---
+
+<section class="lead-section" id="lead-form">
+  <div class="section-bg">
+    <div class="bg-gradient"></div>
+    <div class="bg-pattern"></div>
+  </div>
+  
+  <div class="container">
+    <div class="lead-grid">
+      <div class="lead-content">
+        <span class="section-eyebrow">Fale conosco</span>
+        <h2 class="lead-title">Solicite uma proposta personalizada</h2>
+        <p class="lead-subtitle">
+          Nossa equipe de consultores entrará em contato para entender as necessidades 
+          da sua empresa e apresentar a melhor solução.
+        </p>
+        
+        <ul class="lead-benefits">
+          <li>
+            <div class="benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <div class="benefit-content">
+              <strong>Diagnóstico gratuito</strong>
+              <span>Avaliação do nível de inglês da equipe</span>
+            </div>
+          </li>
+          <li>
+            <div class="benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <div class="benefit-content">
+              <strong>Proposta sob medida</strong>
+              <span>Plano adaptado ao seu orçamento</span>
+            </div>
+          </li>
+          <li>
+            <div class="benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <div class="benefit-content">
+              <strong>Aula demonstrativa</strong>
+              <span>Experimente antes de contratar</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="form-wrapper">
+        <div class="form-card">
+          <div class="form-header">
+            <h3 class="form-title">Preencha seus dados</h3>
+            <p class="form-note">Responderemos em até 24h úteis</p>
+          </div>
+          
+          <form id="lead-form-main" class="lead-form" novalidate>
+            <div class="form-group">
+              <label for="nome" class="form-label">Nome completo</label>
+              <input type="text" id="nome" name="name" class="form-input" placeholder="Seu nome" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="email" class="form-label">E-mail corporativo</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="seu@empresa.com" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="telefone" class="form-label">Telefone/WhatsApp</label>
+              <input type="tel" id="telefone" name="phone" class="form-input" placeholder="(11) 99999-9999" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="empresa" class="form-label">Nome da empresa</label>
+              <input type="text" id="empresa" name="company" class="form-input" placeholder="Nome da empresa" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="funcionarios" class="form-label">Quantidade de colaboradores</label>
+              <select id="funcionarios" name="employees" class="form-select" required>
+                <option value="">Selecione</option>
+                <option value="1-10">1 a 10</option>
+                <option value="11-50">11 a 50</option>
+                <option value="51-200">51 a 200</option>
+                <option value="201-500">201 a 500</option>
+                <option value="500+">Mais de 500</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="cargo" class="form-label">Seu cargo <span class="optional">(opcional)</span></label>
+              <input type="text" id="cargo" name="job_title" class="form-input" placeholder="Ex: Gerente de RH">
+            </div>
+            
+            <!-- Hidden tracking fields -->
+            <input type="hidden" name="utm_source" id="utm_source">
+            <input type="hidden" name="utm_medium" id="utm_medium">
+            <input type="hidden" name="utm_campaign" id="utm_campaign">
+            <input type="hidden" name="landing_page_url" id="landing_page_url">
+            
+            <button type="submit" class="form-submit" id="submit-btn">
+              <span class="btn-text">Solicitar Proposta</span>
+              <span class="btn-loading">
+                <svg class="spinner" width="20" height="20" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="60" stroke-linecap="round"></circle>
+                </svg>
+              </span>
+              <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+            
+            <p class="form-disclaimer">
+              Ao enviar, você concorda com nossa 
+              <a href="/privacidade" target="_blank">política de privacidade</a>.
+            </p>
+          </form>
+          
+          <div class="form-success" id="form-success" style="display: none;">
+            <div class="success-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <h3 class="success-title">Solicitação enviada!</h3>
+            <p class="success-message">
+              Nossa equipe entrará em contato em breve para agendar uma apresentação.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Fill UTM fields
+  document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const utmFields = ["utm_source", "utm_medium", "utm_campaign"];
+    utmFields.forEach(field => {
+      const el = document.getElementById(field);
+      if (el) el.value = urlParams.get(field) || sessionStorage.getItem(field) || "";
+    });
+    
+    const landingUrl = document.getElementById("landing_page_url");
+    if (landingUrl) landingUrl.value = window.location.href;
+    
+    // Form submission
+    const form = document.getElementById("lead-form-main");
+    const submitBtn = document.getElementById("submit-btn");
+    const successEl = document.getElementById("form-success");
+    
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      submitBtn.classList.add("loading");
+      submitBtn.disabled = true;
+      
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      
+      try {
+        const response = await fetch("/api/lead", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+        
+        if (response.ok) {
+          form.style.display = "none";
+          successEl.style.display = "block";
+        } else {
+          throw new Error("Submission failed");
+        }
+      } catch (error) {
+        alert("Erro ao enviar. Tente novamente.");
+        submitBtn.classList.remove("loading");
+        submitBtn.disabled = false;
+      }
+    });
+  });
+</script>
+
+<style>
+  .lead-section {
+    position: relative;
+    padding: var(--section-padding) 0;
+    overflow: hidden;
+  }
+  
+  .section-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  
+  .bg-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #e8f4fd 50%, #f0f5fa 100%);
+  }
+  
+  .bg-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, var(--color-gray-200) 1px, transparent 0);
+    background-size: 40px 40px;
+    opacity: 0.5;
+  }
+  
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+  }
+  
+  .lead-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+  
+  .lead-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-dark);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  
+  .lead-subtitle {
+    font-size: 1.0625rem;
+    color: var(--color-gray-600);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  
+  .lead-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .lead-benefits li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .benefit-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0066dd 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .benefit-icon svg {
+    width: 14px;
+    height: 14px;
+    color: white;
+  }
+  
+  .benefit-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+  
+  .benefit-content strong {
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-dark);
+  }
+  
+  .benefit-content span {
+    font-size: 0.875rem;
+    color: var(--color-gray-500);
+  }
+  
+  .form-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .form-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: 2.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 20px 40px -10px rgba(0,85,204,0.1);
+    width: 100%;
+    max-width: 480px;
+    border: 1px solid var(--color-gray-100);
+  }
+  
+  .form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .form-title {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-note {
+    font-size: 0.875rem;
+    color: var(--color-gray-500);
+  }
+  
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+  
+  .form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-gray-700);
+    margin-bottom: 0.5rem;
+  }
+  
+  .optional {
+    font-weight: 400;
+    color: var(--color-gray-500);
+  }
+  
+  .form-input, .form-select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1.5px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    color: var(--color-dark);
+    background: var(--color-gray-50);
+    transition: all 0.2s ease;
+  }
+  
+  .form-input:focus, .form-select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(0,85,204,0.08);
+  }
+  
+  .form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%236b7280%27 stroke-width=%272.5%27%3E%3Cpolyline points=%276 9 12 15 18 9%27/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+  
+  .form-submit {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0066dd 100%);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  
+  .form-submit:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,85,204,0.35);
+  }
+  
+  .form-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .btn-loading {
+    display: none;
+  }
+  
+  .form-submit.loading .btn-text,
+  .form-submit.loading .btn-arrow {
+    visibility: hidden;
+  }
+  
+  .form-submit.loading .btn-loading {
+    display: block;
+    position: absolute;
+  }
+  
+  .spinner {
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  .form-disclaimer {
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  .form-disclaimer a {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+  
+  .form-success {
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+  
+  .success-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+    border-radius: 50%;
+    color: #16a34a;
+    margin-bottom: 1.5rem;
+  }
+  
+  .success-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 0.75rem;
+  }
+  
+  .success-message {
+    font-size: 1rem;
+    color: var(--color-gray-600);
+    line-height: 1.7;
+  }
+  
+  @media (max-width: 1024px) {
+    .lead-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .form-card {
+      padding: 1.75rem;
+    }
+  }
+</style>

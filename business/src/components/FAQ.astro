@@ -1,0 +1,189 @@
+---
+const faqs = [
+  {
+    question: "Como funciona o programa corporativo?",
+    answer: "Desenvolvemos um plano personalizado baseado nas necessidades da sua empresa. Cada colaborador recebe acesso individual à plataforma e pode agendar aulas 24h por dia, 7 dias por semana, com professores certificados."
+  },
+  {
+    question: "Qual o investimento por colaborador?",
+    answer: "O valor varia conforme o número de colaboradores e carga horária. Oferecemos planos a partir de R$ 99/mês por pessoa. Solicite uma proposta personalizada para sua empresa."
+  },
+  {
+    question: "Como é feito o acompanhamento de progresso?",
+    answer: "Você recebe relatórios mensais com evolução de cada colaborador: aulas realizadas, nível de progresso, frequência e métricas de aproveitamento. Tudo em um dashboard administrativo."
+  },
+  {
+    question: "As aulas são ao vivo ou gravadas?",
+    answer: "Todas as aulas são ao vivo, 1:1 com professor certificado TESOL. Isso garante personalização total e prática real de conversação em contextos de negócios."
+  },
+  {
+    question: "Posso fazer aulas pelo celular?",
+    answer: "Sim! Nossa plataforma funciona em computadores, tablets e smartphones. Os colaboradores podem estudar de qualquer lugar, inclusive em viagens de negócios."
+  },
+  {
+    question: "Vocês emitem certificado?",
+    answer: "Sim, emitimos certificados de conclusão para cada nível completado. Os certificados podem ser usados para comprovar horas de treinamento e desenvolvimento profissional."
+  }
+];
+---
+
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">Dúvidas</span>
+      <h2 class="section-title">Perguntas frequentes</h2>
+    </div>
+    
+    <div class="faq-grid">
+      {faqs.map((faq, index) => (
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span class="question-text">{faq.question}</span>
+            <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            <p>{faq.answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+    
+    <div class="faq-cta">
+      <p>Ainda tem dúvidas?</p>
+      <a href="#lead-form" class="btn-primary">Fale com um consultor</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    padding: var(--section-padding) 0;
+    background: white;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+  }
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+  
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-dark);
+  }
+  
+  .faq-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  
+  .faq-item {
+    background: var(--color-gray-50);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-gray-100);
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
+  
+  .faq-item:hover {
+    border-color: var(--color-gray-200);
+  }
+  
+  .faq-item[open] {
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+  
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+  
+  .question-text {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-dark);
+  }
+  
+  .chevron {
+    flex-shrink: 0;
+    color: var(--color-gray-400);
+    transition: transform 0.2s ease;
+  }
+  
+  .faq-item[open] .chevron {
+    transform: rotate(180deg);
+    color: var(--color-primary);
+  }
+  
+  .faq-answer {
+    padding: 0 1.5rem 1.5rem;
+  }
+  
+  .faq-answer p {
+    font-size: 0.9375rem;
+    color: var(--color-gray-600);
+    line-height: 1.7;
+  }
+  
+  .faq-cta {
+    text-align: center;
+    padding: 2rem;
+    background: var(--color-gray-50);
+    border-radius: var(--radius-lg);
+  }
+  
+  .faq-cta p {
+    font-size: 1rem;
+    color: var(--color-gray-600);
+    margin-bottom: 1rem;
+  }
+  
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.875rem 1.5rem;
+    background: var(--color-primary);
+    color: white;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  
+  .btn-primary:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+  }
+</style>

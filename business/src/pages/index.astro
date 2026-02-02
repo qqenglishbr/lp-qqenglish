@@ -1,106 +1,35 @@
 ---
-import Layout from '../../../shared/src/layouts/Layout.astro';
-import Header from '../../../shared/src/components/Header.astro';
-import Footer from '../../../shared/src/components/Footer.astro';
+import Layout from "../../../shared/src/layouts/Layout.astro";
+import Header from "../../../shared/src/components/Header.astro";
+import Footer from "../../../shared/src/components/Footer.astro";
+import CookieConsent from "../../../shared/src/components/CookieConsent.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Benefits from "../components/Benefits.astro";
+import Curriculos from "../components/Curriculos.astro";
+import LeadForm from "../components/LeadForm.astro";
+import FAQ from "../components/FAQ.astro";
 
-const title = "QQEnglish Business - Ingles Corporativo";
-const description = "Solucoes de ingles corporativo para empresas. Aulas personalizadas para equipes e executivos. Agende uma apresentacao gratuita!";
+const title = "QQEnglish Business - Inglês Corporativo para Empresas";
+const description = "Capacite sua equipe com inglês corporativo. Programas de Business English com aulas 1:1 ao vivo, 24h por dia. Global Business Skills, Business English e Callan for Business. Solicite uma proposta!";
+
+const navItems = [
+  { label: "Programas", href: "#curriculos" },
+  { label: "Sobre", href: "#sobre" },
+  { label: "FAQ", href: "#faq" }
+];
 ---
 
 <Layout title={title} description={description}>
-  <Header />
+  <Header navItems={navItems} ctaText="Solicitar Proposta" ctaHref="#lead-form" />
   <main>
-    <section class="hero">
-      <div class="container">
-        <h1>QQEnglish Business</h1>
-        <p class="subtitle">Ingles corporativo para sua empresa</p>
-        <p class="description">
-          Solucoes personalizadas de ingles para equipes e executivos.
-          Aumente a competitividade da sua empresa no mercado global.
-        </p>
-        <a href="#lead-form" class="cta-button">Agendar Apresentacao</a>
-      </div>
-    </section>
-
-    <section id="lead-form" class="lead-section">
-      <div class="container">
-        <h2>Agende uma apresentacao gratuita</h2>
-        <p>Em breve - Formulario de cadastro corporativo</p>
-      </div>
-    </section>
+    <Hero />
+    <About />
+    <Curriculos />
+    <Benefits />
+    <LeadForm />
+    <FAQ />
   </main>
   <Footer />
+  <CookieConsent />
 </Layout>
-
-<style>
-  .hero {
-    min-height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #3b82f6 100%);
-    padding: 4rem 1rem;
-    color: white;
-  }
-
-  .hero h1 {
-    font-size: 3rem;
-    color: white;
-    margin-bottom: 0.5rem;
-  }
-
-  .subtitle {
-    font-size: 1.5rem;
-    color: #93c5fd;
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
-
-  .description {
-    max-width: 600px;
-    margin: 0 auto 2rem;
-    font-size: 1.125rem;
-    color: #e0e7ff;
-    line-height: 1.7;
-  }
-
-  .cta-button {
-    display: inline-block;
-    padding: 1rem 2rem;
-    background: white;
-    color: #1e3a5f;
-    font-weight: 700;
-    font-size: 1.125rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    transition: all 0.2s ease;
-  }
-
-  .cta-button:hover {
-    background: #f0f9ff;
-    transform: translateY(-2px);
-  }
-
-  .lead-section {
-    padding: 4rem 1rem;
-    text-align: center;
-    background: white;
-  }
-
-  .lead-section h2 {
-    font-size: 2rem;
-    color: #1a1a2e;
-    margin-bottom: 1rem;
-  }
-
-  @media (max-width: 768px) {
-    .hero h1 {
-      font-size: 2rem;
-    }
-
-    .subtitle {
-      font-size: 1.25rem;
-    }
-  }
-</style>

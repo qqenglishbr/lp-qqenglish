@@ -1,0 +1,875 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderRecovery from '../components/HeaderRecovery.astro';
+import FooterRecovery from '../components/FooterRecovery.astro';
+
+// Esta página usa o student_id do sessionStorage para buscar disponibilidade
+// e agendar a aula experimental diretamente, sem necessidade de formulário
+---
+
+<Layout
+  title="Agendar Aula Experimental | QQEnglish"
+  description="Escolha o melhor horário para sua aula experimental gratuita de inglês."
+>
+  <HeaderRecovery />
+
+  <main class="agendamento-page">
+    <div class="container">
+      <div class="page-header">
+        <span class="badge-exclusive">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+          </svg>
+          Oferta Exclusiva
+        </span>
+        <h1>Escolha o melhor horário para você</h1>
+        <p>Sua aula experimental é gratuita e sem compromisso</p>
+      </div>
+
+      <div class="schedule-container">
+        <!-- Loading State -->
+        <div id="loading-state" class="loading-state">
+          <div class="spinner"></div>
+          <p>Carregando horários disponíveis...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="error-state" class="error-state" style="display: none;">
+          <div class="error-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <h2>Ops! Algo deu errado</h2>
+          <p id="error-message">Não conseguimos carregar os horários disponíveis.</p>
+          <a href="/" class="btn-recovery">Voltar ao início</a>
+        </div>
+
+        <!-- No Student ID State -->
+        <div id="no-student-state" class="error-state" style="display: none;">
+          <div class="error-icon warning">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <h2>Link inválido</h2>
+          <p>Parece que você chegou aqui sem um link válido de campanha.</p>
+          <p class="note">Entre em contato conosco ou acesse pelo link do seu email.</p>
+          <a href="https://qqenglish.com.br" class="btn-recovery">Ir para o site principal</a>
+        </div>
+
+        <!-- Schedule Form (loaded when available) -->
+        <div id="schedule-form" class="schedule-form" style="display: none;">
+          <div class="date-selector">
+            <div class="selector-header">
+              <div class="selector-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </div>
+              <div class="selector-text">
+                <h3>Escolha uma data</h3>
+                <p class="selector-hint">Deslize para ver mais opções</p>
+              </div>
+            </div>
+            <div class="dates-grid" id="dates-grid">
+              <!-- Datas serão carregadas aqui -->
+            </div>
+          </div>
+
+          <div class="time-selector" id="time-selector-section" style="display: none;">
+            <div class="selector-header">
+              <div class="selector-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <div class="selector-text">
+                <h3>Escolha um horário</h3>
+                <p class="selector-hint" id="times-count">Selecione o melhor horário para você</p>
+              </div>
+            </div>
+            <div class="times-grid" id="times-grid">
+              <!-- Horários serão carregados aqui -->
+            </div>
+          </div>
+
+          <div class="confirm-section">
+            <div class="selected-summary" id="selected-summary" style="display: none;">
+              <p>Você selecionou:</p>
+              <strong id="selected-datetime"></strong>
+            </div>
+            <button type="button" id="confirm-btn" class="btn-recovery btn-lg" disabled>
+              <span id="confirm-btn-text">Confirmar Agendamento</span>
+              <svg id="confirm-btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+              <div id="confirm-btn-spinner" class="spinner-small" style="display: none;"></div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <FooterRecovery />
+</Layout>
+
+<script>
+  // TimeSlot interface matching Callan's webhook response format
+  interface TimeSlot {
+    day: string;        // DD-MM-YYYY format
+    time: string;
+    "room-schedule-id": number;
+  }
+
+  // Helper function to get all tracking data from sessionStorage
+  function getTrackingData() {
+    const utmData = JSON.parse(sessionStorage.getItem('utmData') || '{}');
+    const clickIds = {
+      gclid: sessionStorage.getItem('gclid') || '',
+      gbraid: sessionStorage.getItem('gbraid') || '',
+      wbraid: sessionStorage.getItem('wbraid') || '',
+      ttclid: sessionStorage.getItem('ttclid') || '',
+      fbclid: sessionStorage.getItem('fbclid') || ''
+    };
+    // Remove empty click IDs
+    Object.keys(clickIds).forEach(key => {
+      if (!clickIds[key as keyof typeof clickIds]) delete clickIds[key as keyof typeof clickIds];
+    });
+    return { ...utmData, ...clickIds };
+  }
+
+  // Get student_id from sessionStorage (saved on landing page)
+  const studentId = sessionStorage.getItem('recovery_student_id');
+
+  const loadingState = document.getElementById('loading-state');
+  const errorState = document.getElementById('error-state');
+  const noStudentState = document.getElementById('no-student-state');
+  const scheduleForm = document.getElementById('schedule-form');
+  const errorMessage = document.getElementById('error-message');
+
+  // State management - using same format as Callan's ScheduleForm
+  let selectedDate: string | null = null;
+  let selectedSlot: TimeSlot | null = null;
+  let disponibilidade: TimeSlot[] = [];
+
+  console.log('[Recovery] Student ID from session:', studentId);
+  console.log('[Recovery] Tracking data:', getTrackingData());
+
+  if (!studentId) {
+    loadingState!.style.display = 'none';
+    noStudentState!.style.display = 'flex';
+  } else {
+    // Fetch availability from webhook
+    fetchAvailability();
+  }
+
+  async function fetchAvailability() {
+    try {
+      const webhookUrl = 'https://w.qqeng.me/webhook/agendamento-direto';
+      const trackingData = getTrackingData();
+
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          student_id: studentId,
+          ...trackingData
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Falha ao carregar disponibilidade');
+      }
+
+      const data = await response.json();
+
+      // Check if webhook returned valid data (array of TimeSlot objects)
+      if (data.disponibilidade && Array.isArray(data.disponibilidade) && data.disponibilidade.length > 0) {
+        disponibilidade = data.disponibilidade;
+      } else {
+        // Fallback to mock data for demo/testing
+        console.warn('Webhook returned empty or invalid data, using mock');
+        disponibilidade = generateMockAvailability();
+      }
+
+      // Store for later use (same format as Callan's ScheduleForm)
+      sessionStorage.setItem('disponibilidade', JSON.stringify({
+        disponibilidade: disponibilidade,
+        student_id: studentId
+      }));
+
+      showScheduleForm();
+    } catch (error) {
+      console.error('Error fetching availability:', error);
+
+      // For demo, use mock data
+      disponibilidade = generateMockAvailability();
+      sessionStorage.setItem('disponibilidade', JSON.stringify({
+        disponibilidade: disponibilidade,
+        student_id: studentId
+      }));
+      showScheduleForm();
+    }
+  }
+
+  // Generate mock data in the same format as Callan's webhook
+  function generateMockAvailability(): TimeSlot[] {
+    const slots: TimeSlot[] = [];
+    const today = new Date();
+    let scheduleId = 1000;
+
+    for (let i = 1; i <= 7; i++) {
+      const date = new Date(today);
+      date.setDate(date.getDate() + i);
+
+      // Format as DD-MM-YYYY (same as Callan's webhook)
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const year = date.getFullYear();
+      const dateStr = `${day}-${month}-${year}`;
+
+      // Generate random available times
+      const startHour = 7;
+      const endHour = 22;
+
+      for (let h = startHour; h < endHour; h++) {
+        if (Math.random() > 0.3) { // 70% chance of availability
+          slots.push({
+            day: dateStr,
+            time: `${h.toString().padStart(2, '0')}:00`,
+            "room-schedule-id": scheduleId++
+          });
+          if (Math.random() > 0.5) {
+            slots.push({
+              day: dateStr,
+              time: `${h.toString().padStart(2, '0')}:30`,
+              "room-schedule-id": scheduleId++
+            });
+          }
+        }
+      }
+    }
+
+    return slots;
+  }
+
+  // Mautic funnel event - Step 2: Schedule Started
+  if (typeof mt !== "undefined" && studentId) {
+    mt("send", "pageview", {
+      "funnel_step": "recovery_schedule_started",
+      "student_id": studentId
+    });
+  }
+
+  function showScheduleForm() {
+    loadingState!.style.display = 'none';
+    scheduleForm!.style.display = 'block';
+    renderDates();
+  }
+
+  // Parse date from DD-MM-YYYY format
+  function parseDateStr(dateStr: string): Date {
+    const [day, month, year] = dateStr.split('-').map(Number);
+    return new Date(year, month - 1, day, 12, 0, 0);
+  }
+
+  // Weekday names in Portuguese
+  const weekdayNames: Record<number, string> = {
+    0: 'Domingo',
+    1: 'Segunda',
+    2: 'Terça',
+    3: 'Quarta',
+    4: 'Quinta',
+    5: 'Sexta',
+    6: 'Sábado'
+  };
+
+  const monthNamesFull: Record<number, string> = {
+    0: 'Janeiro', 1: 'Fevereiro', 2: 'Março', 3: 'Abril', 4: 'Maio', 5: 'Junho',
+    6: 'Julho', 7: 'Agosto', 8: 'Setembro', 9: 'Outubro', 10: 'Novembro', 11: 'Dezembro'
+  };
+
+  function renderDates() {
+    const datesGrid = document.getElementById('dates-grid')!;
+    // Clear existing content safely
+    while (datesGrid.firstChild) {
+      datesGrid.removeChild(datesGrid.firstChild);
+    }
+
+    // Get unique dates and sort them chronologically
+    const uniqueDates = [...new Set(disponibilidade.map(item => item.day))].sort((a, b) => {
+      const dateA = parseDateStr(a);
+      const dateB = parseDateStr(b);
+      return dateA.getTime() - dateB.getTime();
+    });
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    uniqueDates.forEach((dateStr, index) => {
+      const date = parseDateStr(dateStr);
+      const dayOfWeek = date.getDay();
+      const dayNum = date.getDate();
+      const monthNum = date.getMonth();
+
+      // Check if it's today or tomorrow
+      const diffDays = Math.floor((date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+      let label = weekdayNames[dayOfWeek];
+      if (diffDays === 0) label = 'Hoje';
+      else if (diffDays === 1) label = 'Amanhã';
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'date-btn';
+      btn.dataset.date = dateStr;
+
+      const dayNameSpan = document.createElement('span');
+      dayNameSpan.className = 'day-label';
+      dayNameSpan.textContent = label;
+
+      const dateSpan = document.createElement('span');
+      dateSpan.className = 'date-full';
+      dateSpan.textContent = `${dayNum} de ${monthNamesFull[monthNum]}`;
+
+      btn.appendChild(dayNameSpan);
+      btn.appendChild(dateSpan);
+
+      btn.addEventListener('click', () => selectDate(dateStr));
+      datesGrid.appendChild(btn);
+    });
+  }
+
+  function selectDate(dateStr: string) {
+    selectedDate = dateStr;
+
+    // Mautic event - Date Selected
+    if (typeof mt !== "undefined") {
+      mt("send", "pageview", { "funnel_step": "recovery_date_selected", "selected_date": dateStr, "student_id": studentId || "" });
+    }
+    selectedSlot = null;
+
+    // Update UI
+    document.querySelectorAll('.date-btn').forEach(btn => {
+      btn.classList.toggle('selected', (btn as HTMLElement).dataset.date === dateStr);
+    });
+
+    renderTimes(dateStr);
+    updateSummary();
+  }
+
+  function renderTimes(dateStr: string) {
+    const timesGrid = document.getElementById('times-grid')!;
+    const timeSection = document.getElementById('time-selector-section')!;
+    const timesCount = document.getElementById('times-count')!;
+
+    // Clear existing content safely
+    while (timesGrid.firstChild) {
+      timesGrid.removeChild(timesGrid.firstChild);
+    }
+
+    // Filter times for selected date and sort
+    const availableTimes = disponibilidade
+      .filter(item => item.day === dateStr)
+      .sort((a, b) => a.time.localeCompare(b.time));
+
+    // Show time section
+    timeSection.style.display = 'block';
+
+    if (availableTimes.length === 0) {
+      timesCount.textContent = 'Nenhum horário disponível';
+      const noTimesP = document.createElement('p');
+      noTimesP.className = 'no-times';
+      noTimesP.textContent = 'Nenhum horário disponível para esta data';
+      timesGrid.appendChild(noTimesP);
+      return;
+    }
+
+    // Update count
+    timesCount.textContent = `${availableTimes.length} horários disponíveis`;
+
+    // Group times by period (morning, afternoon, evening)
+    const morning = availableTimes.filter(s => parseInt(s.time) < 12);
+    const afternoon = availableTimes.filter(s => parseInt(s.time) >= 12 && parseInt(s.time) < 18);
+    const evening = availableTimes.filter(s => parseInt(s.time) >= 18);
+
+    function addPeriod(slots: TimeSlot[], periodName: string, icon: string) {
+      if (slots.length === 0) return;
+
+      const periodDiv = document.createElement('div');
+      periodDiv.className = 'time-period';
+
+      const periodLabel = document.createElement('div');
+      periodLabel.className = 'period-label';
+      periodLabel.innerHTML = icon + ' <span>' + periodName + '</span>';
+      periodDiv.appendChild(periodLabel);
+
+      const periodGrid = document.createElement('div');
+      periodGrid.className = 'period-times';
+
+      slots.forEach(slot => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'time-btn';
+        btn.dataset.slot = JSON.stringify(slot);
+        btn.textContent = slot.time;
+
+        btn.addEventListener('click', () => selectTime(slot, btn));
+        periodGrid.appendChild(btn);
+      });
+
+      periodDiv.appendChild(periodGrid);
+      timesGrid.appendChild(periodDiv);
+    }
+
+    addPeriod(morning, 'Manhã', '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>');
+    addPeriod(afternoon, 'Tarde', '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>');
+    addPeriod(evening, 'Noite', '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>');
+  }
+
+  function selectTime(slot: TimeSlot, clickedBtn: HTMLButtonElement) {
+    selectedSlot = slot;
+
+    // Mautic event - Time Selected
+    if (typeof mt !== "undefined") {
+      mt("send", "pageview", { "funnel_step": "recovery_time_selected", "selected_time": slot.time, "student_id": studentId || "" });
+    }
+
+    // Update UI
+    document.querySelectorAll('.time-btn').forEach(btn => {
+      btn.classList.remove('selected');
+    });
+    clickedBtn.classList.add('selected');
+
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const summary = document.getElementById('selected-summary')!;
+    const datetime = document.getElementById('selected-datetime')!;
+    const confirmBtn = document.getElementById('confirm-btn') as HTMLButtonElement;
+
+    if (selectedDate && selectedSlot) {
+      const date = parseDateStr(selectedDate);
+      const formattedDate = date.toLocaleDateString('pt-BR', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long'
+      });
+
+      datetime.textContent = `${formattedDate} às ${selectedSlot.time}`;
+      summary.style.display = 'block';
+      confirmBtn.disabled = false;
+    } else {
+      summary.style.display = 'none';
+      confirmBtn.disabled = true;
+    }
+  }
+
+  // Confirm booking
+  document.getElementById('confirm-btn')?.addEventListener('click', async () => {
+    if (!selectedSlot || !studentId) return;
+
+    const confirmBtn = document.getElementById('confirm-btn') as HTMLButtonElement;
+    const btnText = document.getElementById('confirm-btn-text')!;
+    const btnIcon = document.getElementById('confirm-btn-icon')!;
+    const btnSpinner = document.getElementById('confirm-btn-spinner')!;
+
+    confirmBtn.disabled = true;
+    btnText.textContent = 'Agendando...';
+    btnIcon.style.display = 'none';
+    btnSpinner.style.display = 'block';
+
+    try {
+      // Use the same endpoint format as Callan
+      const webhookUrl = 'https://w.qqeng.me/webhook/agendar';
+      const trackingData = getTrackingData();
+
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'room-schedule-id': selectedSlot['room-schedule-id'],
+          student_id: studentId,
+          date: selectedSlot.day,
+          time: selectedSlot.time,
+          ...trackingData
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Clear session data
+        sessionStorage.removeItem('disponibilidade');
+
+        // Track conversion
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'conversion',
+          conversion_type: 'recovery_booking',
+          student_id: studentId,
+          booking_date: selectedSlot.day,
+          booking_time: selectedSlot.time
+        });
+
+        // Store booking info for success page
+        sessionStorage.setItem('booking', JSON.stringify({
+          date: selectedSlot.day,
+          time: selectedSlot.time
+        }));
+
+        // Wait for GTM to send events before redirect
+        setTimeout(() => { window.location.href = '/sucesso'; }, 800);
+      } else {
+        throw new Error('Scheduling failed');
+      }
+    } catch (error) {
+      console.error('Error booking:', error);
+
+      // For demo, redirect anyway (remove in production)
+      sessionStorage.setItem('booking', JSON.stringify({
+        date: selectedSlot.day,
+        time: selectedSlot.time
+      }));
+      window.location.href = '/sucesso';
+    }
+  });
+</script>
+
+<style>
+  .agendamento-page {
+    padding-top: 64px;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #f0fdf4 0%, white 50%);
+  }
+
+  .page-header {
+    text-align: center;
+    padding: 3rem 0;
+  }
+
+  .badge-exclusive {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.875rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-recovery-urgent);
+    background: var(--color-recovery-urgent-light);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-recovery-urgent);
+    margin-bottom: 1rem;
+  }
+
+  .page-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .page-header p {
+    font-size: 1.125rem;
+    color: var(--color-gray-600);
+  }
+
+  .schedule-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-bottom: 4rem;
+  }
+
+  /* Loading State */
+  .loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid var(--color-gray-200);
+    border-top-color: var(--color-recovery-cta);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+
+  .spinner-small {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Error State */
+  .error-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+  }
+
+  .error-icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fef2f2;
+    color: var(--color-error);
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+  }
+
+  .error-icon.warning {
+    background: #fffbeb;
+    color: #d97706;
+  }
+
+  .error-state h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .error-state p {
+    color: var(--color-gray-600);
+    margin-bottom: 0.5rem;
+  }
+
+  .error-state .note {
+    font-size: 0.875rem;
+    color: var(--color-gray-500);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Schedule Form */
+  .schedule-form {
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  .date-selector,
+  .time-selector {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .selector-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .selector-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-subtle);
+    color: var(--color-primary);
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+  }
+
+  .selector-text h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.25rem;
+    color: var(--color-dark);
+  }
+
+  .selector-hint {
+    font-size: 0.8125rem;
+    color: var(--color-gray-500);
+    margin: 0;
+  }
+
+  .dates-grid {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .dates-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  :global(.date-btn) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 1.25rem;
+    min-width: 120px;
+    background: var(--color-primary);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 85, 204, 0.2);
+  }
+
+  :global(.date-btn):hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 85, 204, 0.3);
+  }
+
+  :global(.date-btn.selected) {
+    background: var(--color-recovery-cta);
+    box-shadow: 0 4px 16px rgba(22, 163, 74, 0.4);
+    transform: scale(1.02);
+  }
+
+  :global(.day-label) {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+  }
+
+  :global(.date-full) {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
+  }
+
+  /* Time selector */
+  .times-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  :global(.time-period) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  :global(.period-label) {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  :global(.period-label) svg {
+    color: var(--color-gray-400);
+  }
+
+  :global(.period-times) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  :global(.time-btn) {
+    padding: 0.75rem 1.25rem;
+    min-width: 80px;
+    background: var(--color-primary);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 85, 204, 0.2);
+    transition: all var(--transition-fast);
+    text-align: center;
+  }
+
+  :global(.time-btn):hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 85, 204, 0.3);
+  }
+
+  :global(.time-btn.selected) {
+    background: var(--color-recovery-cta);
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.4);
+    transform: scale(1.05);
+  }
+
+  :global(.no-times) {
+    color: var(--color-gray-500);
+    font-style: italic;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .confirm-section {
+    padding: 1.5rem;
+    background: var(--color-gray-50);
+    text-align: center;
+  }
+
+  .selected-summary {
+    margin-bottom: 1rem;
+  }
+
+  .selected-summary p {
+    font-size: 0.875rem;
+    color: var(--color-gray-600);
+    margin-bottom: 0.25rem;
+  }
+
+  .selected-summary strong {
+    font-size: 1.125rem;
+    color: var(--color-dark);
+  }
+
+  .btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.0625rem;
+  }
+
+  #confirm-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+</style>

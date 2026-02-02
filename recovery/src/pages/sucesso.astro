@@ -1,0 +1,274 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderRecovery from '../components/HeaderRecovery.astro';
+import FooterRecovery from '../components/FooterRecovery.astro';
+---
+
+<Layout
+  title="Aula Agendada com Sucesso! | QQEnglish"
+  description="Sua aula experimental de inglês foi agendada com sucesso. Prepare-se para sua jornada de aprendizado!"
+>
+  <HeaderRecovery />
+
+  <main class="success-page">
+    <div class="container">
+      <div class="success-card">
+        <div class="success-icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+            <polyline points="22,4 12,14.01 9,11.01"/>
+          </svg>
+        </div>
+
+        <h1>Aula Agendada!</h1>
+        <p class="success-message">Sua aula experimental foi agendada com sucesso.</p>
+
+        <div class="booking-details" id="booking-details">
+          <p class="label">Data e horário:</p>
+          <p class="value" id="booking-datetime">-</p>
+        </div>
+
+        <div class="next-steps">
+          <h2>Próximos passos</h2>
+          <ul>
+            <li>
+              <span class="step-number">1</span>
+              <span class="step-text">Você receberá um email de confirmação com os detalhes da sua aula</span>
+            </li>
+            <li>
+              <span class="step-number">2</span>
+              <span class="step-text">Acesse a plataforma QQEnglish no horário agendado</span>
+            </li>
+            <li>
+              <span class="step-number">3</span>
+              <span class="step-text">Aproveite sua aula experimental com um professor certificado</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="offer-reminder">
+          <p class="offer-badge">Lembre-se da sua oferta exclusiva!</p>
+          <p class="offer-text">30 aulas por mês por apenas <strong>R$ 140</strong></p>
+        </div>
+
+        <div class="cta-section">
+          <a href="https://qqenglish.com.br" class="btn-secondary">
+            Conhecer mais sobre a QQEnglish
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <FooterRecovery />
+</Layout>
+
+<script>
+  // Get booking info from sessionStorage
+  const bookingData = sessionStorage.getItem('booking');
+
+  if (bookingData) {
+    try {
+      const booking = JSON.parse(bookingData);
+      const dateElement = document.getElementById('booking-datetime');
+
+      if (booking.date && booking.time && dateElement) {
+        // Parse DD-MM-YYYY format
+        const [day, month, year] = booking.date.split("-").map(Number);
+        const date = new Date(year, month - 1, day, 12, 0, 0);
+        const formattedDate = date.toLocaleDateString('pt-BR', {
+          weekday: 'long',
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        });
+
+        dateElement.textContent = `${formattedDate} às ${booking.time}`;
+      }
+    } catch (e) {
+      console.error('Error parsing booking data:', e);
+    }
+  }
+
+  // Track successful conversion
+
+  // Mautic funnel event - Step 3: Schedule Completed (Conversion!)
+  const studentIdSuccess = sessionStorage.getItem("recovery_student_id");
+  if (typeof mt !== "undefined") {
+    mt("send", "pageview", {
+      "funnel_step": "recovery_schedule_completed",
+      "student_id": studentIdSuccess || "",
+      "conversion": true
+    });
+  }
+
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'page_view',
+    page_type: 'success',
+    conversion_type: 'recovery_complete'
+  });
+</script>
+
+<style>
+  .success-page {
+    padding-top: 64px;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #f0fdf4 0%, white 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .success-card {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 3rem 2rem;
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+  }
+
+  .success-icon {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-recovery-cta) 0%, var(--color-recovery-success) 100%);
+    color: white;
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+  }
+
+  .success-card h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-recovery-cta);
+  }
+
+  .success-message {
+    font-size: 1.125rem;
+    color: var(--color-gray-600);
+    margin-bottom: 2rem;
+  }
+
+  .booking-details {
+    background: var(--color-gray-50);
+    padding: 1.25rem;
+    border-radius: var(--radius-lg);
+    margin-bottom: 2rem;
+  }
+
+  .booking-details .label {
+    font-size: 0.875rem;
+    color: var(--color-gray-500);
+    margin-bottom: 0.25rem;
+  }
+
+  .booking-details .value {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-dark);
+  }
+
+  .next-steps {
+    text-align: left;
+    margin-bottom: 2rem;
+  }
+
+  .next-steps h2 {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .next-steps ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .next-steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--color-gray-50);
+    border-radius: var(--radius-md);
+  }
+
+  .step-number {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-recovery-cta);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.875rem;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .step-text {
+    font-size: 0.9375rem;
+    color: var(--color-gray-700);
+    line-height: 1.5;
+  }
+
+  .offer-reminder {
+    padding: 1.5rem;
+    background: rgba(22, 163, 74, 0.1);
+    border: 1px dashed var(--color-recovery-cta);
+    border-radius: var(--radius-lg);
+    margin-bottom: 2rem;
+  }
+
+  .offer-badge {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-recovery-cta);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .offer-text {
+    font-size: 1.125rem;
+    color: var(--color-dark);
+  }
+
+  .offer-text strong {
+    color: var(--color-recovery-cta);
+    font-weight: 700;
+  }
+
+  .cta-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: var(--color-primary-subtle);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-primary);
+    color: white;
+  }
+</style>

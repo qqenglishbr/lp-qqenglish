@@ -1,0 +1,284 @@
+---
+// Sobre a QQEnglish
+---
+
+<section class="about" id="sobre">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-content">
+        <span class="section-eyebrow">Sobre a QQEnglish</span>
+        <h2 class="about-title">
+          Especialistas em ensino de inglês
+          <span class="highlight">desde 2009</span>
+        </h2>
+        
+        <p class="about-text">
+          A QQEnglish é uma das maiores escolas de inglês online do mundo, 
+          com sede nas Filipinas e operações em mais de 30 países. 
+          Somos reconhecidos pela qualidade dos nossos professores e 
+          pela eficácia dos nossos métodos de ensino.
+        </p>
+        
+        <p class="about-text">
+          Todos os nossos professores são funcionários em tempo integral, 
+          não freelancers. Eles passam por rigoroso processo seletivo e 
+          treinamento contínuo, garantindo aulas de alta qualidade em 
+          todos os horários.
+        </p>
+        
+        <div class="about-highlights">
+          <div class="highlight-item">
+            <span class="highlight-icon">🎓</span>
+            <div class="highlight-content">
+              <strong>100% certificados TESOL</strong>
+              <span>Teaching English to Speakers of Other Languages</span>
+            </div>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-icon">🏢</span>
+            <div class="highlight-content">
+              <strong>Funcionários em tempo integral</strong>
+              <span>Não trabalhamos com freelancers</span>
+            </div>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-icon">📚</span>
+            <div class="highlight-content">
+              <strong>Método Callan certificado</strong>
+              <span>Escola oficial do Callan Method Organization</span>
+            </div>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-icon">🌍</span>
+            <div class="highlight-content">
+              <strong>Presença global</strong>
+              <span>Alunos em mais de 30 países</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="about-stats">
+        <div class="stats-card">
+          <div class="stat-item">
+            <span class="stat-number">1.300+</span>
+            <span class="stat-label">Professores certificados</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">30+</span>
+            <span class="stat-label">Países atendidos</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">300.000+</span>
+            <span class="stat-label">Alunos formados</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">15+</span>
+            <span class="stat-label">Anos de experiência</span>
+          </div>
+        </div>
+        
+        <div class="certifications">
+          <span class="cert-label">Certificações e parcerias:</span>
+          <div class="cert-logos">
+            <div class="cert-item">
+              <span class="cert-badge">TESOL</span>
+              <span class="cert-name">Certified</span>
+            </div>
+            <div class="cert-item">
+              <span class="cert-badge">Callan</span>
+              <span class="cert-name">Method</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding: var(--section-padding) 0;
+    background: white;
+  }
+  
+  .container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+  }
+  
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+  
+  .about-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 700;
+    color: var(--color-dark);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+  
+  .about-title .highlight {
+    color: var(--color-primary);
+  }
+  
+  .about-text {
+    font-size: 1rem;
+    color: var(--color-gray-600);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+  }
+  
+  .about-highlights {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  
+  .highlight-item {
+    display: flex;
+    gap: 0.875rem;
+    padding: 1rem;
+    background: var(--color-gray-50);
+    border-radius: var(--radius-md);
+  }
+  
+  .highlight-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  
+  .highlight-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+  
+  .highlight-content strong {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-dark);
+  }
+  
+  .highlight-content span {
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+  }
+  
+  .about-stats {
+    position: sticky;
+    top: 100px;
+  }
+  
+  .stats-card {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #1e40af 100%);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  
+  .stat-item {
+    text-align: center;
+  }
+  
+  .stat-number {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: 0.25rem;
+  }
+  
+  .stat-label {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .certifications {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: var(--color-gray-50);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+  
+  .cert-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+  
+  .cert-logos {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .cert-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  
+  .cert-badge {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-dark);
+  }
+  
+  .cert-name {
+    font-size: 0.6875rem;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+  }
+  
+  @media (max-width: 1024px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .about-stats {
+      position: static;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .about-highlights {
+      grid-template-columns: 1fr;
+    }
+    
+    .stats-card {
+      gap: 1.5rem;
+    }
+    
+    .stat-number {
+      font-size: 1.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderRecovery from '../components/HeaderRecovery.astro';
+import HeroRecovery from '../components/HeroRecovery.astro';
+import OfferCard from '../components/OfferCard.astro';
+import WhyReturn from '../components/WhyReturn.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import TestimonialsSimple from '../components/TestimonialsSimple.astro';
+import FAQRecovery from '../components/FAQRecovery.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import FooterRecovery from '../components/FooterRecovery.astro';
+---
+
+<Layout
+  title="Volte a estudar inglês com condições especiais | QQEnglish"
+  description="Oferta exclusiva para você retomar seus estudos de inglês. 30 aulas por mês por apenas R$ 140. Agende sua aula experimental gratuita agora!"
+>
+  <HeaderRecovery />
+
+  <main>
+    <HeroRecovery />
+    <OfferCard />
+    <WhyReturn />
+    <HowItWorks />
+    <TestimonialsSimple />
+    <FAQRecovery />
+    <FinalCTA />
+  </main>
+
+  <FooterRecovery />
+</Layout>
+
+<style>
+  main {
+    padding-top: 64px; /* Space for fixed header */
+  }
+</style>
+
+<script is:inline>
+  // Capture and store tracking data from URL on first page load
+  // Data will be sent via POST when scheduling
+  (function() {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Capture student_id
+    const studentId = urlParams.get('student_id');
+    if (studentId) {
+      sessionStorage.setItem('recovery_student_id', studentId);
+      console.log('[Recovery] Saved student_id:', studentId);
+    }
+
+    // Capture UTM params (Layout already does this, but ensure it's done)
+    const utmParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    const hasNewUtm = utmParams.some(param => urlParams.get(param));
+
+    if (hasNewUtm) {
+      const utmData = {
+        utm_source: urlParams.get('utm_source') || '(direct)',
+        utm_medium: urlParams.get('utm_medium') || '(none)',
+        utm_campaign: urlParams.get('utm_campaign') || '(not set)',
+        utm_content: urlParams.get('utm_content') || '',
+        utm_term: urlParams.get('utm_term') || ''
+      };
+      sessionStorage.setItem('utmData', JSON.stringify(utmData));
+      console.log('[Recovery] Saved UTM data:', utmData);
+    }
+
+    // Capture click IDs
+    const clickIdParams = ['gclid', 'gbraid', 'wbraid', 'ttclid', 'fbclid'];
+    clickIdParams.forEach(param => {
+      const value = urlParams.get(param);
+      if (value) {
+        sessionStorage.setItem(param, value);
+        console.log('[Recovery] Saved ' + param + ':', value);
+      }
+    });
+
+
+    // Mautic funnel event - Step 1: Offer Viewed
+    if (typeof mt !== "undefined") {
+      mt("send", "pageview", {
+        "funnel_step": "recovery_offer_viewed",
+        "student_id": storedStudentId || studentId || ""
+      });
+    }
+
+    // Log current stored data for debugging
+    const storedStudentId = sessionStorage.getItem('recovery_student_id');
+    if (storedStudentId) {
+      console.log('[Recovery] Current student_id in session:', storedStudentId);
+    } else {
+      console.warn('[Recovery] No student_id found - user may have accessed without campaign link');
+    }
+  })();
+</script>
