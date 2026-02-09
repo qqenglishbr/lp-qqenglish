@@ -1,0 +1,9 @@
+name = "promo-lp"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "dist"
+
+# Domínio: promo.qqenglish.com.br
+# Público: Leads que já fizeram FTL (Pós-FTL)
+
+[vars]
+GTM_ID = "GTM-NXPBNZQ"

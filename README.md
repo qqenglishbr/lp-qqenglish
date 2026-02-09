@@ -1,20 +1,40 @@
-# QQEnglish Landing Page
+# QQEnglish Landing Pages
 
-Landing page de alta performance para captura de leads, construída com Astro e otimizada para Cloudflare Pages.
+Monorepo contendo as Landing Pages de alta performance da QQEnglish, construídas com Astro e deployadas no Cloudflare Pages.
 
 ## Stack
 
 - **Framework**: Astro 4.x
-- **Hosting**: Cloudflare Pages
+- **Hosting**: Cloudflare Pages (SSR mode)
 - **Tracking**: GTM + GA4 + Meta Pixel + Conversions API
 - **Webhook**: N8N
 
-## Performance
+## Estrutura do Monorepo
 
-- Zero JavaScript framework (HTML/CSS puro por padrão)
-- Score Lighthouse esperado: 95+
-- TTFB < 100ms (edge global)
-- FCP < 1.5s
+```
+lp-qqenglish/
+├── shared/               # Código compartilhado por todas as LPs
+│   └── src/
+│       ├── components/   # Header, Footer, CookieConsent, ValidationForm, ScheduleForm
+│       ├── layouts/      # Layout.astro base
+│       └── pages/        # Páginas comuns (validacao, agendamento, sucesso)
+├── callan/               # LP Método Callan
+├── kids/                 # LP QQEnglish Kids
+├── business/             # LP QQEnglish Business
+├── promo/                # LP Pós-FTL (leads → checkout)
+├── recovery/             # LP FTL Recovery
+└── guides/               # Guias de desenvolvimento
+```
+
+## Landing Pages
+
+| LP | Descrição | URL |
+|----|-----------|-----|
+| **Callan** | LP principal do Método Callan | https://callan.qqenglish.com.br |
+| **Kids** | LP para público infantil | https://kids.qqenglish.com.br |
+| **Business** | LP para empresas | https://business.qqenglish.com.br |
+| **Promo** | Pós-FTL (direto ao checkout) | https://promo.qqenglish.com.br |
+| **Recovery** | FTL Recovery (leads que não completaram) | https://recovery.qqenglish.com.br |
 
 ## Configuração
 
@@ -26,10 +46,10 @@ npm install
 
 ### 2. Configurar variáveis de ambiente
 
-Copie `.env.example` para `.env` e preencha:
+Copie `.env.example` para `.env` em cada LP e preencha:
 
 ```bash
-cp .env.example .env
+cp callan/.env.example callan/.env
 ```
 
 Variáveis necessárias:
@@ -39,72 +59,46 @@ Variáveis necessárias:
 - `META_ACCESS_TOKEN` - Token para Conversions API
 - `N8N_WEBHOOK_URL` - URL do webhook no N8N
 
-### 3. Desenvolvimento local
+## Comandos
+
+### Desenvolvimento
 
 ```bash
-npm run dev
+npm run dev:callan        # http://localhost:4321
+npm run dev:kids
+npm run dev:business
+npm run dev:promo
+npm run dev:recovery
 ```
 
-Acesse: http://localhost:4321
-
-### 4. Build
+### Build
 
 ```bash
-npm run build
+npm run build:callan
+npm run build:kids
+npm run build:business
+npm run build:promo
+npm run build:recovery
+npm run build:all         # Build de todos
 ```
 
-## Deploy no Cloudflare Pages
-
-### Via Dashboard
-
-1. Conecte seu repositório Git no Cloudflare Pages
-2. Configure:
-   - Build command: `npm run build`
-   - Build output: `dist`
-3. Adicione as variáveis de ambiente em Settings > Environment Variables
-
-### Via Wrangler CLI
+### Deploy (Cloudflare Pages)
 
 ```bash
-# Login
-npx wrangler login
-
-# Deploy
-npx wrangler pages deploy dist
+npx wrangler login        # Login no Cloudflare (uma vez)
+npm run deploy:callan
+npm run deploy:kids
+npm run deploy:business
+npm run deploy:promo
+npm run deploy:recovery
 ```
 
-### Configurar Secrets
+### Configurar Secrets no Cloudflare
 
 ```bash
 npx wrangler pages secret put META_PIXEL_ID
 npx wrangler pages secret put META_ACCESS_TOKEN
 npx wrangler pages secret put N8N_WEBHOOK_URL
-```
-
-## Estrutura do Projeto
-
-```
-lp-qqenglish/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   ├── Hero.astro         # Hero + formulário de lead
-│   │   ├── Benefits.astro     # Seção de benefícios
-│   │   ├── Testimonials.astro # Depoimentos
-│   │   ├── FAQ.astro          # Perguntas frequentes
-│   │   └── FinalCTA.astro     # CTA final + footer
-│   ├── layouts/
-│   │   └── Layout.astro       # Layout base + tracking
-│   ├── pages/
-│   │   ├── index.astro        # Página principal
-│   │   └── api/
-│   │       └── lead.ts        # API para receber leads
-│   └── env.d.ts               # Tipos TypeScript
-├── astro.config.mjs
-├── package.json
-├── tsconfig.json
-└── wrangler.toml
 ```
 
 ## Tracking Events
@@ -144,19 +138,19 @@ O dataLayer envia os seguintes eventos:
 }
 ```
 
-## Workflow N8N Sugerido
+## Performance
 
-1. Recebe webhook com dados do lead
-2. Valida e formata dados
-3. Salva no MySQL (tabela wp_leads ou CPT no WordPress)
-4. Envia notificação (Telegram/Slack/Email)
-5. Adiciona ao CRM (opcional)
+- Zero JavaScript framework (HTML/CSS puro por padrão)
+- Score Lighthouse esperado: 90+ desktop / 70+ mobile
+- TTFB < 100ms (edge global)
+- LCP < 2.5s desktop / < 4s mobile
+- CLS = 0
 
 ## Customização
 
 ### Alterar cores
 
-Edite as CSS variables em `src/layouts/Layout.astro`:
+Edite as CSS variables em `shared/src/layouts/Layout.astro`:
 
 ```css
 :root {
@@ -166,14 +160,10 @@ Edite as CSS variables em `src/layouts/Layout.astro`:
 }
 ```
 
-### Alterar textos
-
-Edite os props no `src/pages/index.astro` ou diretamente nos componentes.
-
 ### Adicionar novas seções
 
-1. Crie um novo componente em `src/components/`
-2. Importe e adicione em `src/pages/index.astro`
+1. Crie um novo componente em `{lp}/src/components/`
+2. Importe e adicione em `{lp}/src/pages/index.astro`
 
 ## Licença
 

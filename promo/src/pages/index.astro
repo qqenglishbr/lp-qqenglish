@@ -1,0 +1,126 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeaderPromo from '../components/HeaderPromo.astro';
+import HeroPromo from '../components/HeroPromo.astro';
+import OfferDetails from '../components/OfferDetails.astro';
+import TrainingTeachers from '../../../shared/src/components/TrainingTeachers.astro';
+import Benefits from '../components/Benefits.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FAQ from '../components/FAQ.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import FooterPromo from '../components/FooterPromo.astro';
+---
+
+<Layout
+  title="Plano Pós-FTL: 30 aulas/mês por R$ 140 | QQEnglish"
+  description="Você já fez a aula experimental. Assine agora o plano completo e continue seu progresso no inglês com 30 aulas por mês por R$ 140."
+>
+  <HeaderPromo />
+
+  <main>
+    <HeroPromo />
+    <OfferDetails />
+    <TrainingTeachers />
+    <Benefits />
+    <Testimonials />
+    <FAQ />
+    <FinalCTA />
+  </main>
+
+  <FooterPromo />
+</Layout>
+
+<style>
+  main {
+    padding-top: 64px; /* Space for fixed header */
+  }
+</style>
+
+<script is:inline>
+  (function() {
+    const storedStudentId = sessionStorage.getItem('promo_student_id') || '';
+
+    const storedUtmData = JSON.parse(sessionStorage.getItem('utmData') || 'null') || {};
+    const utmData = {
+      utm_source: storedUtmData.utm_source || '(direct)',
+      utm_medium: storedUtmData.utm_medium || '(none)',
+      utm_campaign: storedUtmData.utm_campaign || '(not set)',
+      utm_content: storedUtmData.utm_content || '',
+      utm_term: storedUtmData.utm_term || ''
+    };
+
+    const clickIds = {
+      gclid: sessionStorage.getItem('gclid') || '',
+      gbraid: sessionStorage.getItem('gbraid') || '',
+      wbraid: sessionStorage.getItem('wbraid') || '',
+      ttclid: sessionStorage.getItem('ttclid') || '',
+      fbclid: sessionStorage.getItem('fbclid') || ''
+    };
+
+    function buildCheckoutUrl() {
+      const url = new URL('https://qqenglish.com.br/checkout');
+      url.searchParams.set('plan_id', '12586');
+
+      if (storedStudentId) {
+        url.searchParams.set('student_id', storedStudentId);
+      }
+
+      Object.entries(utmData).forEach(([key, value]) => {
+        if (value) {
+          url.searchParams.set(key, value);
+        }
+      });
+
+      Object.entries(clickIds).forEach(([key, value]) => {
+        if (value) {
+          url.searchParams.set(key, value);
+        }
+      });
+
+      return url.toString();
+    }
+
+    const checkoutUrl = buildCheckoutUrl();
+
+    document.querySelectorAll('[data-checkout-link]').forEach((link) => {
+      link.setAttribute('href', checkoutUrl);
+    });
+
+    function sendMauticEvent(step) {
+      if (typeof mt !== 'undefined') {
+        mt('send', 'pageview', {
+          funnel_step: step,
+          student_id: storedStudentId || '',
+          page_url: window.location.href,
+          referrer: document.referrer
+        });
+      }
+    }
+
+    function pushDataLayer(eventName, extra = {}) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: eventName,
+        student_id: storedStudentId || '',
+        ...utmData,
+        ...clickIds,
+        ...extra
+      });
+    }
+
+    // Funnel event - Offer viewed
+    sendMauticEvent('promo_offer_viewed');
+    pushDataLayer('promo_offer_viewed');
+
+    document.querySelectorAll('[data-checkout-link]').forEach((link) => {
+      link.addEventListener('click', () => {
+        const location = link.getAttribute('data-cta-location') || 'unknown';
+        sendMauticEvent('promo_cta_clicked');
+        pushDataLayer('promo_cta_clicked', {
+          cta_location: location,
+          checkout_url: checkoutUrl
+        });
+      });
+    });
+  })();
+</script>

@@ -30,6 +30,14 @@ Monorepo contendo as Landing Pages de alta performance da QQEnglish, construída
 │   └── src/
 │       ├── components/        # Componentes ESPECÍFICOS do Business
 │       └── pages/
+├── promo/                     # LP Pós-FTL (leads que já fizeram FTL → checkout)
+│   └── src/
+│       ├── components/        # Componentes ESPECÍFICOS do Promo
+│       └── pages/
+├── recovery/                  # LP FTL Recovery (leads que cadastraram mas não fizeram FTL)
+│   └── src/
+│       ├── components/        # Componentes ESPECÍFICOS do Recovery
+│       └── pages/
 ├── package.json               # Package.json raiz do monorepo
 └── CLAUDE.md
 ```
@@ -76,6 +84,8 @@ import Footer from '../../../shared/src/components/Footer.astro';
 npm run dev:callan        # Inicia servidor dev Callan (http://localhost:4321)
 npm run dev:kids          # Inicia servidor dev Kids
 npm run dev:business      # Inicia servidor dev Business
+npm run dev:promo         # Inicia servidor dev Promo
+npm run dev:recovery      # Inicia servidor dev Recovery
 ```
 
 ### Build
@@ -83,6 +93,8 @@ npm run dev:business      # Inicia servidor dev Business
 npm run build:callan      # Build do projeto Callan
 npm run build:kids        # Build do projeto Kids
 npm run build:business    # Build do projeto Business
+npm run build:promo       # Build do projeto Promo
+npm run build:recovery    # Build do projeto Recovery
 npm run build:all         # Build de todos os projetos
 ```
 
@@ -92,6 +104,8 @@ npx wrangler login        # Login no Cloudflare (uma vez)
 npm run deploy:callan     # Deploy LP Callan
 npm run deploy:kids       # Deploy LP Kids
 npm run deploy:business   # Deploy LP Business
+npm run deploy:promo      # Deploy LP Promo
+npm run deploy:recovery   # Deploy LP Recovery
 ```
 
 ## Arquitetura
@@ -112,11 +126,13 @@ O endpoint `/api/lead`:
 
 ## URLs de Produção
 
-| LP | URL | Status |
-|----|-----|--------|
-| Callan | https://callan.qqenglish.com.br | ✅ Produção |
-| Kids | https://kids.qqenglish.com.br | 🚧 Em desenvolvimento |
-| Business | https://business.qqenglish.com.br | 🚧 Em desenvolvimento |
+| LP | URL | Status | Descrição |
+|----|-----|--------|-----------|
+| Callan | https://callan.qqenglish.com.br | ✅ Produção | LP principal Método Callan |
+| Kids | https://kids.qqenglish.com.br | 🚧 Desenvolvimento | LP para público infantil |
+| Business | https://business.qqenglish.com.br | ✅ Produção | LP para empresas |
+| Promo | https://promo.qqenglish.com.br | 🚧 Desenvolvimento | Pós-FTL (direto ao checkout) |
+| Recovery | https://recovery.qqenglish.com.br | ✅ Produção | FTL Recovery (leads que não completaram) |
 
 ## Notas de Desenvolvimento
 

@@ -1,0 +1,21 @@
+{
+  "name": "lp-qqenglish-promo",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Landing page QQEnglish Pós-FTL - Leads que já fizeram FTL e vão direto ao checkout",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^11.0.0",
+    "astro": "^4.16.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "wrangler": "^4.60.0"
+  }
+}

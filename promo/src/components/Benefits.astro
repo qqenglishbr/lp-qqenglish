@@ -1,47 +1,45 @@
 ---
-// WhyReturn - 4 benefícios de voltar a estudar
+// Benefits - Por que assinar agora
 const benefits = [
   {
     icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M5 13l4 4L19 7"/>
+      <path d="M12 2a10 10 0 1010 10"/>
+    </svg>`,
+    title: "Acesso imediato",
+    description: "Finalize o checkout e comece a agendar suas aulas no mesmo instante."
+  },
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
       <circle cx="12" cy="12" r="10"/>
-      <polyline points="12,6 12,12 16,14"/>
+      <path d="M12 6v6l4 2"/>
     </svg>`,
-    title: "Flexibilidade Total",
-    description: "Aulas disponíveis 24 horas, 7 dias por semana. Estude quando quiser, de onde estiver."
+    title: "Rotina flexível",
+    description: "Aulas 24/7 para encaixar no seu dia, com total liberdade de horários."
   },
   {
     icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-      <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+      <path d="M12 20V4"/>
+      <path d="M6 10l6-6 6 6"/>
     </svg>`,
-    title: "Professores Certificados",
-    description: "Professores de 50+ pontos são 100% certificados TESOL. Professores em treinamento (5-40 pts) estão em formação para obter a certificação."
+    title: "Evolução contínua",
+    description: "Mantenha o ritmo da FTL e avance com prática constante de conversação."
   },
   {
     icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-      <line x1="8" y1="21" x2="16" y2="21"/>
-      <line x1="12" y1="17" x2="12" y2="21"/>
+      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
     </svg>`,
-    title: "Aulas de 25 Minutos",
-    description: "Formato perfeito que cabe na sua rotina. Sem desculpas para não estudar."
-  },
-  {
-    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-      <path d="M9 12l2 2 4-4"/>
-    </svg>`,
-    title: "Sem Compromisso",
-    description: "Cancele quando quiser, sem multas ou burocracia. Sua satisfação é nossa prioridade."
+    title: "Professores dedicados",
+    description: "Conte com professores certificados para corrigir e guiar seu progresso."
   }
 ];
 ---
 
-<section class="why-return">
+<section class="benefits" id="beneficios">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-badge">Por que voltar?</span>
-      <h2>Retome seus estudos com vantagens exclusivas</h2>
+      <span class="section-badge">Por que assinar agora?</span>
+      <h2>Você já conhece a experiência. Agora é hora de avançar.</h2>
     </div>
 
     <div class="benefits-grid">
@@ -57,14 +55,14 @@ const benefits = [
 </section>
 
 <style>
-  .why-return {
+  .benefits {
     padding: var(--section-padding) 0;
     background: white;
   }
 
   .section-header {
     text-align: center;
-    max-width: 640px;
+    max-width: 720px;
     margin: 0 auto 3rem;
   }
 
@@ -73,8 +71,8 @@ const benefits = [
     padding: 0.375rem 1rem;
     font-size: 0.8125rem;
     font-weight: 600;
-    color: var(--color-primary);
-    background: var(--color-primary-subtle);
+    color: var(--color-promo-cta);
+    background: rgba(37, 99, 235, 0.12);
     border-radius: var(--radius-full);
     margin-bottom: 1rem;
     text-transform: uppercase;
@@ -125,7 +123,7 @@ const benefits = [
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--color-recovery-cta) 0%, #15803d 100%);
+    background: linear-gradient(135deg, var(--color-promo-cta) 0%, #1d4ed8 100%);
     color: white;
     border-radius: var(--radius-lg);
     margin: 0 auto 1.25rem;
@@ -143,9 +141,8 @@ const benefits = [
     line-height: 1.6;
   }
 
-  /* Subtle animation on icon hover */
   .benefit-card:hover .benefit-icon {
-    transform: scale(1.1);
+    transform: scale(1.08);
     transition: transform var(--transition-base);
   }
 </style>

@@ -8,21 +8,25 @@
     "callan",
     "kids",
     "business",
+    "promo",
     "recovery"
   ],
   "scripts": {
     "dev:callan": "npm run dev --workspace=callan",
     "dev:kids": "npm run dev --workspace=kids",
     "dev:business": "npm run dev --workspace=business",
+    "dev:promo": "npm run dev --workspace=promo",
     "dev:recovery": "npm run dev --workspace=recovery",
     "build:callan": "npm run build --workspace=callan",
     "build:kids": "npm run build --workspace=kids",
     "build:business": "npm run build --workspace=business",
+    "build:promo": "npm run build --workspace=promo",
     "build:recovery": "npm run build --workspace=recovery",
-    "build:all": "npm run build:callan && npm run build:kids && npm run build:business && npm run build:recovery",
+    "build:all": "npm run build:callan && npm run build:kids && npm run build:business && npm run build:promo && npm run build:recovery",
     "deploy:callan": "cd callan && npm run build && npx wrangler pages deploy dist",
     "deploy:kids": "cd kids && npm run build && npx wrangler pages deploy dist",
     "deploy:business": "cd business && npm run build && npx wrangler pages deploy dist",
+    "deploy:promo": "cd promo && npm run build && npx wrangler pages deploy dist",
     "deploy:recovery": "cd recovery && npm run build && npx wrangler pages deploy dist"
   }
 }
