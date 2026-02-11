@@ -1,0 +1,42 @@
+---
+// Shared components
+import Layout from '../layouts/Layout.astro';
+import Header from '../../../shared/src/components/Header.astro';
+import Footer from '../../../shared/src/components/Footer.astro';
+import TrainingTeachers from '../../../shared/src/components/TrainingTeachers.astro';
+
+// LP-specific components
+import Hero from '../components/Hero.astro';
+import Benefits from '../components/Benefits.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import PromoHighlight from '../components/PromoHighlight.astro';
+import Testimonials from '../components/Testimonials.astro';
+import LeadForm from '../components/LeadForm.astro';
+import FAQ from '../components/FAQ.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+
+const title = "QQEnglish - Fale Inglês com Confiança | Aula Experimental";
+const description = "Aprenda inglês online com professores certificados TESOL. Aulas ao vivo 1:1, 24h por dia. Experimente uma aula. A partir de R$4,67/aula.";
+---
+
+<Layout title={title} description={description}>
+  <Header />
+  <main>
+    <Hero />
+    <Benefits />
+    <HowItWorks />
+    <TrainingTeachers />
+    <PromoHighlight />
+    <Testimonials />
+    <LeadForm />
+    <FAQ />
+    <FinalCTA />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    padding-top: 64px; /* Space for fixed header */
+  }
+</style>

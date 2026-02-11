@@ -1,9 +1,9 @@
-name = "kids-lp"
+name = "lp-qqenglish-adults"
 compatibility_date = "2024-01-01"
 pages_build_output_dir = "dist"
 
-# Domínio: kids.qqenglish.com.br
-# Público: Pais de crianças interessados em inglês infantil
+# Domínio: adults.qqenglish.com.br
+# Público: Leads de campanhas Google Ads e Meta Ads - Inglês para Adultos
 
 [vars]
 GTM_ID = "GTM-NXPBNZQ"

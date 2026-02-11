@@ -1,0 +1,231 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = "Agendamento Confirmado - QQEnglish";
+const description = "Sua aula experimental foi agendada com sucesso.";
+---
+
+<Layout title={title} description={description}>
+  <main>
+    <section class="success-section">
+      <div class="container success-container">
+        <div class="success-icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+
+        <h1 class="success-title">Agendamento Confirmado!</h1>
+
+        <p class="success-message">
+          Sua aula experimental foi agendada com sucesso.
+          Enviamos os detalhes para o seu WhatsApp e e-mail.
+        </p>
+
+        <div class="next-steps">
+          <h2>Proximos passos:</h2>
+          <ul>
+            <li>
+              <span class="step-icon">1</span>
+              <span class="step-text">Confira seu WhatsApp para detalhes da aula</span>
+            </li>
+            <li>
+              <span class="step-icon">2</span>
+              <span class="step-text">Prepare um ambiente silencioso</span>
+            </li>
+            <li>
+              <span class="step-icon">3</span>
+              <span class="step-text">Teste sua conexao de internet</span>
+            </li>
+            <li>
+              <span class="step-icon">4</span>
+              <span class="step-text">Tenha fones de ouvido em maos</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="cta-buttons">
+          <a href="https://qqenglish.com.br" class="home-link primary">
+            Conhecer mais sobre a QQEnglish
+          </a>
+          <a href="/" class="home-link secondary">
+            Voltar para a pagina inicial
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        'event': 'page_view_success',
+        'conversion_type': 'schedule_complete'
+      });
+
+      (window as any).dataLayer.push({
+        'event': 'conversion',
+        'conversion_type': 'schedule_confirmed',
+        'value': 0,
+        'currency': 'BRL'
+      });
+    }
+
+    sessionStorage.removeItem('disponibilidade');
+    sessionStorage.removeItem('lead_id');
+  });
+</script>
+
+<style>
+  .success-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #ecfeff 0%, #f0fdfa 100%);
+  }
+
+  .success-container {
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    background: white;
+    padding: 3rem 2.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .success-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+    border-radius: 50%;
+    color: var(--color-success);
+    margin-bottom: 1.5rem;
+  }
+
+  .success-title {
+    font-size: 1.75rem;
+    color: var(--color-dark);
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .success-message {
+    font-size: 1rem;
+    color: var(--color-gray-600);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .next-steps {
+    text-align: left;
+    background: var(--color-gray-50);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 2rem;
+    border: 1px solid var(--color-gray-100);
+  }
+
+  .next-steps h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--color-dark);
+  }
+
+  .next-steps ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .next-steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.625rem 0;
+    font-size: 0.9375rem;
+    color: var(--color-gray-700);
+  }
+
+  .step-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .step-text {
+    padding-top: 2px;
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .home-link {
+    display: block;
+    padding: 0.875rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .home-link.primary {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .home-link.primary:hover {
+    background: var(--color-primary-dark);
+  }
+
+  .home-link.secondary {
+    background: transparent;
+    color: var(--color-gray-600);
+    border: 1px solid var(--color-gray-300);
+  }
+
+  .home-link.secondary:hover {
+    background: var(--color-gray-50);
+    color: var(--color-dark);
+  }
+
+  @media (max-width: 480px) {
+    .success-container {
+      padding: 2rem 1.5rem;
+    }
+
+    .success-title {
+      font-size: 1.5rem;
+    }
+
+    .success-icon {
+      width: 80px;
+      height: 80px;
+    }
+
+    .success-icon svg {
+      width: 48px;
+      height: 48px;
+    }
+  }
+</style>

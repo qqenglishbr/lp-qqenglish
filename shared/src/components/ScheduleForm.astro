@@ -1,5 +1,5 @@
 ---
-// ScheduleForm - Date and time selection for scheduling
+// ScheduleForm - Button-based date and time selection for scheduling
 ---
 
 <section class="schedule-section">
@@ -19,33 +19,91 @@
       Selecione a data e horario mais conveniente para sua aula experimental gratuita.
     </p>
 
-    <div id="loading-state" class="loading-state">
-      <p>Carregando disponibilidade...</p>
-      <div class="spinner"></div>
+    <!-- SVG templates for period icons (hidden, cloned by JS) -->
+    <div id="svg-templates" style="display: none;">
+      <svg id="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+      <svg id="icon-sun-half" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+      </svg>
+      <svg id="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
     </div>
 
-    <div id="schedule-form" style="display: none;">
-      <div class="form-group">
-        <label for="date-select" class="form-label">Selecione uma data</label>
-        <select id="date-select" class="form-select">
-          <option value="" disabled selected>Escolha uma data</option>
-        </select>
+    <!-- Loading State -->
+    <div id="loading-state" class="loading-state">
+      <div class="spinner"></div>
+      <p>Carregando horarios disponiveis...</p>
+    </div>
+
+    <!-- Schedule Form -->
+    <div id="schedule-form" class="schedule-form" style="display: none;">
+      <div class="date-selector">
+        <div class="selector-header">
+          <div class="selector-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <div class="selector-text">
+            <h3>Escolha uma data</h3>
+            <p class="selector-hint" id="dates-count"></p>
+          </div>
+        </div>
+        <div class="dates-grid" id="dates-grid"></div>
       </div>
 
-      <div id="time-section" class="form-group" style="display: none;">
-        <label for="time-select" class="form-label">Selecione um horario</label>
-        <select id="time-select" class="form-select">
-          <option value="" disabled selected>Escolha um horario</option>
-        </select>
+      <div class="time-selector" id="time-selector-section" style="display: none;">
+        <div class="selector-header">
+          <div class="selector-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="selector-text">
+            <h3>Escolha um horario</h3>
+            <p class="selector-hint" id="times-count">Selecione o melhor horario para voce</p>
+          </div>
+        </div>
+        <div class="times-grid" id="times-grid"></div>
       </div>
 
-      <button id="confirm-btn" type="button" class="confirm-button" style="display: none;">
-        Confirmar Agendamento
-      </button>
+      <div class="confirm-section">
+        <div class="selected-summary" id="selected-summary" style="display: none;">
+          <p>Voce selecionou:</p>
+          <strong id="selected-datetime"></strong>
+        </div>
+
+        <label class="commitment-check" id="commitment-section" style="display: none;">
+          <input type="checkbox" id="commitment-checkbox" />
+          <span class="checkmark"></span>
+          <span class="commitment-text">Confirmo meu compromisso em participar da aula no horario selecionado. Entendo que um professor sera reservado exclusivamente para mim.</span>
+        </label>
+
+        <button type="button" id="confirm-btn" class="confirm-button" disabled>
+          <span id="confirm-btn-text">Confirmar Agendamento</span>
+          <svg id="confirm-btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+          <div id="confirm-btn-spinner" class="spinner-small" style="display: none;"></div>
+        </button>
+      </div>
 
       <p id="error-message" class="error-message" style="display: none;"></p>
     </div>
 
+    <!-- No Availability -->
     <div id="no-availability" class="no-availability" style="display: none;">
       <div class="no-availability-icon">
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -57,11 +115,6 @@
       <p>Nenhuma disponibilidade encontrada.</p>
       <p class="no-availability-hint">Por favor, valide o WhatsApp novamente.</p>
       <a href="/validacao" class="retry-link">Voltar para validacao</a>
-    </div>
-
-    <div id="confirming-state" class="loading-state" style="display: none;">
-      <p>Confirmando agendamento...</p>
-      <div class="spinner"></div>
     </div>
   </div>
 </section>
@@ -77,18 +130,18 @@
   }
 
   .schedule-container {
-    max-width: 450px;
+    max-width: 640px;
     width: 100%;
     text-align: center;
     background: white;
-    padding: 2.5rem;
+    padding: 2rem 2.5rem;
     border-radius: var(--radius-lg, 1rem);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   }
 
   .logo-link {
     display: block;
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
   }
 
   .logo {
@@ -105,77 +158,284 @@
   }
 
   .schedule-subtitle {
-    font-size: 1rem;
+    font-size: 0.9375rem;
     color: var(--color-gray-600, #6b7280);
-    margin-bottom: 2rem;
-    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
   }
 
-  .form-group {
-    margin-bottom: 1.5rem;
+  /* Schedule Form */
+  .schedule-form {
     text-align: left;
   }
 
-  .form-label {
-    display: block;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--color-gray-700, #374151);
-    margin-bottom: 0.5rem;
+  .date-selector,
+  .time-selector {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--color-gray-200, #e5e7eb);
   }
 
-  .form-select {
-    width: 100%;
-    padding: 0.875rem 1rem;
-    font-size: 1rem;
-    border: 2px solid var(--color-gray-300, #d1d5db);
+  .selector-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .selector-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--color-primary, #2563eb);
     border-radius: var(--radius-md, 0.5rem);
-    background: white;
-    cursor: pointer;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    font-family: inherit;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-    background-position: right 0.75rem center;
-    background-repeat: no-repeat;
-    background-size: 1.25rem;
-    padding-right: 2.5rem;
+    flex-shrink: 0;
   }
 
-  .form-select:focus {
-    outline: none;
-    border-color: var(--color-primary, #2563eb);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  .selector-text h3 {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin-bottom: 0.125rem;
+    color: var(--color-dark, #1a1a2e);
+  }
+
+  .selector-hint {
+    font-size: 0.8125rem;
+    color: var(--color-gray-500, #6b7280);
+    margin: 0;
+  }
+
+  /* Dates wrapping grid */
+  .dates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.5rem;
+  }
+
+  :global(.date-btn) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem 0.5rem;
+    background: var(--color-primary, #2563eb);
+    border: none;
+    border-radius: var(--radius-md, 0.5rem);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+  }
+
+  :global(.date-btn):hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    filter: brightness(1.1);
+  }
+
+  :global(.date-btn.selected) {
+    background: var(--color-success, #10b981);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+  }
+
+  :global(.day-label) {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.125rem;
+  }
+
+  :global(.date-full) {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
+  }
+
+  /* Time buttons */
+  .times-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  :global(.time-period) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  :global(.period-label) {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-gray-600, #6b7280);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  :global(.period-label) svg {
+    color: var(--color-gray-400, #9ca3af);
+  }
+
+  :global(.period-times) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  :global(.time-btn) {
+    padding: 0.625rem 1rem;
+    min-width: 72px;
+    background: var(--color-primary, #2563eb);
+    border: none;
+    border-radius: var(--radius-md, 0.5rem);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+    transition: all 0.2s ease;
+    text-align: center;
+  }
+
+  :global(.time-btn):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    filter: brightness(1.1);
+  }
+
+  :global(.time-btn.selected) {
+    background: var(--color-success, #10b981);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    transform: scale(1.05);
+  }
+
+  /* Confirm section */
+  .confirm-section {
+    padding: 1.25rem 0 0;
+    text-align: center;
+  }
+
+  .selected-summary {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background: rgba(16, 185, 129, 0.08);
+    border-radius: var(--radius-md, 0.5rem);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+  }
+
+  .selected-summary p {
+    font-size: 0.8125rem;
+    color: var(--color-gray-600, #6b7280);
+    margin-bottom: 0.25rem;
+  }
+
+  .selected-summary strong {
+    font-size: 1rem;
+    color: var(--color-dark, #1a1a2e);
+  }
+
+  .commitment-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    margin-bottom: 1rem;
+    padding: 0.875rem;
+    background: #fffbeb;
+    border: 1px solid #fbbf24;
+    border-radius: var(--radius-md, 0.5rem);
+    cursor: pointer;
+    text-align: left;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .commitment-check input[type="checkbox"] {
+    display: none;
+  }
+
+  .checkmark {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border: 2px solid #d1d5db;
+    border-radius: 4px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    margin-top: 1px;
+  }
+
+  .commitment-check input:checked ~ .checkmark {
+    background: var(--color-success, #10b981);
+    border-color: var(--color-success, #10b981);
+  }
+
+  .commitment-check input:checked ~ .checkmark::after {
+    content: '';
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-bottom: 2px;
+  }
+
+  .commitment-text {
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: #92400e;
   }
 
   .confirm-button {
     width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     padding: 1rem 1.5rem;
-    font-size: 1.125rem;
+    font-size: 1.0625rem;
     font-weight: 600;
     color: white;
     background: var(--color-success, #10b981);
     border: none;
     border-radius: var(--radius-md, 0.5rem);
-    margin-top: 0.5rem;
     cursor: pointer;
     transition: background 0.2s ease, transform 0.1s ease;
   }
 
-  .confirm-button:hover {
+  .confirm-button:hover:not(:disabled) {
     background: #0ea371;
   }
 
-  .confirm-button:active {
+  .confirm-button:active:not(:disabled) {
     transform: scale(0.98);
   }
 
   .confirm-button:disabled {
-    background: var(--color-gray-400, #9ca3af);
+    opacity: 0.5;
     cursor: not-allowed;
     transform: none;
   }
 
+  .spinner-small {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  /* Error & loading */
   .error-message {
     color: var(--color-error, #ef4444);
     font-size: 0.875rem;
@@ -183,22 +443,25 @@
     padding: 0.75rem;
     background: #fef2f2;
     border-radius: var(--radius-sm, 0.25rem);
+    text-align: center;
   }
 
   .loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     padding: 2rem 0;
   }
 
   .loading-state p {
     color: var(--color-gray-600, #6b7280);
-    margin-bottom: 1rem;
+    margin-top: 1rem;
   }
 
   .spinner {
     width: 48px;
     height: 48px;
-    margin: 0 auto;
     border: 4px solid var(--color-gray-200, #e5e7eb);
     border-top-color: var(--color-success, #10b981);
     border-radius: 50%;
@@ -245,12 +508,31 @@
   }
 
   @media (max-width: 480px) {
+    .schedule-section {
+      padding: 1rem 0.5rem;
+    }
+
     .schedule-container {
-      padding: 2rem 1.5rem;
+      padding: 1.5rem 1rem;
     }
 
     .schedule-title {
       font-size: 1.25rem;
+    }
+
+    .dates-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.375rem;
+    }
+
+    :global(.date-btn) {
+      padding: 0.5rem 0.375rem;
+    }
+
+    :global(.time-btn) {
+      min-width: 64px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
     }
   }
 </style>
@@ -269,17 +551,24 @@
 
   let disponibilidade: TimeSlot[] = [];
   let studentId: string = '';
+  let selectedDate: string | null = null;
   let selectedSlot: TimeSlot | null = null;
 
   const loadingState = document.getElementById('loading-state') as HTMLDivElement;
   const scheduleForm = document.getElementById('schedule-form') as HTMLDivElement;
   const noAvailability = document.getElementById('no-availability') as HTMLDivElement;
-  const confirmingState = document.getElementById('confirming-state') as HTMLDivElement;
-  const dateSelect = document.getElementById('date-select') as HTMLSelectElement;
-  const timeSection = document.getElementById('time-section') as HTMLDivElement;
-  const timeSelect = document.getElementById('time-select') as HTMLSelectElement;
-  const confirmBtn = document.getElementById('confirm-btn') as HTMLButtonElement;
   const errorMsg = document.getElementById('error-message') as HTMLParagraphElement;
+
+  const weekdayNames: Record<number, string> = {
+    0: 'Domingo', 1: 'Segunda', 2: 'Terca', 3: 'Quarta',
+    4: 'Quinta', 5: 'Sexta', 6: 'Sabado'
+  };
+
+  const monthNames: Record<number, string> = {
+    0: 'Janeiro', 1: 'Fevereiro', 2: 'Marco', 3: 'Abril',
+    4: 'Maio', 5: 'Junho', 6: 'Julho', 7: 'Agosto',
+    8: 'Setembro', 9: 'Outubro', 10: 'Novembro', 11: 'Dezembro'
+  };
 
   function showError(message: string) {
     errorMsg.textContent = message;
@@ -288,6 +577,16 @@
 
   function hideError() {
     errorMsg.style.display = 'none';
+  }
+
+  function parseDateStr(dateStr: string): Date {
+    const [day, month, year] = dateStr.split('-').map(Number);
+    return new Date(year, month - 1, day, 12, 0, 0);
+  }
+
+  function cloneIcon(iconId: string): Node | null {
+    const template = document.getElementById(iconId);
+    return template ? template.cloneNode(true) : null;
   }
 
   function loadDisponibilidade(): boolean {
@@ -307,92 +606,185 @@
     }
   }
 
-  function formatDate(dateStr: string): string {
-    // Format: DD-MM-YYYY
-    const [day, month, year] = dateStr.split('-');
-    const weekdays = ['Domingo', 'Segunda-feira', 'Terca-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sabado'];
-
-    const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-    const weekday = weekdays[date.getDay()];
-
-    return `${day}/${month}/${year} (${weekday})`;
-  }
-
-  function populateDates() {
-    // Sort dates chronologically (format: DD-MM-YYYY)
-    const uniqueDates = [...new Set(disponibilidade.map(item => item.day))].sort((a, b) => {
-      const [dayA, monthA, yearA] = a.split('-').map(Number);
-      const [dayB, monthB, yearB] = b.split('-').map(Number);
-      const dateA = new Date(yearA, monthA - 1, dayA);
-      const dateB = new Date(yearB, monthB - 1, dayB);
-      return dateA.getTime() - dateB.getTime();
-    });
-
-    uniqueDates.forEach(date => {
-      const option = document.createElement('option');
-      option.value = date;
-      option.textContent = formatDate(date);
-      dateSelect.appendChild(option);
-    });
-  }
-
-  function updateTimes() {
-    const selectedDate = dateSelect.value;
-    if (!selectedDate) {
-      timeSection.style.display = 'none';
-      confirmBtn.style.display = 'none';
-      return;
+  function renderDates() {
+    const datesGrid = document.getElementById('dates-grid')!;
+    while (datesGrid.firstChild) {
+      datesGrid.removeChild(datesGrid.firstChild);
     }
 
-    // Clear previous options
-    timeSelect.innerHTML = '<option value="" disabled selected>Escolha um horario</option>';
-
-    // Filter times for selected date and sort
-    const availableTimes = disponibilidade
-      .filter(item => item.day === selectedDate)
-      .sort((a, b) => a.time.localeCompare(b.time));
-
-    availableTimes.forEach(slot => {
-      const option = document.createElement('option');
-      option.value = JSON.stringify(slot);
-      option.textContent = slot.time;
-      timeSelect.appendChild(option);
+    const uniqueDates = [...new Set(disponibilidade.map(item => item.day))].sort((a, b) => {
+      return parseDateStr(a).getTime() - parseDateStr(b).getTime();
     });
 
-    timeSection.style.display = 'block';
-    confirmBtn.style.display = 'none';
-    selectedSlot = null;
-    hideError();
+    const datesCount = document.getElementById('dates-count');
+    if (datesCount) {
+      datesCount.textContent = `${uniqueDates.length} datas disponiveis`;
+    }
 
-    // Track date selection
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    uniqueDates.forEach(dateStr => {
+      const date = parseDateStr(dateStr);
+      const dayOfWeek = date.getDay();
+      const dayNum = date.getDate();
+      const monthNum = date.getMonth();
+
+      const diffDays = Math.floor((date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+      let label = weekdayNames[dayOfWeek];
+      if (diffDays === 0) label = 'Hoje';
+      else if (diffDays === 1) label = 'Amanha';
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'date-btn';
+      btn.dataset.date = dateStr;
+
+      const dayNameSpan = document.createElement('span');
+      dayNameSpan.className = 'day-label';
+      dayNameSpan.textContent = label;
+
+      const dateSpan = document.createElement('span');
+      dateSpan.className = 'date-full';
+      dateSpan.textContent = `${dayNum} de ${monthNames[monthNum]}`;
+
+      btn.appendChild(dayNameSpan);
+      btn.appendChild(dateSpan);
+      btn.addEventListener('click', () => selectDate(dateStr));
+      datesGrid.appendChild(btn);
+    });
+  }
+
+  function selectDate(dateStr: string) {
+    selectedDate = dateStr;
+    selectedSlot = null;
+
+    document.querySelectorAll('.date-btn').forEach(btn => {
+      btn.classList.toggle('selected', (btn as HTMLElement).dataset.date === dateStr);
+    });
+
+    renderTimes(dateStr);
+    updateSummary();
+
     if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      const availableTimes = disponibilidade.filter(item => item.day === dateStr);
       (window as any).dataLayer.push({
         'event': 'schedule_date_selected',
-        'selected_date': selectedDate,
+        'selected_date': dateStr,
         'times_available': availableTimes.length
       });
     }
   }
 
-  function onTimeSelect() {
-    const value = timeSelect.value;
-    if (!value) {
-      confirmBtn.style.display = 'none';
-      selectedSlot = null;
+  function renderTimes(dateStr: string) {
+    const timesGrid = document.getElementById('times-grid')!;
+    const timeSection = document.getElementById('time-selector-section')!;
+    const timesCount = document.getElementById('times-count')!;
+
+    while (timesGrid.firstChild) {
+      timesGrid.removeChild(timesGrid.firstChild);
+    }
+
+    const availableTimes = disponibilidade
+      .filter(item => item.day === dateStr)
+      .sort((a, b) => a.time.localeCompare(b.time));
+
+    timeSection.style.display = 'block';
+
+    if (availableTimes.length === 0) {
+      timesCount.textContent = 'Nenhum horario disponivel';
       return;
     }
 
-    selectedSlot = JSON.parse(value);
-    confirmBtn.style.display = 'block';
-    hideError();
+    timesCount.textContent = `${availableTimes.length} horarios disponiveis`;
 
-    // Track time selection
+    const morning = availableTimes.filter(s => parseInt(s.time) < 12);
+    const afternoon = availableTimes.filter(s => parseInt(s.time) >= 12 && parseInt(s.time) < 18);
+    const evening = availableTimes.filter(s => parseInt(s.time) >= 18);
+
+    function addPeriod(slots: TimeSlot[], periodName: string, iconId: string) {
+      if (slots.length === 0) return;
+
+      const periodDiv = document.createElement('div');
+      periodDiv.className = 'time-period';
+
+      const periodLabel = document.createElement('div');
+      periodLabel.className = 'period-label';
+
+      const icon = cloneIcon(iconId);
+      if (icon) periodLabel.appendChild(icon);
+
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = periodName;
+      periodLabel.appendChild(nameSpan);
+
+      periodDiv.appendChild(periodLabel);
+
+      const periodGrid = document.createElement('div');
+      periodGrid.className = 'period-times';
+
+      slots.forEach(slot => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'time-btn';
+        btn.dataset.slot = JSON.stringify(slot);
+        btn.textContent = slot.time;
+        btn.addEventListener('click', () => selectTime(slot, btn));
+        periodGrid.appendChild(btn);
+      });
+
+      periodDiv.appendChild(periodGrid);
+      timesGrid.appendChild(periodDiv);
+    }
+
+    addPeriod(morning, 'Manha', 'icon-sun');
+    addPeriod(afternoon, 'Tarde', 'icon-sun-half');
+    addPeriod(evening, 'Noite', 'icon-moon');
+
+    // Scroll time section into view
+    timeSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function selectTime(slot: TimeSlot, clickedBtn: HTMLButtonElement) {
+    selectedSlot = slot;
+
+    document.querySelectorAll('.time-btn').forEach(btn => {
+      btn.classList.remove('selected');
+    });
+    clickedBtn.classList.add('selected');
+
+    updateSummary();
+
     if (typeof window !== 'undefined' && (window as any).dataLayer) {
       (window as any).dataLayer.push({
         'event': 'schedule_time_selected',
-        'selected_time': selectedSlot?.time,
-        'selected_date': selectedSlot?.day
+        'selected_time': slot.time,
+        'selected_date': slot.day
       });
+    }
+  }
+
+  function updateSummary() {
+    const summary = document.getElementById('selected-summary')!;
+    const datetime = document.getElementById('selected-datetime')!;
+    const confirmBtn = document.getElementById('confirm-btn') as HTMLButtonElement;
+    const commitmentSection = document.getElementById('commitment-section')!;
+    const commitmentCheckbox = document.getElementById('commitment-checkbox') as HTMLInputElement;
+
+    if (selectedDate && selectedSlot) {
+      const date = parseDateStr(selectedDate);
+      const weekday = weekdayNames[date.getDay()];
+      const dayNum = date.getDate();
+      const month = monthNames[date.getMonth()];
+
+      datetime.textContent = `${weekday}, ${dayNum} de ${month} as ${selectedSlot.time}`;
+      summary.style.display = 'block';
+      commitmentSection.style.display = 'flex';
+      confirmBtn.disabled = !commitmentCheckbox.checked;
+    } else {
+      summary.style.display = 'none';
+      commitmentSection.style.display = 'none';
+      confirmBtn.disabled = true;
     }
   }
 
@@ -402,10 +794,17 @@
       return;
     }
 
-    scheduleForm.style.display = 'none';
-    confirmingState.style.display = 'block';
+    const confirmBtn = document.getElementById('confirm-btn') as HTMLButtonElement;
+    const btnText = document.getElementById('confirm-btn-text')!;
+    const btnIcon = document.getElementById('confirm-btn-icon')!;
+    const btnSpinner = document.getElementById('confirm-btn-spinner')!;
 
-    // Track confirmation attempt
+    confirmBtn.disabled = true;
+    btnText.textContent = 'Agendando...';
+    btnIcon.style.display = 'none';
+    btnSpinner.style.display = 'block';
+    hideError();
+
     if (typeof window !== 'undefined' && (window as any).dataLayer) {
       (window as any).dataLayer.push({
         'event': 'schedule_confirm_attempt',
@@ -419,25 +818,23 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           'room-schedule-id': selectedSlot['room-schedule-id'],
-          student_id: studentId
+          student_id: studentId,
+          date: selectedSlot.day,
+          time: selectedSlot.time
         })
       });
 
       const data = await response.json();
 
       if (data.success) {
-        // Clear session data
         sessionStorage.removeItem('disponibilidade');
 
-        // Track successful scheduling
         if (typeof window !== 'undefined' && (window as any).dataLayer) {
           (window as any).dataLayer.push({
             'event': 'schedule_success',
             'scheduled_date': selectedSlot.day,
             'scheduled_time': selectedSlot.time
           });
-
-          // Fire conversion event
           (window as any).dataLayer.push({
             'event': 'conversion',
             'conversion_type': 'schedule_complete',
@@ -446,7 +843,6 @@
           });
         }
 
-        // Wait for GTM to send events before redirect
         setTimeout(() => { window.location.href = '/sucesso'; }, 800);
       } else {
         throw new Error('Scheduling failed');
@@ -455,10 +851,11 @@
       console.error('Scheduling error:', error);
       showError('Erro ao realizar o agendamento. Por favor, tente novamente.');
 
-      confirmingState.style.display = 'none';
-      scheduleForm.style.display = 'block';
+      btnText.textContent = 'Confirmar Agendamento';
+      btnIcon.style.display = 'block';
+      btnSpinner.style.display = 'none';
+      confirmBtn.disabled = false;
 
-      // Track error
       if (typeof window !== 'undefined' && (window as any).dataLayer) {
         (window as any).dataLayer.push({
           'event': 'schedule_error',
@@ -468,6 +865,16 @@
     }
   }
 
+  // Event listeners
+  document.getElementById('confirm-btn')?.addEventListener('click', confirmSchedule);
+  document.getElementById('commitment-checkbox')?.addEventListener('change', () => {
+    const confirmBtn = document.getElementById('confirm-btn') as HTMLButtonElement;
+    const checkbox = document.getElementById('commitment-checkbox') as HTMLInputElement;
+    if (selectedDate && selectedSlot) {
+      confirmBtn.disabled = !checkbox.checked;
+    }
+  });
+
   // Initialize
   document.addEventListener('DOMContentLoaded', () => {
     const hasData = loadDisponibilidade();
@@ -475,10 +882,9 @@
     loadingState.style.display = 'none';
 
     if (hasData && disponibilidade.length > 0) {
-      populateDates();
+      renderDates();
       scheduleForm.style.display = 'block';
 
-      // Track page view with availability
       if (typeof window !== 'undefined' && (window as any).dataLayer) {
         (window as any).dataLayer.push({
           'event': 'page_view_schedule',
@@ -489,7 +895,6 @@
     } else {
       noAvailability.style.display = 'block';
 
-      // Track no availability
       if (typeof window !== 'undefined' && (window as any).dataLayer) {
         (window as any).dataLayer.push({
           'event': 'page_view_schedule',
@@ -499,9 +904,4 @@
       }
     }
   });
-
-  // Event listeners
-  dateSelect?.addEventListener('change', updateTimes);
-  timeSelect?.addEventListener('change', onTimeSelect);
-  confirmBtn?.addEventListener('click', confirmSchedule);
 </script>

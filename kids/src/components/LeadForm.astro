@@ -27,6 +27,9 @@ const childAges = [
   { value: '10', label: '10 anos' },
   { value: '11', label: '11 anos' },
   { value: '12', label: '12 anos' },
+  { value: '13', label: '13 anos' },
+  { value: '14', label: '14 anos' },
+  { value: '15', label: '15 anos' },
 ];
 ---
 
@@ -179,7 +182,22 @@ const childAges = [
             </div>
 
             <div class="form-group">
-              <label for="child_age" class="form-label">Idade da criança</label>
+              <label for="child_name" class="form-label">Nome do aluno</label>
+              <input
+                type="text"
+                id="child_name"
+                name="child_name"
+                class="form-input"
+                placeholder="Nome do seu filho"
+                required
+                minlength="2"
+                autocomplete="off"
+              />
+              <span class="form-error" data-error="child_name"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="child_age" class="form-label">Idade do aluno</label>
               <select
                 id="child_age"
                 name="child_age"

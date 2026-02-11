@@ -1,0 +1,168 @@
+---
+// Benefits - 6 benefícios combinando os 3 pilares: preço, flexibilidade, resultados
+const benefits = [
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>`,
+    title: "Conversação desde a primeira aula",
+    description: "Prática real de conversação com professor ao vivo. Nada de aulas gravadas."
+  },
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+    title: "Aulas 24 horas, 7 dias",
+    description: "Estude quando quiser. Madrugada, almoço, final de semana — você escolhe."
+  },
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>`,
+    title: "Até 30 aulas/mês por R$140",
+    description: "Oferta de boas-vindas: novos alunos ganham tickets extras nos 3 primeiros meses — a partir de R$4,67 por aula."
+  },
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>`,
+    title: "1.300+ professores certificados",
+    description: "Equipe dedicada com certificação TESOL e treinamento de 550+ horas."
+  },
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+    title: "Aulas de 25 minutos",
+    description: "Formato perfeito para rotinas corridas. Eficiente e direto ao ponto."
+  },
+  {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>`,
+    title: "Sem multa, sem contrato",
+    description: "Cancele quando quiser, sem burocracia. Zero risco para experimentar."
+  }
+];
+---
+
+<section class="benefits-section" id="beneficios">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-badge">Por que a QQEnglish</span>
+      <h2>Tudo que você precisa para falar inglês</h2>
+      <p>Combinamos preço acessível, flexibilidade total e resultados reais</p>
+    </div>
+
+    <div class="benefits-grid">
+      {benefits.map((benefit, index) => (
+        <div class="benefit-card reveal" style={`animation-delay: ${index * 0.1}s`}>
+          <div class="benefit-icon" set:html={benefit.icon} />
+          <h3>{benefit.title}</h3>
+          <p>{benefit.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .benefits-section {
+    padding: var(--section-padding) 0;
+    background: white;
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 3.5rem;
+  }
+
+  .section-badge {
+    display: inline-block;
+    padding: 0.375rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: var(--color-primary-subtle);
+    border-radius: var(--radius-full);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .section-header h2 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    color: var(--color-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-header p {
+    font-size: 1.125rem;
+    color: var(--color-gray-600);
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .benefits-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .benefits-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  .benefit-card {
+    background: var(--color-gray-50);
+    padding: 2rem 1.75rem;
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
+    border: 1px solid transparent;
+  }
+
+  .benefit-card:hover {
+    background: white;
+    border-color: var(--color-gray-200);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+
+  .benefit-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-subtle);
+    color: var(--color-primary);
+    border-radius: var(--radius-md);
+    margin-bottom: 1.25rem;
+    transition: all var(--transition-base);
+  }
+
+  .benefit-card:hover .benefit-icon {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .benefit-card h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .benefit-card p {
+    font-size: 0.9375rem;
+    color: var(--color-gray-600);
+    line-height: 1.6;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

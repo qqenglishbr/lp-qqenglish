@@ -38,6 +38,10 @@ Monorepo contendo as Landing Pages de alta performance da QQEnglish, construída
 │   └── src/
 │       ├── components/        # Componentes ESPECÍFICOS do Recovery
 │       └── pages/
+├── adults/                    # LP Inglês para Adultos (adults.qqenglish.com.br)
+│   └── src/
+│       ├── components/        # Componentes ESPECÍFICOS do Adults
+│       └── pages/
 ├── package.json               # Package.json raiz do monorepo
 └── CLAUDE.md
 ```
@@ -86,6 +90,7 @@ npm run dev:kids          # Inicia servidor dev Kids
 npm run dev:business      # Inicia servidor dev Business
 npm run dev:promo         # Inicia servidor dev Promo
 npm run dev:recovery      # Inicia servidor dev Recovery
+npm run dev:adults        # Inicia servidor dev Adults (http://localhost:4326)
 ```
 
 ### Build
@@ -95,6 +100,7 @@ npm run build:kids        # Build do projeto Kids
 npm run build:business    # Build do projeto Business
 npm run build:promo       # Build do projeto Promo
 npm run build:recovery    # Build do projeto Recovery
+npm run build:adults      # Build do projeto Adults
 npm run build:all         # Build de todos os projetos
 ```
 
@@ -106,6 +112,7 @@ npm run deploy:kids       # Deploy LP Kids
 npm run deploy:business   # Deploy LP Business
 npm run deploy:promo      # Deploy LP Promo
 npm run deploy:recovery   # Deploy LP Recovery
+npm run deploy:adults     # Deploy LP Adults
 ```
 
 ## Arquitetura
@@ -133,6 +140,7 @@ O endpoint `/api/lead`:
 | Business | https://business.qqenglish.com.br | ✅ Produção | LP para empresas |
 | Promo | https://promo.qqenglish.com.br | 🚧 Desenvolvimento | Pós-FTL (direto ao checkout) |
 | Recovery | https://recovery.qqenglish.com.br | ✅ Produção | FTL Recovery (leads que não completaram) |
+| Adults | https://adults.qqenglish.com.br | 🚧 Desenvolvimento | Inglês para Adultos (campanhas Ads) |
 
 ## Notas de Desenvolvimento
 

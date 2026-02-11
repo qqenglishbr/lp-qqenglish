@@ -43,6 +43,9 @@ interface LeadData {
   email: string;
   phone: string;
   country_code?: string;
+  // Kids LP fields (optional for other LPs)
+  child_name?: string;
+  child_age?: string;
   // UTM Parameters
   utm_source?: string;
   utm_medium?: string;
@@ -118,7 +121,7 @@ function generateValidationCode(): string {
   return String(100000 + (array[0] % 900000));
 }
 
-export const POST: APIRoute = async ({ request, clientAddress }) => {
+export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
   try {
     const data: LeadData = await request.json();
 
@@ -160,6 +163,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     const fullPhoneNumber = countryCodeDigits + phoneWithoutCountry;
 
     const { firstname, surname, fullname } = splitName(data.name);
+    const child = data.child_name ? splitName(data.child_name) : null;
 
     const leadPayload = {
       lead_id: leadId,
@@ -174,6 +178,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       country_code: countryCode,
       code_id: countryCodeToId[countryCode] || '',
       birthdate: data.birthdate || null,
+      child_name: child?.fullname || null,
+      child_firstname: child?.firstname || null,
+      child_surname: child?.surname || null,
+      child_age: data.child_age || null,
       // UTM Parameters
       utm_source: data.utm_source || '(direct)',
       utm_medium: data.utm_medium || '(none)',
@@ -202,7 +210,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     };
 
     // Send to N8N Webhook
-    const n8nWebhookUrl = import.meta.env.N8N_WEBHOOK_URL;
+    const n8nWebhookUrl = (locals as any)?.runtime?.env?.N8N_WEBHOOK_URL || import.meta.env.N8N_WEBHOOK_URL;
 
     if (n8nWebhookUrl) {
       await fetch(n8nWebhookUrl, {

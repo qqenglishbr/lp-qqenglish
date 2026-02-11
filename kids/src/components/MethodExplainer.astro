@@ -1,7 +1,6 @@
 ---
 // Kids Method Explainer section with YouTube video
-// TODO: Replace with actual Kids video ID when available
-const youtubeVideoId = "MkXQzL0puf4";
+const youtubeVideoId = "wT7EHswuXwo";
 ---
 
 <section class="method-explainer" id="metodo">
@@ -26,7 +25,7 @@ const youtubeVideoId = "MkXQzL0puf4";
           <div class="video-container youtube-lazy" data-video-id={youtubeVideoId}>
             <img
               src={`https://i.ytimg.com/vi/${youtubeVideoId}/hqdefault.jpg`}
-              alt="Como funciona a aula de inglês para crianças"
+              alt="Demo de aula Smart Kids - inglês para crianças"
               class="youtube-thumbnail"
               loading="lazy"
               width="480"
@@ -48,29 +47,29 @@ const youtubeVideoId = "MkXQzL0puf4";
         <h3 class="content-title">Como é uma aula de inglês para crianças?</h3>
 
         <p class="content-text">
-          Nossas aulas são especialmente desenhadas para o universo infantil. Professores treinados em <strong>ensino infantil</strong> usam técnicas lúdicas para manter as crianças engajadas e felizes durante toda a aula.
+          Nossas aulas seguem o currículo <strong>Smart Kids</strong>, desenvolvido por especialistas em educação infantil. Com <strong>8 níveis progressivos</strong>, seu filho avança do básico até conversação avançada.
         </p>
 
         <p class="content-text">
-          Cada aula de 25 minutos é uma aventura! Seu filho aprende brincando, sem nem perceber que está estudando.
+          Cada aula de 25 minutos é uma aventura! Com jogos interativos e animações, seu filho aprende brincando sem nem perceber que está estudando.
         </p>
 
         <ul class="feature-list">
           <li>
             <span class="feature-bullet"></span>
-            <span>Jogos interativos durante toda a aula</span>
+            <span>Currículo Smart Kids com 8 livros progressivos</span>
           </li>
           <li>
             <span class="feature-bullet"></span>
-            <span>Histórias e teatrinho em inglês</span>
+            <span>Jogos, animações e atividades interativas</span>
           </li>
           <li>
             <span class="feature-bullet"></span>
-            <span>Repetição lúdica para fixação natural</span>
+            <span>4 habilidades: ouvir, falar, ler e escrever</span>
           </li>
           <li>
             <span class="feature-bullet"></span>
-            <span>Professor dedicado a cada criança</span>
+            <span>Professor dedicado ao ritmo de cada criança</span>
           </li>
         </ul>
 
@@ -215,7 +214,15 @@ const youtubeVideoId = "MkXQzL0puf4";
     background: var(--color-dark);
   }
 
-  .video-container iframe {
+  /*
+    IMPORTANT: This iframe is created dynamically via JS (lazy YouTube embed).
+    Astro scoped CSS won't match dynamically created nodes (they won't have the
+    scoped data-* attributes), which can cause the iframe to render at a tiny
+    default size inside the container.
+
+    Use :global() so the rule applies to the injected iframe.
+  */
+  :global(.video-container iframe) {
     position: absolute;
     top: 0;
     left: 0;
@@ -378,6 +385,25 @@ const youtubeVideoId = "MkXQzL0puf4";
 </style>
 
 <script>
+  // Lazy preconnect for YouTube thumbnail + player (keeps initial load fast)
+  const ensurePreconnect = (() => {
+    let done = false;
+    const add = (href, crossorigin = false) => {
+      if (document.querySelector('link[rel="preconnect"][href="' + href + '"]')) return;
+      const link = document.createElement('link');
+      link.rel = 'preconnect';
+      link.href = href;
+      if (crossorigin) link.crossOrigin = '';
+      document.head.appendChild(link);
+    };
+    return () => {
+      if (done) return;
+      done = true;
+      add('https://i.ytimg.com', true);
+      add('https://www.youtube.com', true);
+    };
+  })();
+
   const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -395,11 +421,27 @@ const youtubeVideoId = "MkXQzL0puf4";
     observer.observe(el);
   });
 
+
+  // Preconnect YouTube domains shortly before the user sees the video
+  const ytContainer = document.querySelector('.youtube-lazy');
+  if (ytContainer) {
+    const ytObserver = new IntersectionObserver((entries) => {
+      if (entries.some(e => e.isIntersecting)) {
+        ensurePreconnect();
+        ytObserver.disconnect();
+      }
+    }, { rootMargin: '200px 0px' });
+
+    ytObserver.observe(ytContainer);
+  }
+
   // YouTube Lazy Loading - safe DOM manipulation
   document.querySelectorAll('.youtube-lazy').forEach(container => {
     container.addEventListener('click', function() {
       const videoId = this.getAttribute('data-video-id');
       if (!videoId || !/^[a-zA-Z0-9_-]{11}$/.test(videoId)) return;
+
+      ensurePreconnect();
 
       const iframe = document.createElement('iframe');
       iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;

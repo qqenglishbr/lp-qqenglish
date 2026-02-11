@@ -1,0 +1,539 @@
+---
+// LeadForm - Formulário principal de conversão (Inglês Geral)
+const countries = [
+  { code: '+55', flag: '🇧🇷', name: 'Brasil', mask: '(00) 00000-0000', maxLength: 11 },
+  { code: '+1', flag: '🇺🇸', name: 'EUA', mask: '(000) 000-0000', maxLength: 10 },
+  { code: '+351', flag: '🇵🇹', name: 'Portugal', mask: '000 000 000', maxLength: 9 },
+  { code: '+34', flag: '🇪🇸', name: 'Espanha', mask: '000 000 000', maxLength: 9 },
+  { code: '+44', flag: '🇬🇧', name: 'Reino Unido', mask: '0000 000000', maxLength: 10 },
+  { code: '+81', flag: '🇯🇵', name: 'Japão', mask: '00-0000-0000', maxLength: 10 },
+  { code: '+49', flag: '🇩🇪', name: 'Alemanha', mask: '000 00000000', maxLength: 11 },
+  { code: '+33', flag: '🇫🇷', name: 'França', mask: '0 00 00 00 00', maxLength: 9 },
+  { code: '+39', flag: '🇮🇹', name: 'Itália', mask: '000 000 0000', maxLength: 10 },
+  { code: '+54', flag: '🇦🇷', name: 'Argentina', mask: '00 0000-0000', maxLength: 10 },
+  { code: '+56', flag: '🇨🇱', name: 'Chile', mask: '0 0000 0000', maxLength: 9 },
+  { code: '+57', flag: '🇨🇴', name: 'Colômbia', mask: '000 000 0000', maxLength: 10 },
+  { code: '+52', flag: '🇲🇽', name: 'México', mask: '00 0000 0000', maxLength: 10 },
+];
+---
+
+<section class="lead-section" id="lead-form">
+  <div class="container">
+    <div class="section-bg">
+      <div class="bg-gradient"></div>
+      <div class="bg-pattern"></div>
+      <div class="bg-glow bg-glow--1"></div>
+      <div class="bg-glow bg-glow--2"></div>
+    </div>
+
+    <div class="lead-grid">
+      <div class="lead-content reveal">
+        <span class="section-eyebrow">Agende Sua Aula</span>
+        <h2 class="lead-title">Comece a falar inglês<br/>com confiança</h2>
+        <p class="lead-subtitle">
+          Preencha o formulário e agende sua primeira aula experimental
+          com um professor certificado.
+        </p>
+
+        <ul class="lead-benefits">
+          <li>
+            <div class="benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <div class="benefit-content">
+              <strong>Primeira aula por nossa conta</strong>
+              <span>25 minutos ao vivo com professor dedicado</span>
+            </div>
+          </li>
+          <li>
+            <div class="benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <div class="benefit-content">
+              <strong>Professores certificados TESOL</strong>
+              <span>Treinamento de 550+ horas antes de lecionar</span>
+            </div>
+          </li>
+          <li>
+            <div class="benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <div class="benefit-content">
+              <strong>Sem fidelidade</strong>
+              <span>Experimente e conheça a metodologia</span>
+            </div>
+          </li>
+        </ul>
+
+        <div class="trust-badges">
+          <div class="badge">
+            <span class="badge-text">TESOL<br/>Certified</span>
+          </div>
+          <div class="badge">
+            <span class="badge-text">Desde<br/>2009</span>
+          </div>
+          <div class="badge">
+            <span class="badge-text">50.000+<br/>Alunos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-wrapper reveal">
+        <div class="form-card">
+          <div class="form-header">
+            <h3 class="form-title">Agende sua primeira aula</h3>
+            <p class="form-note">Retornamos em até 24h úteis pelo WhatsApp</p>
+          </div>
+
+          <form id="lead-form-main" class="lead-form" novalidate>
+            <div class="form-group">
+              <label for="nome" class="form-label">Nome completo</label>
+              <input type="text" id="nome" name="name" class="form-input" placeholder="Digite seu nome" required minlength="2" autocomplete="name" />
+              <span class="form-error" data-error="name"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">E-mail</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="seu@email.com" required autocomplete="email" />
+              <span class="form-error" data-error="email"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="telefone" class="form-label">WhatsApp</label>
+              <div class="phone-input-wrapper">
+                <div class="country-select-wrapper">
+                  <button type="button" class="country-select-trigger" id="country-trigger" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="country-flag" id="selected-flag">🇧🇷</span>
+                    <span class="country-code" id="selected-code">+55</span>
+                    <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </button>
+                  <div class="country-dropdown" id="country-dropdown" role="listbox">
+                    {countries.map((country) => (
+                      <button type="button" class="country-option" role="option" data-code={country.code} data-flag={country.flag} data-name={country.name} data-max={country.maxLength}>
+                        <span class="option-flag">{country.flag}</span>
+                        <span class="option-name">{country.name}</span>
+                        <span class="option-code">{country.code}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <input type="tel" id="telefone" name="phone" class="form-input phone-input" placeholder="(11) 99999-9999" required autocomplete="tel-national" />
+              </div>
+              <input type="hidden" name="country_code" id="country_code" value="+55" />
+              <span class="form-error" data-error="phone"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Data de nascimento <span class="optional">(opcional)</span></label>
+              <div class="birthdate-wrapper">
+                <select id="birth-day" name="birth_day" class="form-select birthdate-select">
+                  <option value="">Dia</option>
+                </select>
+                <select id="birth-month" name="birth_month" class="form-select birthdate-select">
+                  <option value="">Mês</option>
+                  <option value="01">Janeiro</option>
+                  <option value="02">Fevereiro</option>
+                  <option value="03">Março</option>
+                  <option value="04">Abril</option>
+                  <option value="05">Maio</option>
+                  <option value="06">Junho</option>
+                  <option value="07">Julho</option>
+                  <option value="08">Agosto</option>
+                  <option value="09">Setembro</option>
+                  <option value="10">Outubro</option>
+                  <option value="11">Novembro</option>
+                  <option value="12">Dezembro</option>
+                </select>
+                <select id="birth-year" name="birth_year" class="form-select birthdate-select birthdate-year">
+                  <option value="">Ano</option>
+                </select>
+              </div>
+              <input type="hidden" name="birthdate" id="birthdate" />
+            </div>
+
+            <!-- Hidden tracking fields -->
+            <input type="hidden" name="utm_source" id="utm_source" />
+            <input type="hidden" name="utm_medium" id="utm_medium" />
+            <input type="hidden" name="utm_campaign" id="utm_campaign" />
+            <input type="hidden" name="utm_content" id="utm_content" />
+            <input type="hidden" name="utm_term" id="utm_term" />
+            <input type="hidden" name="gclid" id="gclid" />
+            <input type="hidden" name="gbraid" id="gbraid" />
+            <input type="hidden" name="wbraid" id="wbraid" />
+            <input type="hidden" name="fbp" id="fbp" />
+            <input type="hidden" name="fbc" id="fbc" />
+            <input type="hidden" name="ttclid" id="ttclid" />
+            <input type="hidden" name="landing_page_url" id="landing_page_url" />
+            <input type="hidden" name="referrer" id="referrer" />
+
+            <button type="submit" class="form-submit" id="submit-btn">
+              <span class="btn-text">Quero Experimentar</span>
+              <span class="btn-loading">
+                <svg class="spinner" width="20" height="20" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="60" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+
+            <p class="form-disclaimer">
+              Ao enviar, você concorda com nossa <a href="/politica-de-privacidade" target="_blank">política de privacidade</a>.
+            </p>
+          </form>
+
+          <div id="form-success" class="form-success" style="display: none;">
+            <div class="success-icon-wrap">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </div>
+            <h3 class="success-title">Perfeito!</h3>
+            <p class="success-message">
+              Recebemos seu cadastro. Vamos validar seu WhatsApp para agendar sua aula experimental.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('lead-form-main') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const successDiv = document.getElementById('form-success') as HTMLDivElement;
+
+  const countryTrigger = document.getElementById('country-trigger') as HTMLButtonElement;
+  const countryDropdown = document.getElementById('country-dropdown') as HTMLDivElement;
+  const selectedFlag = document.getElementById('selected-flag') as HTMLSpanElement;
+  const selectedCode = document.getElementById('selected-code') as HTMLSpanElement;
+  const countryCodeInput = document.getElementById('country_code') as HTMLInputElement;
+  const phoneInput = document.getElementById('telefone') as HTMLInputElement;
+
+  let currentMaxLength = 11;
+
+  countryTrigger?.addEventListener('click', (e) => {
+    e.preventDefault();
+    const isOpen = countryDropdown.classList.toggle('open');
+    countryTrigger.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  document.querySelectorAll('.country-option').forEach(option => {
+    option.addEventListener('click', () => {
+      const code = option.getAttribute('data-code') || '+55';
+      const flag = option.getAttribute('data-flag') || '🇧🇷';
+      const maxLength = parseInt(option.getAttribute('data-max') || '11');
+
+      selectedFlag.textContent = flag;
+      selectedCode.textContent = code;
+      countryCodeInput.value = code;
+      currentMaxLength = maxLength;
+
+      if (code === '+55') phoneInput.placeholder = '(11) 99999-9999';
+      else if (code === '+1') phoneInput.placeholder = '(555) 123-4567';
+      else if (code === '+351') phoneInput.placeholder = '912 345 678';
+      else phoneInput.placeholder = '123456789';
+
+      phoneInput.value = '';
+      countryDropdown.classList.remove('open');
+      countryTrigger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!countryTrigger?.contains(e.target as Node) && !countryDropdown?.contains(e.target as Node)) {
+      countryDropdown?.classList.remove('open');
+      countryTrigger?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  function getCookie(name: string): string {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : '';
+  }
+
+  function getUrlParam(param: string): string {
+    return new URLSearchParams(window.location.search).get(param) || '';
+  }
+
+  function populateTrackingFields() {
+    const utmData = JSON.parse(sessionStorage.getItem('utmData') || '{}');
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(field => {
+      const input = document.getElementById(field) as HTMLInputElement;
+      if (input) input.value = utmData[field] || getUrlParam(field) || '';
+    });
+
+    (document.getElementById('gclid') as HTMLInputElement).value = getUrlParam('gclid') || sessionStorage.getItem('gclid') || getCookie('_gcl_aw')?.split('.').pop() || '';
+    (document.getElementById('gbraid') as HTMLInputElement).value = getUrlParam('gbraid') || sessionStorage.getItem('gbraid') || getCookie('_gcl_gb')?.split('.').pop() || '';
+    (document.getElementById('wbraid') as HTMLInputElement).value = getUrlParam('wbraid') || sessionStorage.getItem('wbraid') || '';
+
+    const fbp = getCookie('_fbp') || '';
+    const fbclid = getUrlParam('fbclid') || sessionStorage.getItem('fbclid') || '';
+    const fbc = getCookie('_fbc') || (fbclid ? `fb.1.${Date.now()}.${fbclid}` : '');
+
+    (document.getElementById('fbp') as HTMLInputElement).value = fbp;
+    (document.getElementById('fbc') as HTMLInputElement).value = fbc;
+    (document.getElementById('ttclid') as HTMLInputElement).value = getUrlParam('ttclid') || sessionStorage.getItem('ttclid') || getCookie('_ttp') || '';
+    (document.getElementById('landing_page_url') as HTMLInputElement).value = window.location.href;
+    (document.getElementById('referrer') as HTMLInputElement).value = document.referrer || '';
+  }
+
+  phoneInput?.addEventListener('input', (e) => {
+    const target = e.target as HTMLInputElement;
+    const countryCode = countryCodeInput.value;
+    let value = target.value.replace(/\D/g, '').slice(0, currentMaxLength);
+
+    if (countryCode === '+55') {
+      if (value.length <= 10) value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3').trim().replace(/-$/, '');
+      else value = value.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3').trim().replace(/-$/, '');
+    } else if (countryCode === '+1') {
+      value = value.replace(/(\d{3})(\d{3})(\d{0,4})/, '($1) $2-$3').trim().replace(/-$/, '');
+    } else if (countryCode === '+351') {
+      value = value.replace(/(\d{3})(\d{3})(\d{0,3})/, '$1 $2 $3').trim();
+    } else {
+      value = value.replace(/(\d{3})(?=\d)/g, '$1 ').trim();
+    }
+    target.value = value;
+  });
+
+  function validateField(input: HTMLInputElement): boolean {
+    const errorSpan = document.querySelector(`[data-error="${input.name}"]`) as HTMLSpanElement;
+    let isValid = true;
+    let errorMsg = '';
+
+    if (input.required && !input.value.trim()) {
+      isValid = false;
+      errorMsg = 'Este campo é obrigatório';
+    } else if (input.type === 'email' && input.value) {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+        isValid = false;
+        errorMsg = 'Digite um e-mail válido';
+      }
+    } else if (input.name === 'phone' && input.value) {
+      const phoneNumbers = input.value.replace(/\D/g, '');
+      const minLength = countryCodeInput.value === '+55' ? 10 : 7;
+      if (phoneNumbers.length < minLength) {
+        isValid = false;
+        errorMsg = 'Digite um telefone válido';
+      }
+    }
+
+    if (errorSpan) errorSpan.textContent = errorMsg;
+    input.classList.toggle('error', !isValid);
+    return isValid;
+  }
+
+  let formStarted = false;
+  form?.querySelectorAll('input:not([type="hidden"])').forEach(input => {
+    input.addEventListener('focus', () => {
+      if (!formStarted) {
+        formStarted = true;
+        window.dataLayer?.push({ 'event': 'form_start', 'form_id': 'lead-form-main', 'field_name': (input as HTMLInputElement).name });
+      }
+    });
+    input.addEventListener('blur', () => validateField(input as HTMLInputElement));
+  });
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const inputs = form.querySelectorAll('input[required]') as NodeListOf<HTMLInputElement>;
+    let isFormValid = true;
+    inputs.forEach(input => { if (!validateField(input)) isFormValid = false; });
+
+    if (!isFormValid) return;
+
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    const phoneNumbers = (data.phone as string).replace(/\D/g, '');
+    data.phone = `${data.country_code}${phoneNumbers}`;
+
+    try {
+      const response = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        window.dataLayer?.push({ 'event': 'generate_lead', 'form_id': 'lead-form-main', 'lead_id': result.lead_id || '' });
+        window.dataLayer?.push({ 'event': 'conversion', 'conversion_type': 'lead', 'value': 0, 'currency': 'BRL' });
+        window.dataLayer?.push({ 'event': 'form_redirect', 'lead_id': result.lead_id || '', 'destination': '/validacao' });
+
+        sessionStorage.setItem('lead_id', result.lead_id || '');
+        window.location.href = '/validacao';
+        return;
+      } else {
+        throw new Error(result.message || 'Erro ao enviar formulário');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert('Ocorreu um erro. Por favor, tente novamente.');
+    } finally {
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
+    }
+  });
+
+  function populateBirthdateSelectors() {
+    const daySelect = document.getElementById("birth-day") as HTMLSelectElement;
+    const yearSelect = document.getElementById("birth-year") as HTMLSelectElement;
+    const monthSelect = document.getElementById("birth-month") as HTMLSelectElement;
+    const birthdateHidden = document.getElementById("birthdate") as HTMLInputElement;
+
+    for (let i = 1; i <= 31; i++) {
+      const option = document.createElement("option");
+      option.value = i.toString().padStart(2, "0");
+      option.textContent = i.toString();
+      daySelect?.appendChild(option);
+    }
+
+    const currentYear = new Date().getFullYear();
+    for (let i = currentYear - 3; i >= currentYear - 100; i--) {
+      const option = document.createElement("option");
+      option.value = i.toString();
+      option.textContent = i.toString();
+      yearSelect?.appendChild(option);
+    }
+
+    function updateBirthdate() {
+      const day = daySelect?.value || "";
+      const month = monthSelect?.value || "";
+      const year = yearSelect?.value || "";
+      birthdateHidden.value = (day && month && year) ? `${year}-${month}-${day}` : "";
+    }
+
+    daySelect?.addEventListener("change", updateBirthdate);
+    monthSelect?.addEventListener("change", updateBirthdate);
+    yearSelect?.addEventListener("change", updateBirthdate);
+  }
+
+  populateBirthdateSelectors();
+  populateTrackingFields();
+</script>
+
+<style>
+  .lead-section {
+    position: relative;
+    padding: var(--section-padding) 0;
+    overflow: hidden;
+  }
+
+  .section-bg { position: absolute; inset: 0; z-index: 0; }
+  .bg-gradient { position: absolute; inset: 0; background: linear-gradient(135deg, #f8fafc 0%, #ecfeff 50%, #f0fdfa 100%); }
+  .bg-pattern { position: absolute; inset: 0; background-image: radial-gradient(circle at 1px 1px, var(--color-gray-200) 1px, transparent 0); background-size: 40px 40px; opacity: 0.5; }
+  .bg-glow { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; }
+  .bg-glow--1 { width: 400px; height: 400px; top: -100px; right: 10%; background: var(--color-primary); opacity: 0.08; }
+  .bg-glow--2 { width: 300px; height: 300px; bottom: -50px; left: 5%; background: var(--color-accent); opacity: 0.1; }
+
+  .lead-section .container { position: relative; z-index: 1; }
+
+  .lead-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
+  @media (min-width: 1024px) { .lead-grid { grid-template-columns: 1fr 1fr; gap: 5rem; } }
+
+  .section-eyebrow { display: inline-block; font-size: 0.8125rem; font-weight: 600; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+  .lead-title { font-family: var(--font-display); font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; color: var(--color-dark); line-height: 1.2; margin-bottom: 1rem; }
+  .lead-subtitle { font-size: 1.0625rem; color: var(--color-gray-600); line-height: 1.7; margin-bottom: 2rem; }
+
+  .lead-benefits { list-style: none; margin-bottom: 2rem; }
+  .lead-benefits li { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; }
+  .benefit-icon { flex-shrink: 0; width: 28px; height: 28px; background: linear-gradient(135deg, var(--color-primary) 0%, #0e7490 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .benefit-icon svg { width: 14px; height: 14px; color: white; }
+  .benefit-content { display: flex; flex-direction: column; gap: 0.125rem; }
+  .benefit-content strong { font-size: 0.9375rem; font-weight: 600; color: var(--color-dark); }
+  .benefit-content span { font-size: 0.875rem; color: var(--color-gray-500); }
+
+  .trust-badges { display: flex; align-items: center; gap: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--color-gray-200); }
+  .badge-text { font-family: var(--font-display); font-size: 0.6875rem; font-weight: 700; color: var(--color-gray-400); text-transform: uppercase; letter-spacing: 0.05em; text-align: center; line-height: 1.3; }
+
+  .form-wrapper { display: flex; justify-content: center; }
+  .form-card { background: white; border-radius: var(--radius-xl); padding: 2.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 20px 40px -10px rgba(8, 145, 178, 0.1); width: 100%; max-width: 480px; border: 1px solid var(--color-gray-100); }
+  .form-header { text-align: center; margin-bottom: 2rem; }
+  .form-title { font-family: var(--font-display); font-size: 1.375rem; font-weight: 700; color: var(--color-dark); margin-bottom: 0.5rem; }
+  .form-note { font-size: 0.875rem; color: var(--color-gray-500); }
+
+  .form-group { margin-bottom: 1.25rem; }
+  .form-label { display: block; font-size: 0.875rem; font-weight: 600; color: var(--color-gray-700); margin-bottom: 0.5rem; }
+  .optional { font-weight: 400; color: var(--color-gray-500); font-size: 0.8rem; }
+
+  .form-input { width: 100%; padding: 0.875rem 1rem; border: 1.5px solid var(--color-gray-200); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 1rem; color: var(--color-dark); background: var(--color-gray-50); transition: all var(--transition-fast); }
+  .form-input:focus { outline: none; border-color: var(--color-primary); background: white; box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.08); }
+  .form-input.error { border-color: var(--color-error); background: #fef2f2; }
+  .form-input::placeholder { color: var(--color-gray-400); }
+  .form-error { display: block; font-size: 0.75rem; color: var(--color-error); margin-top: 0.375rem; min-height: 1rem; }
+
+  .birthdate-wrapper { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 0.75rem; }
+  .form-select { width: 100%; padding: 0.875rem 2.5rem 0.875rem 1rem; border: 1.5px solid var(--color-gray-200); border-radius: var(--radius-md); font-family: var(--font-body); font-size: 1rem; color: var(--color-dark); background: var(--color-gray-50); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; appearance: none; -webkit-appearance: none; cursor: pointer; transition: all var(--transition-fast); }
+  .form-select:focus { outline: none; border-color: var(--color-primary); background-color: white; box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.08); }
+  @media (max-width: 480px) { .birthdate-wrapper { grid-template-columns: 1fr 1fr; gap: 0.5rem; } .birthdate-year { grid-column: span 2; } }
+
+  .phone-input-wrapper { display: flex; gap: 0; }
+  .country-select-wrapper { position: relative; flex-shrink: 0; }
+  .country-select-trigger { display: flex; align-items: center; gap: 0.375rem; padding: 0.875rem 0.75rem; background: var(--color-gray-50); border: 1.5px solid var(--color-gray-200); border-right: none; border-radius: var(--radius-md) 0 0 var(--radius-md); cursor: pointer; transition: all var(--transition-fast); height: 100%; }
+  .country-select-trigger:hover { background: var(--color-gray-100); }
+  .country-select-trigger:focus { outline: none; border-color: var(--color-primary); background: white; z-index: 1; }
+  .country-flag { font-size: 1.25rem; line-height: 1; }
+  .country-code { font-size: 0.875rem; font-weight: 500; color: var(--color-gray-600); }
+  .chevron { color: var(--color-gray-400); transition: transform var(--transition-fast); }
+  .country-select-trigger[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+
+  .country-dropdown { position: absolute; top: calc(100% + 4px); left: 0; min-width: 220px; max-height: 280px; overflow-y: auto; background: white; border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); box-shadow: var(--shadow-lg); z-index: 100; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all var(--transition-fast); }
+  .country-dropdown.open { opacity: 1; visibility: visible; transform: translateY(0); }
+  .country-option { display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.75rem 1rem; background: none; border: none; cursor: pointer; transition: background var(--transition-fast); text-align: left; }
+  .country-option:hover { background: var(--color-gray-50); }
+  .option-flag { font-size: 1.25rem; line-height: 1; }
+  .option-name { flex: 1; font-size: 0.875rem; color: var(--color-dark); }
+  .option-code { font-size: 0.8125rem; color: var(--color-gray-500); }
+  .phone-input { border-radius: 0 var(--radius-md) var(--radius-md) 0 !important; flex: 1; }
+
+  .form-submit { width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 1rem 1.5rem; background: linear-gradient(135deg, var(--color-lp-cta) 0%, #ea580c 100%); color: white; font-family: var(--font-body); font-size: 1rem; font-weight: 600; border: none; border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast); position: relative; overflow: hidden; box-shadow: 0 4px 16px rgba(249, 115, 22, 0.3); }
+  .form-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4); }
+  .form-submit:active:not(:disabled) { transform: translateY(0); }
+  .form-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+  .btn-arrow { transition: transform var(--transition-fast); }
+  .form-submit:hover:not(:disabled) .btn-arrow { transform: translateX(4px); }
+  .btn-loading { display: none; }
+  .form-submit.loading .btn-text { visibility: hidden; }
+  .form-submit.loading .btn-arrow { visibility: hidden; }
+  .form-submit.loading .btn-loading { display: block; position: absolute; }
+  .spinner { animation: spin 1s linear infinite; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .form-disclaimer { font-size: 0.75rem; color: var(--color-gray-500); text-align: center; margin-top: 1rem; line-height: 1.5; }
+  .form-disclaimer a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 2px; }
+
+  .form-success { text-align: center; padding: 2rem 1rem; }
+  .success-icon-wrap { display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border-radius: 50%; color: #16a34a; margin-bottom: 1.5rem; }
+  .success-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--color-dark); margin-bottom: 0.75rem; }
+  .success-message { font-size: 1rem; color: var(--color-gray-600); line-height: 1.7; }
+
+  .reveal { opacity: 0; transform: translateY(30px); }
+  .lead-content.reveal { --delay: 0s; }
+  .form-wrapper.reveal { --delay: 0.15s; }
+  .reveal.is-visible { animation: reveal 0.8s var(--ease-out-expo) forwards; animation-delay: var(--delay); }
+  @keyframes reveal { to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 640px) { .form-card { padding: 1.75rem; } .trust-badges { flex-wrap: wrap; gap: 1rem; } }
+</style>
+
+<script>
+  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
+  }, observerOptions);
+  document.querySelectorAll('.lead-section .reveal').forEach(el => observer.observe(el));
+</script>

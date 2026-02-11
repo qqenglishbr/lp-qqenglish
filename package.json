@@ -9,7 +9,8 @@
     "kids",
     "business",
     "promo",
-    "recovery"
+    "recovery",
+    "adults"
   ],
   "scripts": {
     "dev:callan": "npm run dev --workspace=callan",
@@ -17,16 +18,19 @@
     "dev:business": "npm run dev --workspace=business",
     "dev:promo": "npm run dev --workspace=promo",
     "dev:recovery": "npm run dev --workspace=recovery",
+    "dev:adults": "npm run dev --workspace=adults",
     "build:callan": "npm run build --workspace=callan",
     "build:kids": "npm run build --workspace=kids",
     "build:business": "npm run build --workspace=business",
     "build:promo": "npm run build --workspace=promo",
     "build:recovery": "npm run build --workspace=recovery",
-    "build:all": "npm run build:callan && npm run build:kids && npm run build:business && npm run build:promo && npm run build:recovery",
+    "build:adults": "npm run build --workspace=adults",
+    "build:all": "npm run build:callan && npm run build:kids && npm run build:business && npm run build:promo && npm run build:recovery && npm run build:adults",
     "deploy:callan": "cd callan && npm run build && npx wrangler pages deploy dist",
     "deploy:kids": "cd kids && npm run build && npx wrangler pages deploy dist",
     "deploy:business": "cd business && npm run build && npx wrangler pages deploy dist",
     "deploy:promo": "cd promo && npm run build && npx wrangler pages deploy dist",
-    "deploy:recovery": "cd recovery && npm run build && npx wrangler pages deploy dist"
+    "deploy:recovery": "cd recovery && npm run build && npx wrangler pages deploy dist",
+    "deploy:adults": "cd adults && npm run build && npx wrangler pages deploy dist"
   }
 }

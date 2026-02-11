@@ -286,6 +286,23 @@
     }
   });
 
+
+  // TEMP: Force consent accepted to test performance (banner disabled)
+  const FORCE_CONSENT = true;
+  if (FORCE_CONSENT) {
+    const preferences = { analytics: true, marketing: true };
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        ...preferences,
+        version: CONSENT_VERSION,
+        timestamp: new Date().toISOString(),
+        forced: true
+      }));
+    } catch (e) {}
+    updateConsent(preferences);
+    return;
+  }
+
   // Initialize
   setDefaultConsent();
 
@@ -304,6 +321,12 @@
 </script>
 
 <style>
+  /* TEMP: hide cookie UI while FORCE_CONSENT is enabled */
+  .cookie-banner,
+  .cookie-modal {
+    display: none !important;
+  }
+
   /* Banner */
   .cookie-banner {
     position: fixed;

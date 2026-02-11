@@ -86,7 +86,7 @@
           <!-- Main Image -->
           <div class="image-wrapper">
             <div class="image-frame">
-              <img src="/images/hero-kids.webp" alt="Criança aprendendo inglês na QQEnglish" class="hero-image" fetchpriority="high" decoding="async" width="650" height="650" />
+              <img src="/images/hero-kids-20260210.webp" alt="Criança aprendendo inglês na QQEnglish" class="hero-image" fetchpriority="high" decoding="async" width="650" height="650" />
             </div>
             <div class="image-backdrop"></div>
           </div>
@@ -440,13 +440,30 @@
     background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));
     padding: 6px;
     box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.2);
+
+    /* Make the hero image responsive by controlling the crop */
+    aspect-ratio: 1 / 1;
+    display: flex;
   }
 
   .hero-image {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     border-radius: calc(var(--radius-xl) - 4px);
+    object-fit: cover;
+    object-position: center;
+  }
+
+  @media (max-width: 640px) {
+    .image-frame {
+      /* Slightly wider crop on small screens so it doesn"t feel too tall */
+      aspect-ratio: 4 / 3;
+    }
+
+    .hero-image {
+      object-position: center 25%;
+    }
   }
 
   .image-backdrop {
@@ -615,11 +632,11 @@
     100% { opacity: 0; transform: translateX(-50%) translateY(12px); }
   }
 
-  /* Reveal animations */
+  /* Reveal animations (disabled to improve LCP/FCP stability on mobile) */
   .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: reveal 0.8s var(--ease-out-expo) forwards;
+    opacity: 1;
+    transform: none;
+    animation: none;
   }
 
   .reveal:nth-child(1) { animation-delay: 0.1s; }

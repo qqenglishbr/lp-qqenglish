@@ -1,0 +1,228 @@
+---
+// Testimonials - Depoimentos de alunos (inglês geral, NÃO Callan)
+const testimonials = [
+  {
+    name: "Marina Silva",
+    role: "Analista de Marketing",
+    rating: 5,
+    quote: "As aulas de 25 minutos mudaram tudo pra mim. Consigo estudar no horário de almoço e já sinto minha conversação evoluindo a cada semana."
+  },
+  {
+    name: "Carlos Eduardo",
+    role: "Desenvolvedor de Software",
+    rating: 5,
+    quote: "Tentei vários apps e cursos gravados, mas nada substitui conversar com um professor ao vivo. Em 2 meses já consegui fazer uma reunião em inglês."
+  },
+  {
+    name: "Ana Paula",
+    role: "Estudante Universitária",
+    rating: 5,
+    quote: "O preço foi o que me chamou atenção primeiro, mas a qualidade dos professores me surpreendeu. São super pacientes e dedicados."
+  },
+  {
+    name: "Roberto Mendes",
+    role: "Engenheiro Civil",
+    rating: 5,
+    quote: "Sempre quis falar inglês mas nunca tinha tempo. Com as aulas às 6h da manhã antes do trabalho, finalmente consegui manter a rotina."
+  },
+  {
+    name: "Juliana Freitas",
+    role: "Empreendedora",
+    rating: 5,
+    quote: "O que mais gosto é poder cancelar quando quiser. Sem contrato me deu liberdade de testar sem medo. Resultado: estudo há 8 meses e não pretendo parar."
+  },
+  {
+    name: "Fernando Costa",
+    role: "Gerente de Projetos",
+    rating: 5,
+    quote: "A aula experimental me convenceu na hora. O professor foi super atencioso e adaptou a aula ao meu nível. Assinei no mesmo dia."
+  }
+];
+
+const stats = [
+  { value: "50.000+", label: "Alunos satisfeitos" },
+  { value: "4.9/5", label: "Avaliação média" },
+  { value: "Desde 2009", label: "No mercado" },
+  { value: "30+", label: "Países atendidos" }
+];
+---
+
+<section class="testimonials-section" id="depoimentos">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-badge">Depoimentos</span>
+      <h2>O que nossos alunos dizem</h2>
+      <p>Mais de 50.000 alunos já transformaram seu inglês com a QQEnglish</p>
+    </div>
+
+    <div class="testimonials-grid">
+      {testimonials.map((testimonial, index) => (
+        <div class="testimonial-card reveal" style={`animation-delay: ${index * 0.1}s`}>
+          <div class="card-stars">
+            {Array.from({ length: testimonial.rating }).map(() => (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24" stroke="#fbbf24" stroke-width="1">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            ))}
+          </div>
+          <blockquote class="card-quote">"{testimonial.quote}"</blockquote>
+          <div class="card-author">
+            <div class="author-avatar">
+              <span>{testimonial.name.split(' ').map(n => n[0]).join('')}</span>
+            </div>
+            <div class="author-info">
+              <strong>{testimonial.name}</strong>
+              <span>{testimonial.role}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="stats-bar reveal">
+      {stats.map((stat) => (
+        <div class="stat-item">
+          <span class="stat-value">{stat.value}</span>
+          <span class="stat-label">{stat.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials-section {
+    padding: var(--section-padding) 0;
+    background: white;
+  }
+
+  .section-header { text-align: center; max-width: 640px; margin: 0 auto 3.5rem; }
+  .section-badge { display: inline-block; padding: 0.375rem 1rem; font-size: 0.8125rem; font-weight: 600; color: var(--color-primary); background: var(--color-primary-subtle); border-radius: var(--radius-full); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .section-header h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); margin-bottom: 0.75rem; }
+  .section-header p { font-size: 1.125rem; color: var(--color-gray-600); }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 1024px) {
+    .testimonials-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  }
+
+  .testimonial-card {
+    background: var(--color-gray-50);
+    padding: 1.75rem;
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
+    border: 1px solid transparent;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonial-card:hover {
+    background: white;
+    border-color: var(--color-gray-200);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .card-stars {
+    display: flex;
+    gap: 0.125rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-quote {
+    font-size: 0.9375rem;
+    color: var(--color-gray-700);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+    flex: 1;
+    font-style: normal;
+  }
+
+  .card-author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-gray-200);
+  }
+
+  .author-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0e7490 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .author-avatar span {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+
+  .author-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .author-info strong {
+    font-size: 0.875rem;
+    color: var(--color-dark);
+  }
+
+  .author-info span {
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+  }
+
+  /* Stats Bar */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, var(--color-dark) 0%, #1a2a42 100%);
+    border-radius: var(--radius-xl);
+  }
+
+  @media (min-width: 768px) {
+    .stats-bar {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--color-primary-light);
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.8125rem;
+    color: var(--color-gray-400);
+  }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+</style>

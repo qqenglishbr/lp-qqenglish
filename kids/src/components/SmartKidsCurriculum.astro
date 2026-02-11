@@ -1,0 +1,821 @@
+---
+const levels = [
+  {
+    name: "Pre-Starter",
+    lessons: 60,
+    level: 0,
+    age: "3–4 anos",
+    color: "pink",
+    description: "Cumprimentos básicos, frutas e alimentos. Primeiros passos no inglês.",
+    skills: ["Ouvir", "Falar"]
+  },
+  {
+    name: "Starter",
+    lessons: 16,
+    level: 0,
+    age: "3–5 anos",
+    color: "orange",
+    description: "Pronúncia e escrita do alfabeto. As 26 letras e palavras simples.",
+    skills: ["Ouvir", "Falar"]
+  },
+  {
+    name: "Smart Kids 1",
+    lessons: 43,
+    level: 1,
+    age: "4–6 anos",
+    color: "yellow",
+    description: "Apresentação pessoal, dias da semana, clima e preferências alimentares.",
+    skills: ["Ouvir", "Falar"]
+  },
+  {
+    name: "Smart Kids 2",
+    lessons: 43,
+    level: 2,
+    age: "5–7 anos",
+    color: "green",
+    description: "Sentimentos, animais, localizações e presente contínuo.",
+    skills: ["Ouvir", "Falar"]
+  },
+  {
+    name: "Smart Kids 3",
+    lessons: 43,
+    level: 3,
+    age: "6–8 anos",
+    color: "teal",
+    description: "Estações, profissões, preposições e perguntas no passado.",
+    skills: ["Ouvir", "Falar", "Ler"]
+  },
+  {
+    name: "Smart Kids 4",
+    lessons: 49,
+    level: 4,
+    age: "7–9 anos",
+    color: "blue",
+    description: "Comparativos, planos futuros e introdução à leitura.",
+    skills: ["Ouvir", "Falar", "Ler"]
+  },
+  {
+    name: "Smart Kids 5",
+    lessons: 50,
+    level: 5,
+    age: "8–10 anos",
+    color: "purple",
+    description: "Introdução à escrita, culturas do mundo e presente contínuo avançado.",
+    skills: ["Ouvir", "Falar", "Ler", "Escrever"]
+  },
+  {
+    name: "Smart Kids 6",
+    lessons: 57,
+    level: 6,
+    age: "9–12 anos",
+    color: "indigo",
+    description: "Expressões complexas, gramática avançada e preparação para certificações.",
+    skills: ["Ouvir", "Falar", "Ler", "Escrever"]
+  }
+];
+
+const supplementary = [
+  {
+    name: "Magic Phonics",
+    description: "Pronúncia e conexão letra-som",
+    levels: "Nível 1–6",
+    icon: "phonics"
+  },
+  {
+    name: "Callan for Kids",
+    description: "Método Callan adaptado para crianças",
+    levels: "Nível 3–8",
+    icon: "callan"
+  },
+  {
+    name: "We Sing We Learn",
+    description: "Músicas e cantigas para os menores",
+    levels: "Nível 1–2",
+    icon: "music"
+  }
+];
+
+const skillColors: Record<string, string> = {
+  "Ouvir": "#f97316",
+  "Falar": "#22c55e",
+  "Ler": "#0055cc",
+  "Escrever": "#a855f7"
+};
+---
+
+<section class="curriculum" id="curriculo">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header reveal">
+      <span class="section-eyebrow">Currículo Smart Kids</span>
+      <h2 class="section-title">
+        Uma jornada completa
+        <span class="title-accent">do zero ao avançado</span>
+      </h2>
+      <p class="section-description">
+        Desenvolvido por especialistas em educação infantil, o currículo Smart Kids
+        oferece <strong>8 níveis progressivos</strong> com mais de 400 aulas que desenvolvem
+        vocabulário, gramática, conversação e cultura.
+      </p>
+    </div>
+
+    <!-- Skills Legend -->
+    <div class="skills-legend reveal">
+      {Object.entries(skillColors).map(([skill, color]) => (
+        <span class="legend-item">
+          <span class="legend-dot" style={`background: ${color}`}></span>
+          {skill}
+        </span>
+      ))}
+    </div>
+
+    <!-- Learning Path -->
+    <div class="learning-path">
+      <div class="path-line" aria-hidden="true"></div>
+
+      {levels.map((level, index) => (
+        <div
+          class={`path-card reveal card-${level.color} ${index % 2 === 0 ? 'card-left' : 'card-right'}`}
+          style={`--delay: ${index * 0.08}s`}
+        >
+          <!-- Connector dot on timeline -->
+          <div class="timeline-dot" aria-hidden="true">
+            <span class="dot-inner"></span>
+          </div>
+
+          <div class="card-body">
+            <div class="card-top">
+              <div class="level-badge">
+                <span class="level-tag">Nv. {level.level}</span>
+              </div>
+              <span class="lesson-count">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </svg>
+                {level.lessons} aulas
+              </span>
+            </div>
+
+            <h3 class="card-name">{level.name}</h3>
+            <span class="card-age">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              {level.age}
+            </span>
+
+            <p class="card-description">{level.description}</p>
+
+            <div class="skills-row">
+              {level.skills.map(skill => (
+                <span class="skill-pill" style={`--pill-color: ${skillColors[skill]}`}>
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Progress Highlights -->
+    <div class="highlights reveal">
+      <div class="highlight-card">
+        <div class="highlight-icon highlight-icon--book">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+        </div>
+        <div class="highlight-text">
+          <span class="highlight-value">~70%</span>
+          <span class="highlight-label">do inglês do ensino fundamental coberto pelo <strong>Book 2</strong></span>
+        </div>
+      </div>
+
+      <div class="highlight-card">
+        <div class="highlight-icon highlight-icon--grad">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <div class="highlight-text">
+          <span class="highlight-value">~100%</span>
+          <span class="highlight-label">do inglês do ensino fundamental coberto pelo <strong>Book 4</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Supplementary Curricula -->
+    <div class="supplementary reveal">
+      <h3 class="supplementary-heading">Currículos complementares</h3>
+      <div class="supplementary-grid">
+        {supplementary.map(item => (
+          <div class="supp-card">
+            <div class="supp-icon">
+              {item.icon === "phonics" && (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 18.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13Z"/>
+                  <path d="M12 18.5V22"/>
+                  <path d="M8 15h8"/>
+                  <path d="M9 12h6"/>
+                </svg>
+              )}
+              {item.icon === "callan" && (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  <path d="M8 10h8"/>
+                  <path d="M8 14h4"/>
+                </svg>
+              )}
+              {item.icon === "music" && (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18V5l12-2v13"/>
+                  <circle cx="6" cy="18" r="3"/>
+                  <circle cx="18" cy="16" r="3"/>
+                </svg>
+              )}
+            </div>
+            <div class="supp-content">
+              <span class="supp-name">{item.name}</span>
+              <span class="supp-desc">{item.description}</span>
+            </div>
+            <span class="supp-levels">{item.levels}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="section-cta reveal">
+      <a href="#lead-form" class="cta-button">
+        <span>Quero uma aula grátis para meu filho</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Background -->
+  <div class="bg-deco" aria-hidden="true">
+    <div class="bg-blob bg-blob--1"></div>
+    <div class="bg-blob bg-blob--2"></div>
+  </div>
+</section>
+
+<style>
+  .curriculum {
+    position: relative;
+    padding: var(--section-padding) 0;
+    background: var(--color-gray-50);
+    overflow: hidden;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+  }
+
+  /* Background */
+  .bg-deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bg-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+  }
+
+  .bg-blob--1 {
+    width: 500px;
+    height: 500px;
+    background: var(--color-kids-accent);
+    opacity: 0.04;
+    top: -150px;
+    right: -200px;
+  }
+
+  .bg-blob--2 {
+    width: 400px;
+    height: 400px;
+    background: var(--kids-purple);
+    opacity: 0.04;
+    bottom: -100px;
+    left: -150px;
+  }
+
+  /* Section Header */
+  .section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .section-eyebrow {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-kids-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-dark);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .title-accent {
+    color: var(--color-kids-accent);
+  }
+
+  .section-description {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    color: var(--color-gray-600);
+    line-height: 1.7;
+  }
+
+  .section-description strong {
+    color: var(--color-kids-accent);
+    font-weight: 600;
+  }
+
+  /* Skills Legend */
+  .skills-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-gray-600);
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Learning Path */
+  .learning-path {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto 3.5rem;
+  }
+
+  /* Central vertical line - desktop only */
+  .path-line {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .path-line {
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: repeating-linear-gradient(
+        to bottom,
+        var(--color-gray-300) 0,
+        var(--color-gray-300) 8px,
+        transparent 8px,
+        transparent 16px
+      );
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Cards */
+  .path-card {
+    position: relative;
+    margin-bottom: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .path-card {
+      width: calc(50% - 32px);
+      margin-bottom: 1.5rem;
+    }
+
+    .path-card.card-left {
+      margin-right: auto;
+      margin-left: 0;
+    }
+
+    .path-card.card-right {
+      margin-left: auto;
+      margin-right: 0;
+    }
+  }
+
+  /* Timeline dot */
+  .timeline-dot {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .timeline-dot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 50%;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid var(--card-color);
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+
+    .dot-inner {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--card-color);
+    }
+
+    .card-left .timeline-dot {
+      right: -41px;
+    }
+
+    .card-right .timeline-dot {
+      left: -41px;
+    }
+  }
+
+  /* Card Body */
+  .card-body {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    border-left: 4px solid var(--card-color);
+    transition: all var(--transition-base);
+  }
+
+  .card-body:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.625rem;
+  }
+
+  .level-badge {
+    display: inline-flex;
+  }
+
+  .level-tag {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+    background: var(--card-bg);
+    color: var(--card-color);
+  }
+
+  .lesson-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-gray-500);
+  }
+
+  .lesson-count svg {
+    opacity: 0.7;
+  }
+
+  .card-name {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    line-height: 1.3;
+    margin-bottom: 0.25rem;
+  }
+
+  .card-age {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-gray-500);
+    margin-bottom: 0.625rem;
+  }
+
+  .card-description {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--color-gray-600);
+    line-height: 1.6;
+    margin-bottom: 0.875rem;
+  }
+
+  .skills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .skill-pill {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+    background: color-mix(in srgb, var(--pill-color) 12%, transparent);
+    color: var(--pill-color);
+  }
+
+  /* Color variants */
+  .card-pink { --card-color: #ec4899; --card-bg: #fce7f3; }
+  .card-orange { --card-color: #f97316; --card-bg: #ffedd5; }
+  .card-yellow { --card-color: #ca8a04; --card-bg: #fef9c3; }
+  .card-green { --card-color: #22c55e; --card-bg: #dcfce7; }
+  .card-teal { --card-color: #14b8a6; --card-bg: #ccfbf1; }
+  .card-blue { --card-color: #0055cc; --card-bg: #e6f0ff; }
+  .card-purple { --card-color: #a855f7; --card-bg: #f3e8ff; }
+  .card-indigo { --card-color: #6366f1; --card-bg: #e0e7ff; }
+
+  /* Highlights */
+  .highlights {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+  }
+
+  @media (min-width: 640px) {
+    .highlights {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  .highlight-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-gray-200);
+  }
+
+  .highlight-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .highlight-icon--book {
+    background: #ffedd5;
+    color: var(--color-kids-accent);
+  }
+
+  .highlight-icon--grad {
+    background: #dcfce7;
+    color: var(--kids-green);
+  }
+
+  .highlight-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .highlight-value {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    line-height: 1.1;
+  }
+
+  .highlight-label {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--color-gray-600);
+    line-height: 1.4;
+  }
+
+  .highlight-label strong {
+    color: var(--color-kids-accent);
+  }
+
+  /* Supplementary */
+  .supplementary {
+    max-width: 800px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .supplementary-heading {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-dark);
+    text-align: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .supplementary-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .supplementary-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+  }
+
+  .supp-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: white;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-gray-200);
+    transition: all var(--transition-fast);
+  }
+
+  .supp-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .supp-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: var(--color-gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-kids-accent);
+  }
+
+  .supp-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .supp-name {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-dark);
+  }
+
+  .supp-desc {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+    line-height: 1.4;
+  }
+
+  .supp-levels {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--color-gray-400);
+    white-space: nowrap;
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .supp-levels {
+      display: inline;
+    }
+  }
+
+  /* CTA */
+  .section-cta {
+    text-align: center;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background: var(--color-kids-accent);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    box-shadow: 0 4px 16px var(--color-kids-accent-glow);
+    transition: all var(--transition-fast);
+  }
+
+  .cta-button:hover {
+    background: var(--color-kids-accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--color-kids-accent-glow);
+  }
+
+  .cta-button svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .cta-button:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .reveal.is-visible {
+    animation: reveal 0.8s var(--ease-out-expo) forwards;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes reveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.curriculum .reveal').forEach(el => {
+    observer.observe(el);
+  });
+</script>
