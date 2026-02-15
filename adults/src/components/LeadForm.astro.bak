@@ -358,16 +358,6 @@ const countries = [
 
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
-    
-    // Gerar event_id para deduplicação CAPI
-    const eventId = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    data.event_id = eventId;
-    
-    // Capturar cookies do Meta para CAPI
-    const getCookie = (name: string) => document.cookie.split('; ').find(row => row.startsWith(name + '='))?.split('=')[1] || '';
-    data.fbp = getCookie('_fbp');
-    data.fbc = getCookie('_fbc') || new URLSearchParams(window.location.search).get('fbclid') || '';
-    data.client_user_agent = navigator.userAgent;
     const phoneNumbers = (data.phone as string).replace(/\D/g, '');
     data.phone = `${data.country_code}${phoneNumbers}`;
 
@@ -380,7 +370,7 @@ const countries = [
       const result = await response.json();
 
       if (response.ok && result.success) {
-        window.dataLayer?.push({ 'event': 'generate_lead', 'form_id': 'lead-form-main', 'lead_id': result.lead_id || '', 'event_id': eventId });
+        window.dataLayer?.push({ 'event': 'generate_lead', 'form_id': 'lead-form-main', 'lead_id': result.lead_id || '' });
         window.dataLayer?.push({ 'event': 'conversion', 'conversion_type': 'lead', 'value': 0, 'currency': 'BRL' });
         window.dataLayer?.push({ 'event': 'form_redirect', 'lead_id': result.lead_id || '', 'destination': '/validacao' });
 

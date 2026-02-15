@@ -65,80 +65,10 @@ interface LeadData {
   fbc?: string;
   // TikTok
   ttclid?: string;
-  // CAPI fields
-  event_id?: string;
-  client_user_agent?: string;
   // Page info
   landing_page_url?: string;
   referrer?: string;
 }
-
-// Meta CAPI configuration
-const META_PIXEL_ID = "552158802268063";
-const META_ACCESS_TOKEN = "EAAWz14dXcpgBO0MVtKKZC9PjdsprDt2zD97ycvVpe23oQnYeq1na7RRt1ZCxPG9ccEvhZBFOHMpSKJg6scgWxPGCLjTWB8JqzaFmtFEs31blvjVx0OLh2Vy4G1qmodz8DayZCD0AKBPjywFybxRbpr5ZBDrAwei0Voe3dERZAqliJtTF7yQeLphmmj46b2tQtVagZDZD";
-
-// SHA256 hash for Meta CAPI
-async function sha256Hash(value: string): Promise<string> {
-  if (!value) return "";
-  const encoder = new TextEncoder();
-  const data = encoder.encode(value.toLowerCase().trim());
-  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
-}
-
-// Send Lead event to Meta CAPI
-async function sendMetaCAPI(payload: {
-  email: string;
-  phone: string;
-  firstName: string;
-  lastName: string;
-  eventId: string;
-  fbp?: string;
-  fbc?: string;
-  clientIp?: string;
-  userAgent?: string;
-}): Promise<void> {
-  try {
-    const userData: Record<string, any> = {
-      client_ip_address: payload.clientIp,
-      client_user_agent: payload.userAgent,
-    };
-    
-    if (payload.email) userData.em = [await sha256Hash(payload.email)];
-    if (payload.phone) userData.ph = [await sha256Hash(payload.phone.replace(/\D/g, ""))];
-    if (payload.firstName) userData.fn = [await sha256Hash(payload.firstName)];
-    if (payload.lastName) userData.ln = [await sha256Hash(payload.lastName)];
-    if (payload.fbp) userData.fbp = payload.fbp;
-    if (payload.fbc) userData.fbc = payload.fbc;
-
-    const capiPayload = {
-      data: [{
-        event_name: "Lead",
-        event_time: Math.floor(Date.now() / 1000),
-        action_source: "website",
-        event_id: payload.eventId,
-        user_data: userData,
-      }]
-    };
-
-    const response = await fetch(
-      `https://graph.facebook.com/v21.0/${META_PIXEL_ID}/events?access_token=${META_ACCESS_TOKEN}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(capiPayload),
-      }
-    );
-    
-    if (!response.ok) {
-      console.error("Meta CAPI error:", await response.text());
-    }
-  } catch (error) {
-    console.error("Meta CAPI error:", error);
-  }
-}
-
 
 // Generate unique lead ID
 function generateLeadId(): string {
@@ -300,21 +230,6 @@ export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
       }).catch(err => {
         console.error('N8N Webhook error:', err);
       });
-    }
-
-    // Send Lead event to Meta CAPI (for deduplication with browser pixel)
-    if (data.event_id) {
-      sendMetaCAPI({
-        email: data.email,
-        phone: fullPhoneNumber,
-        firstName: firstname,
-        lastName: surname,
-        eventId: data.event_id,
-        fbp: data.fbp,
-        fbc: data.fbc,
-        clientIp: clientAddress || request.headers.get("cf-connecting-ip") || "",
-        userAgent: userAgent,
-      }).catch(err => console.error("CAPI error:", err));
     }
 
     return new Response(
