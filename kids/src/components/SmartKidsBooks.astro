@@ -4,49 +4,49 @@ const bookSamples = [
   {
     title: "Pre-Starter",
     pdf: "https://www.qqeng.com/blog2/wordpress/wp-content/uploads/2022/08/SmartKids_PreStarter_book_sample.pdf",
-    cover: "https://www.qqeng.com/qqkids/wp-content/uploads/2022/12/sk-textbook-pre-starter.png",
+    cover: "/images/books/sk-textbook-pre-starter.webp",
     alt: "Capa do livro Smart Kids Pre-Starter",
   },
   {
     title: "Starter",
     pdf: "https://www.qqeng.com/blog2/wordpress/wp-content/uploads/2022/08/SmartKids_Starter_book_sample.pdf",
-    cover: "https://www.qqeng.com/qqkids/wp-content/uploads/2025/11/sk-textbook-starter.png",
+    cover: "/images/books/sk-textbook-starter.webp",
     alt: "Capa do livro Smart Kids Starter",
   },
   {
     title: "Book 1",
     pdf: "https://www.qqeng.com/blog2/wordpress/wp-content/uploads/2022/08/SmartKids1_book_sample.pdf",
-    cover: "https://www.qqeng.com/qqkids/wp-content/uploads/2022/12/sk-textbook-1.png",
+    cover: "/images/books/sk-textbook-1.webp",
     alt: "Capa do livro Smart Kids 1",
   },
   {
     title: "Book 2",
     pdf: "https://www.qqeng.com/blog2/wordpress/wp-content/uploads/2022/08/SmartKids2_book_sample.pdf",
-    cover: "https://www.qqeng.com/qqkids/wp-content/uploads/2022/12/sk-textbook-2.png",
+    cover: "/images/books/sk-textbook-2.webp",
     alt: "Capa do livro Smart Kids 2",
   },
   {
     title: "Book 3",
     pdf: "https://www.qqeng.com/blog2/wordpress/wp-content/uploads/2022/08/SmartKids3_book_sample.pdf",
-    cover: "https://www.qqeng.com/qqkids/wp-content/uploads/2022/12/sk-textbook-3.png",
+    cover: "/images/books/sk-textbook-3.webp",
     alt: "Capa do livro Smart Kids 3",
   },
   {
     title: "Book 4",
     pdf: "https://www.qqeng.com/blog2/wordpress/wp-content/uploads/2022/08/SmartKids4_book_sample.pdf",
-    cover: "https://www.qqeng.com/qqkids/wp-content/uploads/2022/12/sk-textbook-4.png",
+    cover: "/images/books/sk-textbook-4.webp",
     alt: "Capa do livro Smart Kids 4",
   },
   {
     title: "Book 5",
     pdf: "https://www.qqeng.com/blog2/wordpress/wp-content/uploads/2022/08/SmartKids5_book_sample.pdf",
-    cover: "https://www.qqeng.com/qqkids/wp-content/uploads/2022/12/sk-textbook-5.png",
+    cover: "/images/books/sk-textbook-5.webp",
     alt: "Capa do livro Smart Kids 5",
   },
   {
     title: "Book 6",
     pdf: "https://www.qqeng.com/blog2/wordpress/wp-content/uploads/2022/08/SmartKids6_book_sample.pdf",
-    cover: "https://www.qqeng.com/qqkids/wp-content/uploads/2022/12/sk-textbook-6.png",
+    cover: "/images/books/sk-textbook-6.webp",
     alt: "Capa do livro Smart Kids 6",
   },
 ];
@@ -100,6 +100,8 @@ const bookSamples = [
     position: relative;
     padding: var(--section-padding) 0;
     background: linear-gradient(180deg, white 0%, var(--color-gray-50) 100%);
+    content-visibility: auto;
+    contain-intrinsic-size: auto 800px;
   }
 
   .books-grid {
