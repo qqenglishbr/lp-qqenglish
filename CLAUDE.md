@@ -42,6 +42,10 @@ Monorepo contendo as Landing Pages de alta performance da QQEnglish, construída
 │   └── src/
 │       ├── components/        # Componentes ESPECÍFICOS do Adults
 │       └── pages/
+├── intensivo/                 # LP Curso de Inglês Rápido (intensivo.qqenglish.com.br)
+│   └── src/
+│       ├── components/        # Componentes ESPECÍFICOS do Intensivo
+│       └── pages/
 ├── package.json               # Package.json raiz do monorepo
 └── CLAUDE.md
 ```
@@ -91,6 +95,7 @@ npm run dev:business      # Inicia servidor dev Business
 npm run dev:promo         # Inicia servidor dev Promo
 npm run dev:recovery      # Inicia servidor dev Recovery
 npm run dev:adults        # Inicia servidor dev Adults (http://localhost:4326)
+npm run dev:intensivo     # Inicia servidor dev Intensivo (http://localhost:4328)
 ```
 
 ### Build
@@ -101,6 +106,7 @@ npm run build:business    # Build do projeto Business
 npm run build:promo       # Build do projeto Promo
 npm run build:recovery    # Build do projeto Recovery
 npm run build:adults      # Build do projeto Adults
+npm run build:intensivo   # Build do projeto Intensivo
 npm run build:all         # Build de todos os projetos
 ```
 
@@ -113,6 +119,7 @@ npm run deploy:business   # Deploy LP Business
 npm run deploy:promo      # Deploy LP Promo
 npm run deploy:recovery   # Deploy LP Recovery
 npm run deploy:adults     # Deploy LP Adults
+npm run deploy:intensivo  # Deploy LP Intensivo
 ```
 
 ## Arquitetura
@@ -141,6 +148,7 @@ O endpoint `/api/lead`:
 | Promo | https://promo.qqenglish.com.br | 🚧 Desenvolvimento | Pós-FTL (direto ao checkout) |
 | Recovery | https://recovery.qqenglish.com.br | ✅ Produção | FTL Recovery (leads que não completaram) |
 | Adults | https://adults.qqenglish.com.br | 🚧 Desenvolvimento | Inglês para Adultos (campanhas Ads) |
+| Intensivo | https://intensivo.qqenglish.com.br | 🚧 Desenvolvimento | Curso de Inglês Rápido (keyword Ads) |
 
 ## Notas de Desenvolvimento
 

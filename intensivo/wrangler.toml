@@ -1,0 +1,13 @@
+name = "lp-qqenglish-intensivo"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "dist"
+
+# Domínio: intensivo.qqenglish.com.br
+# Público: Leads de campanhas Google Ads - Curso de Inglês Rápido / Intensivo
+
+[vars]
+GTM_ID = "GTM-NXPBNZQ"
+
+# Configure secrets no Cloudflare:
+# npx wrangler pages secret put N8N_WEBHOOK_URL
+# npx wrangler pages secret put META_ACCESS_TOKEN

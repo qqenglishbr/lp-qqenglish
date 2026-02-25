@@ -10,7 +10,9 @@
     "business",
     "promo",
     "recovery",
-    "adults"
+    "adults",
+    "agendamento",
+    "intensivo"
   ],
   "scripts": {
     "dev:callan": "npm run dev --workspace=callan",
@@ -19,18 +21,24 @@
     "dev:promo": "npm run dev --workspace=promo",
     "dev:recovery": "npm run dev --workspace=recovery",
     "dev:adults": "npm run dev --workspace=adults",
+    "dev:agendamento": "npm run dev --workspace=agendamento",
+    "dev:intensivo": "npm run dev --workspace=intensivo",
     "build:callan": "npm run build --workspace=callan",
     "build:kids": "npm run build --workspace=kids",
     "build:business": "npm run build --workspace=business",
     "build:promo": "npm run build --workspace=promo",
     "build:recovery": "npm run build --workspace=recovery",
     "build:adults": "npm run build --workspace=adults",
-    "build:all": "npm run build:callan && npm run build:kids && npm run build:business && npm run build:promo && npm run build:recovery && npm run build:adults",
+    "build:agendamento": "npm run build --workspace=agendamento",
+    "build:intensivo": "npm run build --workspace=intensivo",
+    "build:all": "npm run build:callan && npm run build:kids && npm run build:business && npm run build:promo && npm run build:recovery && npm run build:adults && npm run build:agendamento && npm run build:intensivo",
     "deploy:callan": "cd callan && npm run build && npx wrangler pages deploy dist",
     "deploy:kids": "cd kids && npm run build && npx wrangler pages deploy dist",
     "deploy:business": "cd business && npm run build && npx wrangler pages deploy dist",
     "deploy:promo": "cd promo && npm run build && npx wrangler pages deploy dist",
     "deploy:recovery": "cd recovery && npm run build && npx wrangler pages deploy dist",
-    "deploy:adults": "cd adults && npm run build && npx wrangler pages deploy dist"
+    "deploy:adults": "cd adults && npm run build && npx wrangler pages deploy dist",
+    "deploy:agendamento": "cd agendamento && npm run build && npx wrangler pages deploy dist",
+    "deploy:intensivo": "cd intensivo && npm run build && npx wrangler pages deploy dist"
   }
 }

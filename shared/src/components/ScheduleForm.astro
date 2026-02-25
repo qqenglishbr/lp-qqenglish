@@ -829,6 +829,12 @@
       if (data.success) {
         sessionStorage.removeItem('disponibilidade');
 
+        // Salvar dados do agendamento para a página de sucesso
+        sessionStorage.setItem('booking', JSON.stringify({
+          date: selectedSlot.day,
+          time: selectedSlot.time
+        }));
+
         if (typeof window !== 'undefined' && (window as any).dataLayer) {
           (window as any).dataLayer.push({
             'event': 'schedule_success',
