@@ -2,6 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderRecovery from '../components/HeaderRecovery.astro';
 import FooterRecovery from '../components/FooterRecovery.astro';
+
+const WA_NUMBER = "5511986209258";
+const WA_MESSAGE = encodeURIComponent("Oi! Acabei de agendar minha aula experimental. 😊");
 ---
 
 <Layout
@@ -20,30 +23,35 @@ import FooterRecovery from '../components/FooterRecovery.astro';
           </svg>
         </div>
 
-        <h1>Aula Agendada!</h1>
-        <p class="success-message">Sua aula experimental foi agendada com sucesso.</p>
+        <h1>Aula Agendada! 🎉</h1>
+        <p class="success-message">Faltou pouco pra você finalmente falar inglês. A gente vai estar com você.</p>
 
         <div class="booking-details" id="booking-details">
           <p class="label">Data e horário:</p>
           <p class="value" id="booking-datetime">-</p>
         </div>
 
-        <div class="next-steps">
-          <h2>Próximos passos</h2>
-          <ul>
-            <li>
-              <span class="step-number">1</span>
-              <span class="step-text">Você receberá um email de confirmação com os detalhes da sua aula</span>
-            </li>
-            <li>
-              <span class="step-number">2</span>
-              <span class="step-text">Acesse a plataforma QQEnglish no horário agendado</span>
-            </li>
-            <li>
-              <span class="step-number">3</span>
-              <span class="step-text">Aproveite sua aula experimental com um professor certificado</span>
-            </li>
-          </ul>
+        <div class="info-cards">
+          <div class="card">
+            <span class="card-emoji">🎯</span>
+            <h3>O que vai acontecer</h3>
+            <p>Sua aula é uma conversa leve pra entender onde você está e onde quer chegar. Sem provas, sem julgamento — só bate-papo em inglês.</p>
+          </div>
+          <div class="card">
+            <span class="card-emoji">🎧</span>
+            <h3>Como se preparar</h3>
+            <p>Fones de ouvido, lugar tranquilo e conexão estável. Pode ser do celular mesmo — o professor vai se adaptar ao seu ritmo.</p>
+          </div>
+          <div class="card">
+            <span class="card-emoji">📝</span>
+            <h3>O que o professor avalia</h3>
+            <p>Ele vai identificar seu nível real de conversação e entender como você aprende melhor. Não precisa impressionar — seja você.</p>
+          </div>
+          <div class="card">
+            <span class="card-emoji">🚀</span>
+            <h3>E depois da aula?</h3>
+            <p>A equipe entra em contato pra apresentar o plano ideal pra você. A jornada começa agora — e dessa vez vai.</p>
+          </div>
         </div>
 
         <div class="offer-reminder">
@@ -51,9 +59,25 @@ import FooterRecovery from '../components/FooterRecovery.astro';
           <p class="offer-text">30 aulas por mês por apenas <strong>R$ 140</strong></p>
         </div>
 
+        <div class="app-download">
+          <h2>Baixe o app da QQEnglish</h2>
+          <p>Vai fazer a aula pelo celular? Baixe o app antes do dia da sua aula.</p>
+          <div class="store-buttons">
+            <a href="https://play.google.com/store/apps/details?id=com.qqeng.online" target="_blank" rel="noopener" class="store-badge">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" height="44" />
+            </a>
+            <a href="https://apps.apple.com/ng/app/qqenglish/id1475883126" target="_blank" rel="noopener" class="store-badge">
+              <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" height="44" />
+            </a>
+          </div>
+        </div>
         <div class="cta-section">
-          <a href="https://qqenglish.com.br" class="btn-secondary">
-            Conhecer mais sobre a QQEnglish
+          <a href={`https://wa.me/${WA_NUMBER}?text=${WA_MESSAGE}`} class="btn-whatsapp" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Falar com a equipe no WhatsApp
+          </a>
+          <a href="/" class="btn-secondary">
+            Voltar para a página inicial
           </a>
         </div>
       </div>
@@ -64,7 +88,6 @@ import FooterRecovery from '../components/FooterRecovery.astro';
 </Layout>
 
 <script>
-  // Get booking info from sessionStorage
   const bookingData = sessionStorage.getItem('booking');
 
   if (bookingData) {
@@ -73,7 +96,6 @@ import FooterRecovery from '../components/FooterRecovery.astro';
       const dateElement = document.getElementById('booking-datetime');
 
       if (booking.date && booking.time && dateElement) {
-        // Parse DD-MM-YYYY format
         const [day, month, year] = booking.date.split("-").map(Number);
         const date = new Date(year, month - 1, day, 12, 0, 0);
         const formattedDate = date.toLocaleDateString('pt-BR', {
@@ -90,9 +112,6 @@ import FooterRecovery from '../components/FooterRecovery.astro';
     }
   }
 
-  // Track successful conversion
-
-  // Mautic funnel event - Step 3: Schedule Completed (Conversion!)
   const studentIdSuccess = sessionStorage.getItem("recovery_student_id");
   if (typeof mt !== "undefined") {
     mt("send", "pageview", {
@@ -173,51 +192,39 @@ import FooterRecovery from '../components/FooterRecovery.astro';
     color: var(--color-dark);
   }
 
-  .next-steps {
-    text-align: left;
+  .info-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
     margin-bottom: 2rem;
+    text-align: left;
   }
 
-  .next-steps h2 {
-    font-size: 1.125rem;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  .next-steps ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .next-steps li {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1rem;
+  .card {
     background: var(--color-gray-50);
+    border: 1px solid var(--color-gray-100, #f3f4f6);
     border-radius: var(--radius-md);
+    padding: 1.25rem;
   }
 
-  .step-number {
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-recovery-cta);
-    color: white;
-    border-radius: 50%;
+  .card-emoji {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .card h3 {
     font-size: 0.875rem;
-    font-weight: 600;
-    flex-shrink: 0;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin: 0 0 0.375rem 0;
   }
 
-  .step-text {
-    font-size: 0.9375rem;
-    color: var(--color-gray-700);
+  .card p {
+    font-size: 0.8125rem;
+    color: var(--color-gray-600);
     line-height: 1.5;
+    margin: 0;
   }
 
   .offer-reminder {
@@ -254,6 +261,26 @@ import FooterRecovery from '../components/FooterRecovery.astro';
     align-items: center;
   }
 
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: white;
+    background: #25d366;
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .btn-whatsapp:hover {
+    background: #1da851;
+  }
+
   .btn-secondary {
     display: inline-flex;
     align-items: center;
@@ -261,14 +288,63 @@ import FooterRecovery from '../components/FooterRecovery.astro';
     padding: 0.875rem 1.5rem;
     font-size: 0.9375rem;
     font-weight: 600;
-    color: var(--color-primary);
-    background: var(--color-primary-subtle);
+    color: var(--color-gray-600);
+    background: transparent;
+    border: 1px solid var(--color-gray-300);
     border-radius: var(--radius-full);
     transition: all var(--transition-fast);
   }
 
   .btn-secondary:hover {
-    background: var(--color-primary);
-    color: white;
+    background: var(--color-gray-50);
+    color: var(--color-dark);
+  }
+
+  @media (max-width: 480px) {
+    .success-card {
+      padding: 2rem 1.5rem;
+    }
+
+    .info-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .app-download {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #eff6ff 0%, #eef2ff 100%);
+    border-radius: var(--radius-md, 0.5rem);
+    border: 1px solid #dbeafe;
+  }
+
+  .app-download h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-dark, #1a1a2e);
+    margin: 0 0 0.375rem 0;
+  }
+
+  .app-download p {
+    font-size: 0.8125rem;
+    color: var(--color-gray-600, #6b7280);
+    margin: 0 0 1rem 0;
+  }
+
+  .store-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .store-badge img {
+    height: 44px;
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+  }
+
+  .store-badge:hover img {
+    transform: scale(1.05);
   }
 </style>

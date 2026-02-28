@@ -3,6 +3,9 @@ import Layout from '../../../shared/src/layouts/Layout.astro';
 
 const title = "Agendamento Confirmado - QQEnglish Kids";
 const description = "A aula experimental do seu filho foi agendada com sucesso.";
+
+const WA_NUMBER = "5511986209258";
+const WA_MESSAGE = encodeURIComponent("Oi! Acabei de agendar minha aula experimental. 😊");
 ---
 
 <Layout title={title} description={description}>
@@ -16,41 +19,55 @@ const description = "A aula experimental do seu filho foi agendada com sucesso."
           </svg>
         </div>
 
-        <h1 class="success-title">Agendamento Confirmado!</h1>
+        <h1 class="success-title">Aula do seu filho agendada! 🎉</h1>
 
         <p class="success-message">
-          A aula experimental do seu filho foi agendada com sucesso.
-          Enviamos os detalhes para o seu WhatsApp e e-mail.
+          Ótima decisão! Veja o que preparamos pra que a primeira aula seja uma experiência incrível.
         </p>
 
-        <div class="next-steps">
-          <h2>Proximos passos:</h2>
-          <ul>
-            <li>
-              <span class="step-icon">1</span>
-              <span class="step-text">Confira seu WhatsApp para detalhes da aula</span>
-            </li>
-            <li>
-              <span class="step-icon">2</span>
-              <span class="step-text">Prepare um ambiente silencioso para a crianca</span>
-            </li>
-            <li>
-              <span class="step-icon">3</span>
-              <span class="step-text">Teste sua conexao de internet</span>
-            </li>
-            <li>
-              <span class="step-icon">4</span>
-              <span class="step-text">Tenha fones de ouvido em maos</span>
-            </li>
-          </ul>
+        <div class="info-cards">
+          <div class="card">
+            <span class="card-emoji">🎮</span>
+            <h3>Como a aula funciona</h3>
+            <p>O professor usa atividades lúdicas e muita conversa em inglês. Dinâmico, divertido e no ritmo da criança — sem pressão.</p>
+          </div>
+          <div class="card">
+            <span class="card-emoji">👀</span>
+            <h3>O que esperar como pai/mãe</h3>
+            <p>A aula dura 25 minutos. Você pode ficar por perto na primeira vez — isso ajuda a criança a se sentir mais segura.</p>
+          </div>
+          <div class="card">
+            <span class="card-emoji">🏠</span>
+            <h3>Prepare o ambiente</h3>
+            <p>Fones de ouvido, lugar sem barulho e tablet ou notebook carregado. Testar a câmera antes ajuda muito.</p>
+          </div>
+          <div class="card">
+            <span class="card-emoji">📞</span>
+            <h3>Próximos passos</h3>
+            <p>Após a aula, nossa equipe apresenta o plano certo pra evolução do seu filho. Aulas regulares fazem toda a diferença.</p>
+          </div>
+        </div>
+
+        <div class="app-download">
+          <h2>Baixe o app da QQEnglish</h2>
+          <p>Vai fazer a aula pelo celular? Baixe o app antes do dia da sua aula.</p>
+          <div class="store-buttons">
+            <a href="https://play.google.com/store/apps/details?id=com.qqeng.online" target="_blank" rel="noopener" class="store-badge">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" height="44" />
+            </a>
+            <a href="https://apps.apple.com/ng/app/qqenglish/id1475883126" target="_blank" rel="noopener" class="store-badge">
+              <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" height="44" />
+            </a>
+          </div>
         </div>
 
         <div class="cta-buttons">
-          <a href="https://qqenglish.com.br" class="home-link primary">
-            Conhecer mais sobre a QQEnglish
+          <a href={`https://wa.me/${WA_NUMBER}?text=${WA_MESSAGE}`} class="home-link whatsapp" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Falar com a equipe no WhatsApp
           </a>
           <a href="/" class="home-link secondary">
-            Voltar para a pagina inicial
+            Voltar para a página inicial
           </a>
         </div>
       </div>
@@ -90,7 +107,7 @@ const description = "A aula experimental do seu filho foi agendada com sucesso."
   }
 
   .success-container {
-    max-width: 520px;
+    max-width: 560px;
     width: 100%;
     text-align: center;
     background: white;
@@ -114,7 +131,7 @@ const description = "A aula experimental do seu filho foi agendada com sucesso."
   .success-title {
     font-size: 1.75rem;
     color: var(--color-dark, #1a1a2e);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     font-weight: 700;
   }
 
@@ -125,53 +142,39 @@ const description = "A aula experimental do seu filho foi agendada com sucesso."
     margin-bottom: 2rem;
   }
 
-  .next-steps {
-    text-align: left;
-    background: var(--color-gray-50, #f9fafb);
-    padding: 1.5rem;
-    border-radius: var(--radius-md, 0.5rem);
+  .info-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
     margin-bottom: 2rem;
+    text-align: left;
+  }
+
+  .card {
+    background: var(--color-gray-50, #f9fafb);
     border: 1px solid var(--color-gray-100, #f3f4f6);
+    border-radius: var(--radius-md, 0.5rem);
+    padding: 1.25rem;
   }
 
-  .next-steps h2 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: var(--color-dark, #1a1a2e);
+  .card-emoji {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
   }
 
-  .next-steps ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .next-steps li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    padding: 0.625rem 0;
-    font-size: 0.9375rem;
-    color: var(--color-gray-700, #374151);
-  }
-
-  .step-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    background: #f97316;
-    color: white;
-    border-radius: 50%;
-    font-size: 0.75rem;
+  .card h3 {
+    font-size: 0.875rem;
     font-weight: 700;
-    flex-shrink: 0;
+    color: var(--color-dark, #1a1a2e);
+    margin: 0 0 0.375rem 0;
   }
 
-  .step-text {
-    padding-top: 2px;
+  .card p {
+    font-size: 0.8125rem;
+    color: var(--color-gray-600, #6b7280);
+    line-height: 1.5;
+    margin: 0;
   }
 
   .cta-buttons {
@@ -181,7 +184,10 @@ const description = "A aula experimental do seu filho foi agendada com sucesso."
   }
 
   .home-link {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     padding: 0.875rem 1.5rem;
     border-radius: var(--radius-md, 0.5rem);
     font-weight: 600;
@@ -189,13 +195,13 @@ const description = "A aula experimental do seu filho foi agendada com sucesso."
     transition: all 0.2s ease;
   }
 
-  .home-link.primary {
-    background: #f97316;
+  .home-link.whatsapp {
+    background: #25d366;
     color: white;
   }
 
-  .home-link.primary:hover {
-    background: #ea580c;
+  .home-link.whatsapp:hover {
+    background: #1da851;
   }
 
   .home-link.secondary {
@@ -227,5 +233,47 @@ const description = "A aula experimental do seu filho foi agendada com sucesso."
       width: 48px;
       height: 48px;
     }
+
+    .info-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .app-download {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #eff6ff 0%, #eef2ff 100%);
+    border-radius: var(--radius-md, 0.5rem);
+    border: 1px solid #dbeafe;
+  }
+
+  .app-download h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-dark, #1a1a2e);
+    margin: 0 0 0.375rem 0;
+  }
+
+  .app-download p {
+    font-size: 0.8125rem;
+    color: var(--color-gray-600, #6b7280);
+    margin: 0 0 1rem 0;
+  }
+
+  .store-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .store-badge img {
+    height: 44px;
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+  }
+
+  .store-badge:hover img {
+    transform: scale(1.05);
   }
 </style>
