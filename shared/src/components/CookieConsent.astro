@@ -289,6 +289,13 @@
   // Initialize
   setDefaultConsent();
 
+  // Auto-accept cookies when coming from WhatsApp automation (?code= parameter)
+  // User already consented on the original LP form
+  if (window.location.search.includes('code=') && !loadPreferences()) {
+    savePreferences(true, true);
+  }
+
+
   const savedPreferences = loadPreferences();
   if (savedPreferences) {
     // User already consented, apply saved preferences
