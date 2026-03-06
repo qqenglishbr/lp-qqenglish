@@ -5,7 +5,7 @@ const title = "Agendamento Confirmado - QQEnglish Callan";
 const description = "Sua aula experimental do Método Callan foi agendada com sucesso.";
 
 const WA_NUMBER = "5511986209258";
-const WA_MESSAGE = encodeURIComponent("Oi! Acabei de agendar minha aula experimental. 😊");
+const WA_MESSAGE = encodeURIComponent("Oi! Acabei de agendar minha aula experimental e tenho dúvidas 😊");
 ---
 
 <Layout title={title} description={description}>
@@ -45,8 +45,20 @@ const WA_MESSAGE = encodeURIComponent("Oi! Acabei de agendar minha aula experime
             <span class="card-emoji">💡</span>
             <h3>Dica pra aproveitar mais</h3>
             <p>Não tente ser perfeito — tente ser rápido. Quem faz aula todo dia evolui muito mais rápido. Consistência bate genialidade.</p>
+            <a href="https://checker.qqenglish.com.br" target="_blank" rel="noopener" class="checker-btn">
+              <span class="checker-icon" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                </svg>
+              </span>
+              <span class="checker-label">Verificar câmera e microfone</span>
+              <svg aria-hidden="true" class="checker-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </a>
           </div>
         </div>
+
 
         <div class="app-download">
           <h2>Baixe o app da QQEnglish</h2>
@@ -89,6 +101,36 @@ const WA_MESSAGE = encodeURIComponent("Oi! Acabei de agendar minha aula experime
         'value': 0,
         'currency': 'BRL'
       });
+    }
+
+    try {
+      const utm = JSON.parse(sessionStorage.getItem('utmData') || '{}') || {};
+      const leadId = sessionStorage.getItem('lead_id') || '';
+      const studentId = sessionStorage.getItem('student_id') || '';
+
+      if (window.rybbit?.identify && leadId) {
+        const currentUserId = window.rybbit.getUserId?.();
+        if (currentUserId !== leadId) window.rybbit.identify(leadId, studentId ? { student_id: studentId } : undefined);
+        else if (studentId) window.rybbit.setTraits?.({ student_id: studentId });
+      }
+
+      window.rybbit?.event('ftl_schedule_success_view', {
+        lp: (window.location.hostname || '').split('.')[0] || '',
+        hostname: window.location.hostname,
+        page_path: window.location.pathname,
+        lead_id: leadId,
+        student_id: studentId,
+        utm_source: utm.utm_source || '',
+        utm_medium: utm.utm_medium || '',
+        utm_campaign: utm.utm_campaign || '',
+        utm_content: utm.utm_content || '',
+        utm_term: utm.utm_term || '',
+        gclid: sessionStorage.getItem('gclid') || '',
+        fbclid: sessionStorage.getItem('fbclid') || '',
+        ttclid: sessionStorage.getItem('ttclid') || ''
+      });
+    } catch (e) {
+      // ignore
     }
 
     sessionStorage.removeItem('disponibilidade');
@@ -275,5 +317,27 @@ const WA_MESSAGE = encodeURIComponent("Oi! Acabei de agendar minha aula experime
 
   .store-badge:hover img {
     transform: scale(1.05);
+  }
+  .device-check { text-align: center; margin-bottom: 1.5rem; }
+  .card .checker-btn, .device-check .checker-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #e0eeff !important;
+    color: #13213D !important;
+    border: 1px solid #a8c7f0 !important;
+    border-radius: 10px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-decoration: none !important;
+    box-shadow: 0 1px 2px rgba(16,24,40,0.08);
+  }
+  .card .checker-btn:hover, .device-check .checker-btn:hover {
+    background: #e0eeff !important;
+    border-color: #8fb4ea !important;
+  }
+  .card .checker-btn::after, .device-check .checker-btn::after {
+    content: none !important;
   }
 </style>

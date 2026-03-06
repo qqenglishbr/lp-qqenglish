@@ -430,6 +430,83 @@ const countries = [
     return isValid;
   }
 
+  function getLpName(): string {
+    try {
+      const host = window.location.hostname || '';
+      return host.split('.')[0] || host;
+    } catch {
+      return '';
+    }
+  }
+
+  function getUtmData(): Record<string, any> {
+    try {
+      return JSON.parse(sessionStorage.getItem('utmData') || '{}') || {};
+    } catch {
+      return {};
+    }
+  }
+
+  function commonProps(): Record<string, any> {
+    const utm = getUtmData();
+    return {
+      lp: getLpName(),
+      hostname: window.location.hostname,
+      page_path: window.location.pathname,
+      lead_id: sessionStorage.getItem('lead_id') || '',
+      student_id: sessionStorage.getItem('student_id') || '',
+      utm_source: utm.utm_source || '',
+      utm_medium: utm.utm_medium || '',
+      utm_campaign: utm.utm_campaign || '',
+      utm_content: utm.utm_content || '',
+      utm_term: utm.utm_term || '',
+      gclid: sessionStorage.getItem('gclid') || '',
+      fbclid: sessionStorage.getItem('fbclid') || '',
+      ttclid: sessionStorage.getItem('ttclid') || ''
+    };
+  }
+
+  function safeProps(obj: Record<string, any>): Record<string, string | number> {
+    const out: Record<string, string | number> = {};
+    for (const [k, v] of Object.entries(obj || {})) {
+      if (v === undefined || v === null) continue;
+      if (typeof v === 'number') out[k] = v;
+      else if (typeof v === 'string') out[k] = v;
+      else if (typeof v === 'boolean') out[k] = v ? 'true' : 'false';
+      else out[k] = String(v);
+    }
+    return out;
+  }
+
+  function rybbitIdentify() {
+    try {
+      if (!(window as any).rybbit) return;
+      const leadId = sessionStorage.getItem('lead_id') || '';
+      const studentId = sessionStorage.getItem('student_id') || '';
+
+      if (!leadId) return;
+
+      const currentUserId = (window as any).rybbit.getUserId?.();
+      if (currentUserId !== leadId) {
+        (window as any).rybbit.identify(leadId, studentId ? { student_id: studentId } : undefined);
+      } else if (studentId) {
+        (window as any).rybbit.setTraits?.({ student_id: studentId });
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  function rybbitEvent(eventName: string, props: Record<string, any> = {}) {
+    try {
+      if (!(window as any).rybbit?.event) return;
+      rybbitIdentify();
+      (window as any).rybbit.event(eventName, safeProps({ ...commonProps(), ...props }));
+    } catch {
+      // ignore
+    }
+  }
+
   let formStarted = false;
   form?.querySelectorAll('input:not([type="hidden"]), select').forEach(input => {
     input.addEventListener('focus', () => {
@@ -440,6 +517,7 @@ const countries = [
           'form_id': 'lead-form-main',
           'field_name': (input as HTMLInputElement).name
         });
+        rybbitEvent('ftl_register_form_start', { form_id: 'lead-form-main', field_name: (input as HTMLInputElement).name });
       }
     });
     input.addEventListener('blur', () => validateField(input as HTMLInputElement));
@@ -491,6 +569,12 @@ const countries = [
         // Store lead_id for validation flow
         sessionStorage.setItem('lead_id', result.lead_id || '');
 
+        rybbitEvent('ftl_register_submit_success', {
+          form_id: 'lead-form-main',
+          lead_id: result.lead_id || '',
+          event_id: eventId
+        });
+
         // Redirect to WhatsApp validation
         window.location.href = '/validacao';
         return;
@@ -499,6 +583,7 @@ const countries = [
       }
     } catch (error) {
       console.error('Form submission error:', error);
+      rybbitEvent('ftl_register_submit_error', { error_type: 'api_error' });
       alert('Ocorreu um erro. Por favor, tente novamente.');
     } finally {
       submitBtn.classList.remove('loading');
