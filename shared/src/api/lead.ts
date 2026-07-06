@@ -140,6 +140,85 @@ async function sendMetaCAPI(payload: {
 }
 
 
+// ── Aida (Gestor Lead) — dual-write do lead para o CRM Aida ──────────────
+const AIDA_FORM_ENDPOINT = "https://crm.gestorlead.com.br/api/public/forms";
+
+// Deriva o source ("lp-<lp>") a partir do host da LP.
+function lpSource(host: string): string {
+  const sub = (host || "").split(".")[0] || "";
+  const known = ["adults", "kids", "callan", "business", "intensivo", "registro", "recovery", "agendamento", "promo"];
+  return known.includes(sub) ? `lp-${sub}` : "landing_page";
+}
+
+// Monta a data de nascimento da criança em YYYY-MM-DD, quando disponível.
+function childBirthdate(data: LeadData): string | null {
+  if (data.child_birthdate && /^\d{4}-\d{2}-\d{2}$/.test(data.child_birthdate)) return data.child_birthdate;
+  return null;
+}
+
+// Dual-write fire-and-forget: envia o lead para o lead form público do Aida.
+// No-op silencioso se AIDA_LEAD_FORM_KEY não estiver configurado (rollback seguro).
+// Nunca lança — não deve afetar o cadastro nem o POST para o n8n.
+async function sendToAida(params: {
+  formKey: string;
+  name: string;
+  email: string;
+  phoneIntl: string;
+  data: LeadData;
+  child: { firstname: string; surname: string; fullname: string } | null;
+  host: string;
+}): Promise<void> {
+  try {
+    const { formKey, name, email, phoneIntl, data, child, host } = params;
+    if (!formKey) return; // não configurado → no-op
+
+    const source = lpSource(host);
+    // O contato é sempre o adulto que preencheu (lead/pai) → segment=adults.
+    // A idade e o segment=kids da criança ficam no DEPENDENTE, não no contato
+    // (uma família pode ter o pai adults e os filhos kids ao mesmo tempo).
+    const custom: Record<string, string> = { segment: "adults" };
+
+    const body: Record<string, any> = {
+      name,
+      email,
+      phone: phoneIntl,
+      source,
+      tracking: {
+        utm_source: data.utm_source || "",
+        utm_medium: data.utm_medium || "",
+        utm_campaign: data.utm_campaign || "",
+        utm_term: data.utm_term || "",
+        utm_content: data.utm_content || "",
+        gclid: data.gclid || "",
+        fbclid: (data as any).fbclid || "",
+        referrer: data.referrer || "",
+        landing_page: data.landing_page_url || "",
+      },
+      custom,
+    };
+
+    if (child?.fullname) {
+      const bd = childBirthdate(data);
+      const depCustom: Record<string, string> = { segment: "kids" };
+      if (data.child_age) depCustom.age = String(data.child_age);
+      body.dependent = { name: child.fullname, ...(bd ? { birthdate: bd } : {}), custom: depCustom };
+    }
+
+    const response = await fetch(`${AIDA_FORM_ENDPOINT}/${formKey}/submit`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      console.error("Aida lead form error:", response.status, await response.text());
+    }
+  } catch (error) {
+    console.error("Aida lead form error:", error);
+  }
+}
+
+
 // Generate unique lead ID
 function generateLeadId(): string {
   const timestamp = Date.now().toString(36);
@@ -301,6 +380,27 @@ export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
         console.error('N8N Webhook error:', err);
       });
     }
+
+    // Dual-write: envia o lead também para o Aida (CRM novo).
+    // Usa ctx.waitUntil no Cloudflare (roda em background sem ser cancelado após
+    // a resposta); fallback para await quando indisponível. Falha nunca derruba
+    // o cadastro nem o caminho do n8n.
+    const aidaFormKey = (locals as any)?.runtime?.env?.AIDA_LEAD_FORM_KEY || import.meta.env.AIDA_LEAD_FORM_KEY || '';
+    let aidaHost = '';
+    try { aidaHost = new URL(data.landing_page_url || '').host; } catch { /* ignore */ }
+    if (!aidaHost) aidaHost = request.headers.get('host') || '';
+    const aidaPromise = sendToAida({
+      formKey: aidaFormKey,
+      name: fullname,
+      email: data.email.trim().toLowerCase(),
+      phoneIntl: `+${fullPhoneNumber}`,
+      data,
+      child,
+      host: aidaHost,
+    }).catch(err => console.error('Aida error:', err));
+    const aidaCtx = (locals as any)?.runtime?.ctx;
+    if (aidaCtx?.waitUntil) aidaCtx.waitUntil(aidaPromise);
+    else await aidaPromise;
 
     // Send Lead event to Meta CAPI (for deduplication with browser pixel)
     if (data.event_id) {
